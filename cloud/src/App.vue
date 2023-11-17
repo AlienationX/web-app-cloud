@@ -28,7 +28,7 @@
 import { RouterLink, RouterView } from 'vue-router'
 import LoginView from './views/LoginView.vue';
 import NarBar from './components/NarBar.vue';
-import Test from './components/Test.vue';
+import Test from './components/test/MenuList.vue';
 
 import { ref } from 'vue'
 
