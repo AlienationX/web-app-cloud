@@ -7,6 +7,12 @@ web应用，cloud - 网盘
 ```shell
 npm create vue@latest
 
+npm install vue-router@4
 npm install vuetify
 npm install @mdi/font -D
+```
+
+```shell
+# 安装package.json里面的所有依赖
+npm install
 ```
