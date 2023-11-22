@@ -1,42 +1,40 @@
 <template>
-        <v-layout>
-            <v-app-bar density="compact">
-                <v-app-bar-nav-icon></v-app-bar-nav-icon>
-                <v-toolbar-title>Cloud</v-toolbar-title>
+    <v-app-bar density="compact">
+        <v-app-bar-nav-icon></v-app-bar-nav-icon>
+        <v-toolbar-title>Cloud</v-toolbar-title>
 
-                <v-btn-toggle v-model="toggle" rounded="0" borderless nav>
-                    <v-btn v-for="(item, i) in navLinks" :key="i" :value="item" :prepend-icon="item.icon" router :to="item.route">
-                        {{ item.text }}
-                    </v-btn>
-                </v-btn-toggle>
+        <v-btn-toggle v-model="toggle" rounded="0" borderless nav>
+            <v-btn v-for="(item, i) in navLinks" :key="i" :value="item" :prepend-icon="item.icon" router :to="item.route">
+                {{ item.text }}
+            </v-btn>
+        </v-btn-toggle>
 
-                <v-spacer></v-spacer>
-                <v-spacer></v-spacer>
-                <v-spacer></v-spacer>
-                <v-spacer></v-spacer>
+        <v-spacer></v-spacer>
+        <v-spacer></v-spacer>
+        <v-spacer></v-spacer>
+        <v-spacer></v-spacer>
 
-                <v-menu>
-                    <template v-slot:activator="{ props }">
-                        <v-btn color="primary"  v-bind="props" prepend-icon="mdi-account-circle">
-                            Profile
-                        </v-btn>
+        <v-menu>
+            <template v-slot:activator="{ props }">
+                <v-btn color="primary"  v-bind="props" prepend-icon="mdi-account-circle">
+                    Profile
+                </v-btn>
+            </template>
+
+            <v-list density="compact" width="200" nav>
+                <v-list-subheader>Profile</v-list-subheader>
+
+                <v-list-item v-for="(item, i) in profileLinks" :key="i" :value="item" router :to="item.route" color="primary" height="20">
+                    <template v-slot:prepend>
+                        <v-icon :icon="item.icon"></v-icon>
                     </template>
 
-                    <v-list density="compact" width="200" nav>
-                        <v-list-subheader>Profile</v-list-subheader>
+                    <v-list-item-title v-text="item.text"></v-list-item-title>
+                </v-list-item>
+            </v-list>
+        </v-menu>
 
-                        <v-list-item v-for="(item, i) in profileLinks" :key="i" :value="item" router :to="item.route" color="primary" height="20">
-                            <template v-slot:prepend>
-                                <v-icon :icon="item.icon"></v-icon>
-                            </template>
-
-                            <v-list-item-title v-text="item.text"></v-list-item-title>
-                        </v-list-item>
-                    </v-list>
-                </v-menu>
-
-            </v-app-bar>
-        </v-layout>
+    </v-app-bar>
 </template>
 
 <script setup>

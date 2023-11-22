@@ -15,3 +15,6 @@ app.use(router)
 app.use(vuetify)
 
 app.mount('#app')
+
+console.log("main.js - app", app)
+console.log("main.js - vuetify", vuetify)
