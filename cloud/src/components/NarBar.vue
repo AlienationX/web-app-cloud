@@ -14,6 +14,8 @@
         <v-spacer></v-spacer>
         <v-spacer></v-spacer>
 
+        <v-btn size="x-small" icon="mdi-weather-night"></v-btn>
+
         <v-menu>
             <template v-slot:activator="{ props }">
                 <v-btn color="primary"  v-bind="props" prepend-icon="mdi-account-circle">

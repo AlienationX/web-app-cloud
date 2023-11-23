@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card max-width="1000">
     <v-tabs
       v-model="tab"
       color="deep-purple-accent-4"
