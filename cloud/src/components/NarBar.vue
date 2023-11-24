@@ -1,3 +1,40 @@
+<script setup>
+import { ref, reactive } from 'vue'
+
+const emit = defineEmits([ "changeTheme" ]);
+
+const toggle = ref(0)
+
+const navLinks = reactive(
+    [
+        { text: 'Home', icon: 'mdi-home', route: "/" },
+        { text: 'User', icon: 'mdi-account-group', route: "/user" },
+        { text: '权限管理', icon: 'mdi-security', route: "/security" },
+        { text: 'About', icon: 'mdi-information', route: "/about" },
+    ]
+)
+
+const profileLinks = reactive(
+    [
+        { text: 'Document', icon: 'mdi-clock', route: "/document" },
+        { text: 'Audience', icon: 'mdi-account', route: "" },
+        { text: 'Setting', icon: 'mdi-cog', route: "" },
+        { text: 'Sing Out', icon: 'mdi-export', route: "/login" },
+    ]
+)
+
+function switchTheme() {
+    // TODO 改变图标
+
+    // 调用父组件的changeTheme方法
+    emit('changeTheme')
+}
+
+function logout() {
+    console.log("logout")
+}
+</script>
+
 <template>
     <v-app-bar density="compact">
         <v-app-bar-nav-icon></v-app-bar-nav-icon>
@@ -14,7 +51,7 @@
         <v-spacer></v-spacer>
         <v-spacer></v-spacer>
 
-        <v-btn size="x-small" icon="mdi-weather-night"></v-btn>
+        <v-btn size="x-small" icon="mdi-weather-night" @click="switchTheme"></v-btn>
 
         <v-menu>
             <template v-slot:activator="{ props }">
@@ -38,31 +75,3 @@
 
     </v-app-bar>
 </template>
-
-<script setup>
-import { ref, reactive } from 'vue'
-
-const toggle = ref(0)
-
-const navLinks = reactive(
-    [
-        { text: 'Home', icon: 'mdi-home', route: "/" },
-        { text: 'User', icon: 'mdi-account-group', route: "/user" },
-        { text: '权限管理', icon: 'mdi-security', route: "/security" },
-        { text: 'About', icon: 'mdi-information', route: "/about" },
-    ]
-)
-
-const profileLinks = reactive(
-    [
-        { text: 'Document', icon: 'mdi-clock', route: "/document" },
-        { text: 'Audience', icon: 'mdi-account', route: "" },
-        { text: 'Setting', icon: 'mdi-cog', route: "" },
-        { text: 'Sing Out', icon: 'mdi-export', route: "/login" },
-    ]
-)
-
-function signOut() {
-
-}
-</script>

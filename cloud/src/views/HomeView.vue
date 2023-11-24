@@ -1,3 +1,9 @@
+<script setup>
+import {ref} from 'vue'
+const tab = ref(null)
+</script>
+
+
 <template>
   <v-card max-width="1000">
     <v-tabs
@@ -38,7 +44,3 @@
   
 </template>
 
-<script setup>
-import {ref} from 'vue'
-const tab = ref(null)
-</script>

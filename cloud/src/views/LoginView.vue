@@ -1,3 +1,28 @@
+<script setup>
+import { ref } from 'vue'
+import router from '../router'
+
+import { useProfileStore } from '../stores/profile.js'
+
+const profileStore = useProfileStore() // 获取到store的实例
+
+const visible = ref(false)
+const username = ref("")
+const password = ref("")
+const message = ref('Warning: After 3 consecutive failed login attempts, you account will be temporarily locked for three hours. If you must login now, you can also click "Forgot login password?" below to reset the login password.')
+
+function login() {
+    console.log(`username=${username.value} password=${password.value}`)
+    if (username.value === "admin" && password.value === "admin"){
+        message.value = "Loading..."
+        profileStore.info.username = username.value
+        router.push({ path: '/' })
+    } else {
+        message.value = "用户名和密码错误，请重新输入!"
+    }
+}
+</script>
+
 <template>
     <div>
       <!-- <v-img
@@ -19,6 +44,7 @@
           placeholder="Email address"
           prepend-inner-icon="mdi-email-outline"
           variant="outlined"
+          v-model="username"
         ></v-text-field>
   
         <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">
@@ -41,17 +67,30 @@
           prepend-inner-icon="mdi-lock-outline"
           variant="outlined"
           @click:append-inner="visible = !visible"
+
+          v-model="password"
         ></v-text-field>
   
-        <v-card
+        <!-- <v-card
           class="mb-12"
           color="surface-variant"
           variant="tonal"
         >
-          <v-card-text class="text-medium-emphasis text-caption">
+          <v-card-text class="text-medium-emphasis text-caption" v-if="message">
+            {{ message }}
+          </v-card-text>
+          <v-card-text class="text-medium-emphasis text-caption" v-else>
             Warning: After 3 consecutive failed login attempts, you account will be temporarily locked for three hours. If you must login now, you can also click "Forgot login password?" below to reset the login password.
           </v-card-text>
-        </v-card>
+        </v-card> -->
+
+        <v-alert 
+            ref="alert"
+            closable 
+            density="compact" 
+            :text="message" 
+            class="text-medium-emphasis text-caption mb-8"
+        ></v-alert>
   
         <v-btn
           block
@@ -59,6 +98,7 @@
           color="blue"
           size="large"
           variant="tonal"
+          @click="login"
         >
           Log In
         </v-btn>
@@ -77,15 +117,3 @@
     </div>
   </template>
 
-<script setup>
-import { ref } from 'vue'
-const visible = ref(false)
-</script>
-
-<!-- <script>
-  export default {
-    data: () => ({
-      visible: false,
-    }),
-  }
-</script> -->
