@@ -4,7 +4,7 @@ import router from '../router'
 
 import { useProfileStore } from '../stores/profile.js'
 
-const profileStore = useProfileStore() // 获取到store的实例
+const profileStore = useProfileStore()
 
 const visible = ref(false)
 const username = ref("")

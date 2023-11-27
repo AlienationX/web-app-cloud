@@ -1,9 +1,11 @@
 <script setup>
 import { ref, reactive } from 'vue'
+import { useProfileStore } from '../stores/profile.js'
 
+const profileStore = useProfileStore() // 获取到store的实例
 const emit = defineEmits([ "changeTheme" ]);
-
 const toggle = ref(0)
+let switchIcon = ref("mdi-weather-night")
 
 const navLinks = reactive(
     [
@@ -24,7 +26,8 @@ const profileLinks = reactive(
 )
 
 function switchTheme() {
-    // TODO 改变图标
+    // 切换图标
+    switchIcon.value = switchIcon.value === "mdi-weather-night" ? "mdi-weather-sunny" : "mdi-weather-night"
 
     // 调用父组件的changeTheme方法
     emit('changeTheme')
@@ -32,7 +35,17 @@ function switchTheme() {
 
 function logout() {
     console.log("logout")
+    // TODO 弹出对话框确认
+    profileStore.info.username="guest"
 }
+
+const handle=(event,item)=>{
+    console.log(event, item);
+    console.log(`click ${item.text}`)
+    // 如果点击sing out按钮，则退出登录
+    if (item.text === "Sing Out") logout()
+}
+                 
 </script>
 
 <template>
@@ -51,7 +64,7 @@ function logout() {
         <v-spacer></v-spacer>
         <v-spacer></v-spacer>
 
-        <v-btn size="x-small" icon="mdi-weather-night" @click="switchTheme"></v-btn>
+        <v-btn size="x-small" :icon="switchIcon" @click="switchTheme"></v-btn>
 
         <v-menu>
             <template v-slot:activator="{ props }">
@@ -63,7 +76,13 @@ function logout() {
             <v-list density="compact" width="200" nav>
                 <v-list-subheader>Profile</v-list-subheader>
 
-                <v-list-item v-for="(item, i) in profileLinks" :key="i" :value="item" router :to="item.route" color="primary" height="20">
+                <v-list-item v-for="(item, i) in profileLinks" 
+                    :key="i" 
+                    :value="item" 
+                    router :to="item.route" 
+                    @click="event=>handle(event, item)"
+                    color="primary" 
+                    height="16">
                     <template v-slot:prepend>
                         <v-icon :icon="item.icon"></v-icon>
                     </template>

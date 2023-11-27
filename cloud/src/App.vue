@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, ref, onMounted } from 'vue'
 
 import { RouterLink, RouterView } from 'vue-router'
 import LoginView from './views/LoginView.vue';
@@ -21,7 +21,14 @@ const logined = computed(()=>{
 
 function changeTheme() {
     theme.value = theme.value === 'light' ? 'dark' : 'light'
+    return "dark"
 }
+
+
+onMounted(() => {
+    console.log(`the component is now mounted.`)
+    // TODO 验证是否已登录，没有登录跳转到login页面
+})
 </script>
 
 <template>
