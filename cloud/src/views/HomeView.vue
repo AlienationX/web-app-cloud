@@ -1,6 +1,13 @@
 <script setup>
 import {ref} from 'vue'
 const tab = ref(null)
+
+const files = [
+    {id:1, name:"file1", icon:"", size:18374, created:"2023-11-03 06:12:33"},
+    {id:2, name:"file2.csv", icon:"", size:18374, created:"2023-11-03 06:12:33"},
+    {id:3, name:"file3.zip", icon:"", size:18374, created:"2023-11-03 06:12:33"},
+    {id:4, name:"医院数据.tar.gz", icon:"", size:18374, created:"2023-11-03 06:12:33"},
+]
 </script>
 
 

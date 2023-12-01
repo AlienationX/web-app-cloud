@@ -1,7 +1,11 @@
 <script setup>
 import { computed, ref, onMounted } from 'vue'
-
 import { RouterLink, RouterView } from 'vue-router'
+
+import vuetify from './plugins/vuetify'
+
+import router from './router'
+
 import LoginView from './views/LoginView.vue';
 import NarBar from './components/NarBar.vue';
 import HomeView from './views/HomeView.vue';
@@ -13,45 +17,42 @@ import Test from './components/test/Test.vue'
 import { useProfileStore } from './stores/profile.js'
 const profileStore = useProfileStore() // 获取到store的实例
 
-const theme = ref("light")
+const currentTheme = ref("light")
 
-const logined = computed(()=>{
-    return profileStore.info.username == "guest" ? false : true
+const logined = computed(() => {
+    return profileStore.info.username === "guest" ? false : true
 })
 
 function changeTheme() {
-    theme.value = theme.value === 'light' ? 'dark' : 'light'
+    currentTheme.value = currentTheme.value === 'light' ? 'dark' : 'light'
     return "dark"
+}
+
+function access() {
+    if (profileStore.info.username === "guest") {
+        console.log("not access, must login.")
+        router.push({ path: '/login' })
+    }
 }
 
 
 onMounted(() => {
     console.log(`the component is now mounted.`)
-    // TODO 验证是否已登录，没有登录跳转到login页面
+    // TODO undefined, 不能这么获取vuetify的配置信息
+    console.log(`default theme: ${vuetify.theme}`, vuetify.theme.defaultTheme)
+    // 验证是否已登录，没有登录跳转到login页面
+    access()
 })
 </script>
 
 <template>
-    <v-app :theme="theme">
-        <v-layout>
-
-            <template v-if="!logined">
-                <v-container fluid>
-                    <LoginView />
-                </v-container>
-                
-            </template>
-
-            <template v-else>
-                <NarBar @changeTheme="changeTheme"/>
-                <v-main>
-                    <RouterView />
-                </v-main>
-            </template>
-
-        </v-layout>
+    <!-- <Test/> -->
+    <v-app :theme="currentTheme">
+            <NarBar @changeTheme="changeTheme" v-if="logined"/>
+            <v-main>
+                <RouterView />
+            </v-main>
     </v-app>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

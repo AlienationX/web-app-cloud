@@ -49,7 +49,7 @@ const handle=(event,item)=>{
 </script>
 
 <template>
-    <v-app-bar density="compact">
+    <v-app-bar app absolute density="compact">
         <v-app-bar-nav-icon></v-app-bar-nav-icon>
         <v-toolbar-title>Cloud</v-toolbar-title>
 
@@ -64,7 +64,12 @@ const handle=(event,item)=>{
         <v-spacer></v-spacer>
         <v-spacer></v-spacer>
 
-        <v-btn size="x-small" :icon="switchIcon" @click="switchTheme"></v-btn>
+        <v-btn size="x-small" :icon="switchIcon" @click="switchTheme">
+        </v-btn>
+            <!-- <v-tooltip
+                activator="parent"
+                location="bottom"
+            >切换theme</v-tooltip> -->
 
         <v-menu>
             <template v-slot:activator="{ props }">

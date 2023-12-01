@@ -24,7 +24,7 @@ function login() {
 </script>
 
 <template>
-    <div>
+    <v-container class="fill-height">
       <!-- <v-img
         class="mx-auto my-6"
         max-width="228"
@@ -86,7 +86,7 @@ function login() {
 
         <v-alert 
             ref="alert"
-            closable 
+            closable
             density="compact" 
             :text="message" 
             class="text-medium-emphasis text-caption mb-8"
@@ -114,6 +114,12 @@ function login() {
           </a>
         </v-card-text>
       </v-card>
-    </div>
+    </v-container>
   </template>
 
+<style scoped>
+.v-alert__close {
+    align-self: flex-start;
+    margin-inline-start: 0px;
+}
+</style>
