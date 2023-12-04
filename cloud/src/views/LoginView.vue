@@ -14,7 +14,7 @@ const message = ref('Warning: After 3 consecutive failed login attempts, you acc
 function login() {
     console.log(`username=${username.value} password=${password.value}`)
     if (username.value === "admin" && password.value === "admin"){
-        message.value = "Loading..."
+        // message.value = "Loading..."
         profileStore.info.username = username.value
         router.push({ path: '/' })
     } else {

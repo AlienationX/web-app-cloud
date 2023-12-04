@@ -39,7 +39,7 @@ function logout() {
     profileStore.info.username="guest"
 }
 
-const handle=(event,item)=>{
+const handle=(event,item) => {
     console.log(event, item);
     console.log(`click ${item.text}`)
     // 如果点击sing out按钮，则退出登录
@@ -49,7 +49,7 @@ const handle=(event,item)=>{
 </script>
 
 <template>
-    <v-app-bar app absolute density="compact">
+    <v-app-bar fixed density="compact">
         <v-app-bar-nav-icon></v-app-bar-nav-icon>
         <v-toolbar-title>Cloud</v-toolbar-title>
 
