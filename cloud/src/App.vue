@@ -49,7 +49,7 @@ onMounted(() => {
     <!-- <Test/> -->
     <v-app :theme="currentTheme">
             <NarBar @changeTheme="changeTheme" v-if="logined"/>
-            <v-main calss="box grey-lighten-3">
+            <v-main calss="box grey-lighten-3" bg-color="grey-lighten-3">
                 <!-- <v-container> -->
                     <RouterView />
                 <!-- </v-container> -->
