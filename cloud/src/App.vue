@@ -31,7 +31,7 @@ function changeTheme() {
 function access() {
     if (profileStore.info.username === "guest") {
         console.log("not access, must login.")
-        router.push({ path: '/login' })
+        // router.push({ path: '/login' })
     }
 }
 
@@ -48,12 +48,11 @@ onMounted(() => {
 <template>
     <!-- <Test/> -->
     <v-app :theme="currentTheme">
-            <NarBar @changeTheme="changeTheme" v-if="logined"/>
+        <RouterView />
+            <!-- <NarBar @changeTheme="changeTheme" v-if="logined"/>
             <v-main calss="box grey-lighten-3" bg-color="grey-lighten-3">
-                <!-- <v-container> -->
                     <RouterView />
-                <!-- </v-container> -->
-            </v-main>
+            </v-main> -->
     </v-app>
 </template>
 

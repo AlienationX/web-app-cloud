@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
 import router from '../router'
 
 import { useProfileStore } from '../stores/profile.js'
@@ -7,15 +7,17 @@ import { useProfileStore } from '../stores/profile.js'
 const profileStore = useProfileStore()
 
 const visible = ref(false)
-const username = ref("")
-const password = ref("")
+const form = reactive({
+    username: "admin",
+    password: "admin",
+})
 const message = ref('Warning: After 3 consecutive failed login attempts, you account will be temporarily locked for three hours. If you must login now, you can also click "Forgot login password?" below to reset the login password.')
 
-function login() {
-    console.log(`username=${username.value} password=${password.value}`)
-    if (username.value === "admin" && password.value === "admin"){
+const login = () => {
+    console.log(`username=${form.username} password=${form.password}`)
+    if (form.username === "admin" && form.password === "admin"){
         // message.value = "Loading..."
-        profileStore.info.username = username.value
+        profileStore.info.username = form.username.value
         router.push({ path: '/' })
     } else {
         message.value = "用户名和密码错误，请重新输入!"
@@ -34,8 +36,7 @@ function login() {
       <v-card
         class="mx-auto pa-12 pb-8"
         elevation="8"
-        max-width="448"
-        rounded="xxl"
+        width="448"
       >
         <div class="text-subtitle-1 text-medium-emphasis">Account</div>
   
@@ -44,12 +45,11 @@ function login() {
           placeholder="Email address"
           prepend-inner-icon="mdi-email-outline"
           variant="outlined"
-          v-model="username"
+          v-model="form.username"
         ></v-text-field>
   
         <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">
           Password
-  
           <a
             class="text-caption text-decoration-none text-blue"
             href="#"
@@ -67,8 +67,7 @@ function login() {
           prepend-inner-icon="mdi-lock-outline"
           variant="outlined"
           @click:append-inner="visible = !visible"
-
-          v-model="password"
+          v-model="form.password"
         ></v-text-field>
   
         <!-- <v-card
@@ -117,9 +116,5 @@ function login() {
     </v-container>
   </template>
 
-<style scoped>
-.v-alert__close {
-    align-self: flex-start;
-    margin-inline-start: 0px;
-}
+<style scoped lang="scss">
 </style>

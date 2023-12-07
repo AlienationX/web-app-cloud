@@ -83,7 +83,7 @@ function onClick() {
 
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .hander {
     background-color: gray;
 }
@@ -95,15 +95,6 @@ function onClick() {
 .icon-btn {
     min-width: 12px;
     padding: 0px;
-}
-
-/* 去掉search的边距 */
-.v-input--density-compact {
-    --v-input-control-height: 40px;
-    /* --v-input-padding-top: 0px; */
-}
-.v-field--no-label {
-    --v-field-padding-bottom: 0px;
 }
 
 
