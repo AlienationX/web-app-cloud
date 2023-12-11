@@ -6,11 +6,16 @@ import { useProfileStore } from '../stores/profile.js'
 
 const profileStore = useProfileStore()
 
-const visible = ref(false)
 const form = reactive({
     username: "admin",
     password: "admin",
 })
+const visible = reactive({
+    password: false,
+    snackbar: false,
+    timeout: ref(2000)
+})
+
 const message = ref('Warning: After 3 consecutive failed login attempts, you account will be temporarily locked for three hours. If you must login now, you can also click "Forgot login password?" below to reset the login password.')
 
 const login = () => {
@@ -21,6 +26,7 @@ const login = () => {
         router.push({ path: '/' })
     } else {
         message.value = "用户名和密码错误，请重新输入!"
+        visible.snackbar = true
     }
 }
 </script>
@@ -60,13 +66,13 @@ const login = () => {
         </div>
   
         <v-text-field
-          :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
-          :type="visible ? 'text' : 'password'"
+          :append-inner-icon="visible.password ? 'mdi-eye-off' : 'mdi-eye'"
+          :type="visible.password ? 'text' : 'password'"
           density="compact"
           placeholder="Enter your password"
           prepend-inner-icon="mdi-lock-outline"
           variant="outlined"
-          @click:append-inner="visible = !visible"
+          @click:append-inner="visible.password = !visible.password"
           v-model="form.password"
         ></v-text-field>
   
@@ -101,6 +107,27 @@ const login = () => {
         >
           Log In
         </v-btn>
+
+        <v-snackbar
+            v-model="visible.snackbar"
+            :timeout="visible.timeout"
+            location="top"
+            vertical
+            >
+            <div class="text-subtitle-1 pb-2">Notification</div>
+
+            <p>{{ message }}</p>
+
+            <template v-slot:actions>
+                <v-btn
+                color="indigo"
+                variant="text"
+                @click="visible.snackbar = false"
+                >
+                Close
+                </v-btn>
+            </template>
+        </v-snackbar>
   
         <v-card-text class="text-center">
           <a

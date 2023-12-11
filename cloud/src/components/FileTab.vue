@@ -3,7 +3,10 @@
 
         <v-row class="text-overline" align="center" justify="space-between">
             <p>请选择操作对象: </p>
-            <v-btn size="x-small" color="primary" variant="tonal">上传</v-btn>
+            <div>
+                <v-btn size="x-small" class="ma-1" color="primary" variant="tonal">创建文件夹</v-btn>
+                <v-btn size="x-small" class="ma-1" color="primary" variant="tonal">上传</v-btn>
+            </div>
         </v-row>
         <v-divider></v-divider>
         <v-sheet color="grey-lighten-3">
@@ -59,7 +62,7 @@ const paths = reactive([
     },
 ])
 
-const choiceNum = ref(0)
+const choiceNum = ref("0")
 const checkboxValue = ref("")  // true/false/indeterminate
 
 const files = reactive([
