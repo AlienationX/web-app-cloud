@@ -4,18 +4,18 @@ import { ref } from 'vue'
 import FileTab from '../components/FileTab.vue';
 import TaskTab from '../components/TaskTab.vue';
 import LogTab from '../components/LogTab.vue';
+import { useSettingsStore } from '../stores/settings';
+
+const settingsStore = useSettingsStore()
 
 const tab = ref("file")
-const snackbar = ref(true)  // notification
-
 
 </script>
 
-
 <template>
-    <v-container >
+    <v-container>
         <v-snackbar
-            v-model="snackbar"
+            v-model="settingsStore.settings.login"
             timeout="3000"
             location="bottom right"
             vertical
@@ -36,7 +36,7 @@ const snackbar = ref(true)  // notification
             </template>
         </v-snackbar>
 
-        <v-row >
+        <v-row>
             <v-col cols="12" class="justify-center">
                 <v-sheet elevation="4" >
                     <v-tabs v-model="tab" color="deep-purple-accent-4" align-tabs="start" >

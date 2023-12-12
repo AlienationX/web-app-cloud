@@ -3,8 +3,10 @@ import { ref, reactive } from 'vue'
 import $router from '../router'
 
 import { useProfileStore } from '../stores/profile.js'
+import { useSettingsStore } from '../stores/settings.js'
 
 const profileStore = useProfileStore()
+const settingsStore = useSettingsStore()
 
 const form = reactive({
     username: "admin",
@@ -24,6 +26,7 @@ const login = () => {
         // message.value = "Loading..."
         profileStore.info.username = form.username.value
         $router.push({ path: '/' })
+        settingsStore.settings.login = true
     } else {
         message.value = "用户名和密码错误，请重新输入!"
         visible.snackbar = true
