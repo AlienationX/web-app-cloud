@@ -32,7 +32,7 @@ const snackbar = ref(true)  // notification
                 >
                 Close
                 </v-btn> -->
-                <v-btn density="compact" icon="mdi-open-in-new"></v-btn>
+                <v-btn density="compact" icon="mdi-close" color="primary"></v-btn>
             </template>
         </v-snackbar>
 

@@ -1,6 +1,6 @@
 <script setup>
 import { ref, reactive } from 'vue'
-import { useProfileStore } from '../stores/profile.js'
+import { useProfileStore } from '../../stores/profile.js'
 
 const profileStore = useProfileStore() // 获取到store的实例
 const emit = defineEmits([ "changeTheme" ]);
@@ -99,3 +99,6 @@ const handle=(event,item) => {
 
     </v-app-bar>
 </template>
+
+<style scoped lang="scss">
+</style>

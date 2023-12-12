@@ -4,16 +4,6 @@ import { RouterLink, RouterView } from 'vue-router'
 
 import vuetify from './plugins/vuetify'
 
-import router from './router'
-
-import LoginView from './views/LoginView.vue';
-import NarBar from './components/NarBar.vue';
-import HomeView from './views/HomeView.vue';
-
-import Menulist from './components/test/MenuList.vue'
-import Layout from './components/test/Layout.vue'
-import Test from './components/test/Test.vue'
-
 import { useProfileStore } from './stores/profile.js'
 const profileStore = useProfileStore() // 获取到store的实例
 
@@ -35,7 +25,6 @@ function access() {
     }
 }
 
-
 onMounted(() => {
     console.log(`the component is now mounted.`)
     // TODO undefined, 不能这么获取vuetify的配置信息
@@ -46,18 +35,10 @@ onMounted(() => {
 </script>
 
 <template>
-    <!-- <Test/> -->
     <v-app :theme="currentTheme">
-        <RouterView />
-            <!-- <NarBar @changeTheme="changeTheme" v-if="logined"/>
-            <v-main calss="box grey-lighten-3" bg-color="grey-lighten-3">
-                    <RouterView />
-            </v-main> -->
+        <router-view></router-view>
     </v-app>
 </template>
 
-<style scoped>
-.box {
-    background-color: grey;
-}
+<style scoped lang="scss">
 </style>

@@ -4,6 +4,6 @@
 
 <template>
 
-    <h1>Welcome, security</h1>
+    <h1>Welcome, role</h1>
 
 </template>
