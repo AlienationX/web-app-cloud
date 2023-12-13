@@ -1,44 +1,38 @@
 <script setup>
-import { computed, ref, onMounted } from 'vue'
-import { RouterLink, RouterView } from 'vue-router'
+import { computed, ref, onMounted } from 'vue';
+import { RouterLink, RouterView } from 'vue-router';
 
-import vuetify from './plugins/vuetify'
+import vuetify from './plugins/vuetify';
 
-import { useProfileStore } from './stores/profile.js'
-const profileStore = useProfileStore() // 获取到store的实例
-
-const currentTheme = ref("light")
+import { useProfileStore } from './stores/profile.js';
+import { useSettingsStore } from './stores/settings';
+const profileStore = useProfileStore(); // 获取到store的实例
+const settingsStore = useSettingsStore();
 
 const logined = computed(() => {
-    return profileStore.info.username === "guest" ? false : true
-})
-
-function changeTheme() {
-    currentTheme.value = currentTheme.value === 'light' ? 'dark' : 'light'
-    return "dark"
-}
+    return profileStore.info.username === 'guest' ? false : true;
+});
 
 function access() {
-    if (profileStore.info.username === "guest") {
-        console.log("not access, must login.")
+    if (profileStore.info.username === 'guest') {
+        console.log('not access, must login.');
         // router.push({ path: '/login' })
     }
 }
 
 onMounted(() => {
-    console.log(`the component is now mounted.`)
+    console.log(`the component is now mounted.`);
     // TODO undefined, 不能这么获取vuetify的配置信息
-    console.log(`default theme: ${vuetify.theme}`, vuetify.theme.defaultTheme)
+    console.log(`default theme: ${vuetify.theme}`, vuetify.theme.defaultTheme);
     // 验证是否已登录，没有登录跳转到login页面
-    access()
-})
+    access();
+});
 </script>
 
 <template>
-    <v-app :theme="currentTheme">
+    <v-app :theme="settingsStore.theme">
         <router-view></router-view>
     </v-app>
 </template>
 
-<style scoped lang="scss">
-</style>
+<style scoped lang="scss"></style>
