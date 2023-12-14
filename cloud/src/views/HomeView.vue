@@ -19,7 +19,7 @@ const tab = ref('file');
     <v-snackbar
       v-model="settingsStore.settings.showLoginMsg"
       timeout="3000"
-      location="bottom right"
+      location="top right"
       vertical
     >
       <div class="text-subtitle-1 pb-2">Hi {{ profileStore.info.username }}, 欢迎</div>

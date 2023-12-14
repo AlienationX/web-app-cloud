@@ -8,6 +8,9 @@ import App from './App.vue'
 import router from './router'
 import vuetify from './plugins/vuetify'
 
+// 执行路由鉴权守卫
+import './router/permission'
+
 // app
 const app = createApp(App)
 

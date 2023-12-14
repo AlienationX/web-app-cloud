@@ -28,9 +28,9 @@ const profileLinks = reactive([
 
 const switchTheme = () => {
     // 修改theme主题值
-    settingsStore.theme = settingsStore.theme === 'light' ? 'dark' : 'light';
+    settingsStore.settings.theme = settingsStore.settings.theme === 'light' ? 'dark' : 'light';
     // 切换图标
-    switchIcon.value = settingsStore.theme === 'light' ? 'mdi-weather-night' : 'mdi-weather-sunny';
+    switchIcon.value = settingsStore.settings.theme === 'light' ? 'mdi-weather-night' : 'mdi-weather-sunny';
 };
 
 const logout = () => {
@@ -92,8 +92,8 @@ const handle = (event, item) => {
                 </v-btn>
             </template>
 
-            <v-list :lines="false" density="compact" width="200" nav>
-                <!-- <v-list-subheader>Profile</v-list-subheader> -->
+            <v-list density="compact" width="200" nav>
+                <v-list-subheader>Profile</v-list-subheader>
 
                 <v-list-item
                     v-for="(item, i) in profileLinks"
@@ -105,7 +105,7 @@ const handle = (event, item) => {
                     color="primary"
                 >
                     <template v-slot:prepend>
-                        <v-icon :icon="item.icon"></v-icon>
+                        <v-icon :icon="item.icon" size="small"></v-icon>
                     </template>
 
                     <v-list-item-title v-text="item.text"></v-list-item-title>
@@ -115,4 +115,8 @@ const handle = (event, item) => {
     </v-app-bar>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.v-list-item__append > .v-icon ~ .v-list-item__spacer{
+    width: 0px;
+}
+</style>

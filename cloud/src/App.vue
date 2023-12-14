@@ -30,7 +30,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <v-app :theme="settingsStore.theme">
+    <v-app :theme="settingsStore.settings.theme">
         <router-view></router-view>
     </v-app>
 </template>
