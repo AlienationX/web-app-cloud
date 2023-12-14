@@ -10,7 +10,9 @@ npm create vue@latest
 npm install vue-router@4
 npm install vuetify
 npm install @mdi/font -D
-nom install sass -D
+npm install sass -D
+
+npm install nprogress
 ```
 
 ```shell
