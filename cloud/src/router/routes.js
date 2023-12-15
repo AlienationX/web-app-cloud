@@ -41,7 +41,7 @@ const routes = [
         component: () => import("../views/AboutView.vue"),
         name: "about",
         meta: {
-          title: "首页",
+          title: "关于",
           hidden: false,
           icon: "mdi-users",
         },

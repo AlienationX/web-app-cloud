@@ -1,12 +1,14 @@
 <script setup>
 import { ref, reactive } from 'vue';
-import $router from '../router';
 
 import { useProfileStore } from '../stores/profile.js';
 import { useSettingsStore } from '../stores/settings.js';
-
 const profileStore = useProfileStore();
 const settingsStore = useSettingsStore();
+
+import { useRouter, useRoute } from 'vue-router';
+const $router = useRouter();
+const $route = useRoute();
 
 const form = reactive({
     username: 'admin',
@@ -26,7 +28,8 @@ const login = () => {
     console.log(`username=${form.username} password=${form.password}`);
     if (form.username === 'admin' && form.password === 'admin') {
         profileStore.info.username = form.username;
-        $router.push({ path: '/' });
+        const redirect = $route.query.redirect;
+        $router.push({ path: redirect || '/' });
         settingsStore.settings.showLoginMsg = true;
     } else {
         message.value = '用户名和密码错误，请重新输入!';

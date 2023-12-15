@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { reactive } from 'vue';
+import { reactive, computed } from 'vue';
 
 export const useSettingsStore = defineStore('settings', () => {
   const settings = reactive({
@@ -11,9 +11,12 @@ export const useSettingsStore = defineStore('settings', () => {
     showLoginMsg: false,
   });
 
+  // 通过theme计算主题切换按钮的图标
+  const switchIcon = computed(() => settings.theme === 'light' ? 'mdi-weather-night' : 'mdi-weather-sunny')
+
   const getSettings = ()=>{
-    
+
   }
 
-  return { settings };
+  return { settings, switchIcon };
 });

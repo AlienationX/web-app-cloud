@@ -1,14 +1,17 @@
 <script setup>
 import { ref, reactive } from 'vue';
+
 import { useProfileStore } from '../../stores/profile.js';
 import { useSettingsStore } from '../../stores/settings';
+
+import { useRouter, useRoute } from 'vue-router';
+const $router = useRouter();
+const $route = useRoute();
 
 const profileStore = useProfileStore(); // 获取到store的实例
 const settingsStore = useSettingsStore();
 
-const emit = defineEmits(['changeTheme']);
 const toggle = ref(0);
-const switchIcon = ref('mdi-weather-night');
 
 const navLinks = reactive([
     { text: 'Home', icon: 'mdi-home', route: '/' },
@@ -23,18 +26,19 @@ const profileLinks = reactive([
     { text: 'Document', icon: 'mdi-clock', route: '/document' },
     { text: 'Audience', icon: 'mdi-account', route: '' },
     { text: 'Setting', icon: 'mdi-cog', route: '' },
-    { text: 'Sing Out', icon: 'mdi-export', route: '/login' },
+    { text: 'Sing Out', icon: 'mdi-export' },
 ]);
 
 const switchTheme = () => {
     // 修改theme主题值
     settingsStore.settings.theme = settingsStore.settings.theme === 'light' ? 'dark' : 'light';
-    // 切换图标
-    switchIcon.value = settingsStore.settings.theme === 'light' ? 'mdi-weather-night' : 'mdi-weather-sunny';
+    // 切换图标，settingsStore通过theme的计算属性处理
+    // switchIcon.value = settingsStore.settings.theme === 'light' ? 'mdi-weather-night' : 'mdi-weather-sunny';
 };
 
 const logout = () => {
     profileStore.info.username = 'guest';
+    $router.push({ path: '/login', query: { redirect: $route.path } });
 };
 
 const handle = (event, item) => {
@@ -78,7 +82,7 @@ const handle = (event, item) => {
         <!-- inset代表不占全部  -->
         <v-divider class="pl-5" inset vertical></v-divider>
 
-        <v-btn size="x-small" :icon="switchIcon" @click="switchTheme"> </v-btn>
+        <v-btn size="x-small" :icon="settingsStore.switchIcon" @click="switchTheme"> </v-btn>
         <v-btn size="x-small" icon="mdi-cog"> </v-btn>
         <!-- <v-tooltip
                 activator="parent"
@@ -116,7 +120,7 @@ const handle = (event, item) => {
 </template>
 
 <style scoped lang="scss">
-.v-list-item__append > .v-icon ~ .v-list-item__spacer{
+.v-list-item__append > .v-icon ~ .v-list-item__spacer {
     width: 0px;
 }
 </style>
