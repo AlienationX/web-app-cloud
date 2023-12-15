@@ -8,7 +8,12 @@ const goHome = () => {
 </script>
 
 <template>
-    <v-container class="fill-height fluid align-center justify-center box" bg-color="grey-lighten-2">
+    <v-container class="fill-height fluid align-center justify-center box">
+        <!-- bg-xxx   使用vuetify的背景颜色 -->
+        <!-- text-xxx 使用vuetify的字体颜色 -->
+        <!-- <div class="bg-purple-darken-2 text-center">
+            <span class="text-purple-darken-4">Lorem ipsum</span>
+        </div> -->
         <v-row>
             <v-col> </v-col>
             <v-col>
@@ -27,7 +32,8 @@ const goHome = () => {
         margin: 8px;
     }
 }
-.box {
-    background-color: rgb(233, 235, 236);
-}
+
+// .box {
+//     background-color: rgb(233, 235, 236);
+// }
 </style>

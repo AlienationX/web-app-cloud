@@ -2,9 +2,9 @@
 import { ref, reactive } from 'vue';
 
 import { useProfileStore } from '../stores/profile.js';
-import { useSettingsStore } from '../stores/settings.js';
+import { useSettingStore } from '../stores/setting.js';
 const profileStore = useProfileStore();
-const settingsStore = useSettingsStore();
+const settingStore = useSettingStore();
 
 import { useRouter, useRoute } from 'vue-router';
 const $router = useRouter();
@@ -25,12 +25,11 @@ const message = ref(
 );
 
 const login = () => {
-    console.log(`username=${form.username} password=${form.password}`);
     if (form.username === 'admin' && form.password === 'admin') {
-        profileStore.info.username = form.username;
+        profileStore.userLogin(); // 用户登录
         const redirect = $route.query.redirect;
         $router.push({ path: redirect || '/' });
-        settingsStore.settings.showLoginMsg = true;
+        settingStore.settings.showLoginMsg = true;
     } else {
         message.value = '用户名和密码错误，请重新输入!';
         visible.snackbar = true;

@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { reactive, computed } from 'vue';
 
-export const useSettingsStore = defineStore('settings', () => {
+export const useSettingStore = defineStore('setting', () => {
   const settings = reactive({
     theme: 'light',
     isCollapse: false,

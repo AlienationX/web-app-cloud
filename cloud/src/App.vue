@@ -5,9 +5,9 @@ import { RouterLink, RouterView } from 'vue-router';
 import vuetify from './plugins/vuetify';
 
 import { useProfileStore } from './stores/profile.js';
-import { useSettingsStore } from './stores/settings';
+import { useSettingStore } from './stores/setting';
 const profileStore = useProfileStore(); // 获取到store的实例
-const settingsStore = useSettingsStore();
+const settingStore = useSettingStore();
 
 const logined = computed(() => {
     return profileStore.info.username === 'guest' ? false : true;
@@ -30,7 +30,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <v-app :theme="settingsStore.settings.theme">
+    <v-app :theme="settingStore.settings.theme">
         <router-view></router-view>
     </v-app>
 </template>

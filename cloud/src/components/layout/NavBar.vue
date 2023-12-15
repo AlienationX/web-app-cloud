@@ -2,14 +2,14 @@
 import { ref, reactive } from 'vue';
 
 import { useProfileStore } from '../../stores/profile.js';
-import { useSettingsStore } from '../../stores/settings';
+import { useSettingStore } from '../../stores/setting';
 
 import { useRouter, useRoute } from 'vue-router';
 const $router = useRouter();
 const $route = useRoute();
 
 const profileStore = useProfileStore(); // 获取到store的实例
-const settingsStore = useSettingsStore();
+const settingStore = useSettingStore();
 
 const toggle = ref(0);
 
@@ -31,13 +31,15 @@ const profileLinks = reactive([
 
 const switchTheme = () => {
     // 修改theme主题值
-    settingsStore.settings.theme = settingsStore.settings.theme === 'light' ? 'dark' : 'light';
-    // 切换图标，settingsStore通过theme的计算属性处理
-    // switchIcon.value = settingsStore.settings.theme === 'light' ? 'mdi-weather-night' : 'mdi-weather-sunny';
+    settingStore.settings.theme = settingStore.settings.theme === 'light' ? 'dark' : 'light';
+    // 切换图标，settingStore通过theme的计算属性处理
+    // switchIcon.value = settingStore.settings.theme === 'light' ? 'mdi-weather-night' : 'mdi-weather-sunny';
 };
 
 const logout = () => {
-    profileStore.info.username = 'guest';
+    // 重置store的数据
+    profileStore.$reset();
+    // 跳转到登录页面
     $router.push({ path: '/login', query: { redirect: $route.path } });
 };
 
@@ -72,9 +74,9 @@ const handle = (event, item) => {
                 <v-btn v-bind="props" append-icon="mdi-menu-down" size="small"> 权限管理 </v-btn>
             </template>
 
-            <v-list>
-                <v-list-item v-for="(item, index) in items" :key="index">
-                    <v-list-item-title>{{ item.title }}</v-list-item-title>
+            <v-list :lines="false" density="compact">
+                <v-list-item v-for="(item, index) in items" :key="index" @click="(event) => handle(event, item)">
+                    <v-list-item-title v-text="item.title" class="text-overline"></v-list-item-title>
                 </v-list-item>
             </v-list>
         </v-menu>
@@ -82,12 +84,8 @@ const handle = (event, item) => {
         <!-- inset代表不占全部  -->
         <v-divider class="pl-5" inset vertical></v-divider>
 
-        <v-btn size="x-small" :icon="settingsStore.switchIcon" @click="switchTheme"> </v-btn>
+        <v-btn size="x-small" :icon="settingStore.switchIcon" @click="switchTheme"> </v-btn>
         <v-btn size="x-small" icon="mdi-cog"> </v-btn>
-        <!-- <v-tooltip
-                activator="parent"
-                location="bottom"
-            >切换theme</v-tooltip> -->
 
         <v-menu>
             <template v-slot:activator="{ props }">
@@ -96,7 +94,7 @@ const handle = (event, item) => {
                 </v-btn>
             </template>
 
-            <v-list density="compact" width="200" nav>
+            <v-list :lines="false" density="compact" nav width="200">
                 <v-list-subheader>Profile</v-list-subheader>
 
                 <v-list-item

@@ -5,10 +5,10 @@ import FileTab from '../components/FileTab.vue';
 import TaskTab from '../components/TaskTab.vue';
 import LogTab from '../components/LogTab.vue';
 
-import { useSettingsStore } from '../stores/settings';
+import { useSettingStore } from '../stores/setting';
 import { useProfileStore } from '../stores/profile';
 
-const settingsStore = useSettingsStore();
+const settingStore = useSettingStore();
 const profileStore = useProfileStore();
 
 const tab = ref('file');
@@ -16,7 +16,7 @@ const tab = ref('file');
 
 <template>
     <v-container>
-        <v-snackbar v-model="settingsStore.settings.showLoginMsg" timeout="3000" location="top right" vertical>
+        <v-snackbar v-model="settingStore.settings.showLoginMsg" timeout="3000" location="top right" vertical>
             <div class="text-subtitle-1 pb-2">Hi {{ profileStore.info.username }}, 欢迎</div>
 
             <p>This is a longer paragraph explaining something</p>
@@ -33,7 +33,7 @@ const tab = ref('file');
                     density="compact"
                     icon="mdi-close"
                     color="primary"
-                    @click="settingsStore.settings.showLoginMsg = false"
+                    @click="settingStore.settings.showLoginMsg = false"
                 ></v-btn>
             </template>
         </v-snackbar>

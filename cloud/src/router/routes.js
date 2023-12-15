@@ -98,6 +98,16 @@ const routes = [
     name: "document",
     component: () => import("../views/DocumentView.vue"),
   },
+  {
+    path: "/example",
+    name: "example",
+    component: () => import("../views/ExampleView.vue"),
+    meta: {
+      title: "示例",
+      hidden: false,
+      icon: "mdi-users",
+    },
+  },
 
   {
     path: "/:pathMatch(.*)*",

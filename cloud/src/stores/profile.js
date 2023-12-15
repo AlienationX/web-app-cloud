@@ -1,33 +1,48 @@
-import { ref, reactive, computed } from "vue";
-import { defineStore } from "pinia"; //从pinia中导入，defineStore方法，用于定义一个新的store
+import { ref, reactive, computed } from 'vue';
+import { defineStore } from 'pinia'; //从pinia中导入，defineStore方法，用于定义一个新的store
 
-// 选项是api
-// export const useProfileStore = defineStore('profile', { // 使用defineStore方法定义store
-//   state() { // state表示这个store里的状态，也就是存放数据的地方
-//     return {
-//       userName: '林哥', // 这里我们定义了一个数据叫userName，用于存放我们的用户名
-//     }
-//   },
-// })
+import routes from '../router/routes'; // TODO 从接口获取，临时使用
 
-// 组合式api
-export const useProfileStore = defineStore("profile", () => {
-  const info = reactive({
-    id: 0,
-    username: "guest",
-    is_admin: false,
-  });
+export const useProfileStore = defineStore('profile', () => {
+    let info = reactive({});
+    let token = ref('');
+    let menuRoutes = reactive([]);
 
-  const token = computed(() => {
-    console.log("计算属性，获取token值");
-  });
+    function userLogin() {
+        // 获取用户信息
+        info = {
+            id: '1',
+            username: 'admin',
+            nickname: '管理员',
+            avatar: '',
+            lastLoginTime: '',
+            isAdmin: 1,
+        };
 
-  function auth() {
-    console.log("验证权限");
-  }
+        // 获取token
+        const localToken = localStorage.getItem('token');
+        if (localToken) {
+            token.value = localToken;
+        } else {
+            token.value = 'admin_token';
+            localStorage.setItem('token', token.value);
+        }
 
-  return { info, token, auth };
+        // 获取菜单权限
+        menuRoutes = routes;
+
+        console.log("info", info)
+        console.log("menu", menuRoutes)
+    }
+
+    // store重置，数据情况还原
+    function $reset() {
+        info = {};
+        token.value = '';
+        menuRoutes = [];
+
+        localStorage.removeItem('token');
+    }
+
+    return { info, token, menuRoutes, userLogin, $reset };
 });
-
-// localStorage.setItem("token", "admin_token")
-// localStorage.getItem("token")
