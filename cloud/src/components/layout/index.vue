@@ -2,10 +2,12 @@
 import NavBar from './NavBar.vue'
 import Sider from './Sider.vue'
 import Main from './Main.vue'
+import Notification from './Notification.vue';
 </script>
     
 <template>
     <v-container>
+        <Notification />
         <v-row>
             <!-- <v-col>
                 <Sider />
