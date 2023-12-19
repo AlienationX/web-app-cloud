@@ -1,7 +1,9 @@
 <script setup>
-import MemuList from '../components/test/MenuList.vue'
+import MemuList from '../components/test/MenuList.vue';
 </script>
 
 <template>
-    <MemuList />
+    <v-container>
+        <MemuList />
+    </v-container>
 </template>

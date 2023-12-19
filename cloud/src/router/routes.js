@@ -8,7 +8,7 @@ const routes = [
         // which is lazy-loaded when the route is visited.
         // component: LoginView,
         component: () => import('../views/LoginView.vue'),
-        name: 'login',
+        name: 'login', // 如果使用name属性，可以避免path写错或方便修改？
         meta: {
             title: '注册',
             icon: '',
@@ -27,14 +27,44 @@ const routes = [
         redirect: '/home',
         children: [
             {
-                path: 'home',
+                path: '/home',
                 component: () => import('../views/HomeView.vue'),
                 name: 'home',
-                // meta: {
-                //     title: '用户管理',
-                //     hidden: false,
-                //     icon: 'mdi-users',
-                // },
+                meta: {
+                    title: '首页',
+                    hidden: false,
+                    icon: 'mdi-users',
+                },
+            },
+            {
+                path: '/document',
+                name: 'document',
+                component: () => import('../views/DocumentView.vue'),
+                meta: {
+                    title: '文档',
+                    hidden: false,
+                    icon: 'mdi-users',
+                },
+            },
+            {
+                path: '/example',
+                name: 'example',
+                component: () => import('../views/ExampleView.vue'),
+                meta: {
+                    title: '示例',
+                    hidden: false,
+                    icon: 'mdi-users',
+                },
+            },
+            {
+                path: '/about',
+                component: () => import('../views/AboutView.vue'),
+                name: 'about',
+                meta: {
+                    title: '关于',
+                    hidden: false,
+                    icon: 'mdi-users',
+                },
             },
         ],
     },
@@ -51,7 +81,9 @@ const routes = [
         redirect: '/acl/user',
         children: [
             {
-                path: '/acl/user', // 可以配置为user，会默认拼接，但是一级按钮不点击路由跳转会报错，所以还需要写完整路径
+                // 可以配置为user，会默认拼接，但是一级按钮不点击路由跳转会报错，所以还需要写完整路径
+                // path会作为for循环的key，完整路径可以保证唯一性？
+                path: '/acl/user',
                 component: () => import('../views/acl/UserView.vue'),
                 name: 'user',
                 meta: {
@@ -81,38 +113,6 @@ const routes = [
                 },
             },
         ],
-    },
-
-    {
-        path: '/document',
-        name: 'document',
-        component: () => import('../views/DocumentView.vue'),
-        meta: {
-            title: '文档',
-            hidden: false,
-            icon: 'mdi-users',
-        },
-    },
-    {
-        path: '/example',
-        name: 'example',
-        component: () => import('../views/ExampleView.vue'),
-        meta: {
-            title: '示例',
-            hidden: false,
-            icon: 'mdi-users',
-        },
-    },
-
-    {
-        path: '/about',
-        component: () => import('../views/AboutView.vue'),
-        name: 'about',
-        meta: {
-            title: '关于',
-            hidden: false,
-            icon: 'mdi-users',
-        },
     },
 
     {
