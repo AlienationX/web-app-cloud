@@ -51,7 +51,7 @@ const routes = [
         redirect: '/acl/user',
         children: [
             {
-                path: 'user',
+                path: '/acl/user', // 可以配置为user，会默认拼接，但是一级按钮不点击路由跳转会报错，所以还需要写完整路径
                 component: () => import('../views/acl/UserView.vue'),
                 name: 'user',
                 meta: {
@@ -61,7 +61,7 @@ const routes = [
                 },
             },
             {
-                path: 'role',
+                path: '/acl/role',
                 name: 'role',
                 component: () => import('../views/acl/RoleView.vue'),
                 meta: {
@@ -71,7 +71,7 @@ const routes = [
                 },
             },
             {
-                path: 'permission',
+                path: '/acl/permission',
                 name: 'permission',
                 component: () => import('../views/acl/PermissionView.vue'),
                 meta: {
