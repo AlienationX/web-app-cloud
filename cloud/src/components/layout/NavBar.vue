@@ -1,4 +1,6 @@
 <script setup>
+import Menu from './Menu.vue';
+
 import { ref, reactive } from 'vue';
 
 import { useProfileStore } from '../../stores/profile.js';
@@ -21,6 +23,8 @@ const navLinks = reactive([
 ]);
 
 const items = [{ title: '用户管理' }, { title: '角色管理' }, { title: '授权管理' }, { title: 'Click Me 2' }];
+
+const menus = profileStore.menuRoutes;
 
 const profileLinks = reactive([
     { text: 'Document', icon: 'mdi-clock', route: '/document' },
@@ -54,9 +58,9 @@ const handle = (event, item) => {
 <template>
     <v-app-bar fixed density="compact">
         <v-app-bar-nav-icon></v-app-bar-nav-icon>
-        <v-toolbar-title>Cloud</v-toolbar-title>
+        <v-toolbar-title><span class="font-weight-black text-button">CLOUD</span></v-toolbar-title>
 
-        <v-btn-toggle v-model="toggle" rounded="0" borderless nav>
+        <!-- <v-btn-toggle v-model="toggle" rounded="0" borderless nav>
             <v-btn
                 v-for="(item, i) in navLinks"
                 :key="i"
@@ -67,19 +71,12 @@ const handle = (event, item) => {
             >
                 {{ item.text }}
             </v-btn>
-        </v-btn-toggle>
+        </v-btn-toggle> -->
 
-        <v-menu open-on-hover>
-            <template v-slot:activator="{ props }">
-                <v-btn v-bind="props" append-icon="mdi-menu-down" size="small"> 权限管理 </v-btn>
-            </template>
-
-            <v-list :lines="false" density="compact">
-                <v-list-item v-for="(item, index) in items" :key="index" @click="(event) => handle(event, item)">
-                    <v-list-item-title v-text="item.title" class="text-overline"></v-list-item-title>
-                </v-list-item>
-            </v-list>
-        </v-menu>
+        <template v-for="route of profileStore.menuRoutes" :key="route.path">
+            <Menu :route="route" v-if="!route.meta.hidden"></Menu>
+        </template>
+        <!-- <Menu v-for="item in profileStore.menuRoutes" :key="item.path" ></Menu> -->
 
         <!-- inset代表不占全部  -->
         <v-divider class="pl-5" inset vertical></v-divider>
@@ -90,12 +87,12 @@ const handle = (event, item) => {
         <v-menu>
             <template v-slot:activator="{ props }">
                 <v-btn color="primary" v-bind="props" prepend-icon="mdi-account-circle">
-                    <span class="text-overline">Profile</span>
+                    <span class="font-weight-bold text-overline">Profile</span>
                 </v-btn>
             </template>
 
             <v-list :lines="false" density="compact" nav width="200">
-                <v-list-subheader>Profile</v-list-subheader>
+                <v-list-subheader><span class="font-weight-bold text-caption">Profile</span></v-list-subheader>
 
                 <v-list-item
                     v-for="(item, i) in profileLinks"
@@ -110,7 +107,7 @@ const handle = (event, item) => {
                         <v-icon :icon="item.icon" size="small"></v-icon>
                     </template>
 
-                    <v-list-item-title v-text="item.text"></v-list-item-title>
+                    <v-list-item-title> <span class="text-caption">{{ item.text }}</span></v-list-item-title>
                 </v-list-item>
             </v-list>
         </v-menu>
