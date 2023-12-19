@@ -9,9 +9,10 @@ const profileStore = useProfileStore();
 
 <template>
     <v-snackbar v-model="settingStore.settings.showLoginMsg" timeout="3000" location="top right" vertical>
-        <div class="text-subtitle-1 pb-2">Hi {{ profileStore.info.username }}, 欢迎</div>
+        <div class="text-subtitle-1 pb-2">Hi {{ profileStore.info.username }}</div>
 
         <p>This is a longer paragraph explaining something</p>
+        <p>欢迎回来</p>
 
         <template v-slot:actions>
             <!-- <v-btn

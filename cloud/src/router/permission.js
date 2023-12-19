@@ -36,10 +36,16 @@ router.beforeEach((to, from, next) => {
                 //   await userStore.userLogout()
                 //   next({ path: '/login', query: { redirect: to.path } })
                 // }
-                // profileStore.getInfo()
-                // profileStore.getMenuRoutes()
-                // next();
-                next({ path: '/login', query: { redirect: to.path } });
+                try {
+                    // 没有username通过token重新获取。刷新页面需要更新用户信息和用户菜单
+                    profileStore.getInfo();
+                    profileStore.getMenuRoutes();
+                    next();
+                } catch (error) {
+                    // 获取失败，比如token过期等，返回登录页面重新登录
+                    userStore.$reset();
+                    next({ path: '/login', query: { redirect: to.path } });
+                }
             }
         }
     } else {

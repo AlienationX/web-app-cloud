@@ -1,31 +1,16 @@
 <script setup>
 import { computed, ref, onMounted } from 'vue';
-import { RouterLink, RouterView } from 'vue-router';
-
 import vuetify from './plugins/vuetify';
 
-import { useProfileStore } from './stores/profile.js';
 import { useSettingStore } from './stores/setting';
-const profileStore = useProfileStore(); // 获取到store的实例
 const settingStore = useSettingStore();
 
-const logined = computed(() => {
-    return profileStore.info.username === 'guest' ? false : true;
-});
-
-function access() {
-    if (profileStore.info.username === 'guest') {
-        console.log('not access, must login.');
-        // router.push({ path: '/login' })
-    }
-}
-
+// TODO 测试
 onMounted(() => {
     console.log(`the component is now mounted.`);
     // TODO undefined, 不能这么获取vuetify的配置信息
     console.log(`default theme: ${vuetify.theme}`, vuetify.theme.defaultTheme);
     // 验证是否已登录，没有登录跳转到login页面
-    access();
 });
 </script>
 

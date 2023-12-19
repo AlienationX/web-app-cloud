@@ -7,6 +7,7 @@ import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
 import vuetify from './plugins/vuetify'
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 
 // 执行路由鉴权守卫
 import './router/permission'
@@ -14,7 +15,12 @@ import './router/permission'
 // app
 const app = createApp(App)
 
-app.use(createPinia())
+// pinia使用持久化插件
+const pinia = createPinia()
+pinia.use(piniaPluginPersistedstate)
+
+// app.use(createPinia())
+app.use(pinia)
 app.use(router)
 app.use(vuetify)
 
