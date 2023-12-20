@@ -74,7 +74,7 @@ const handle = (event, item) => {
             <template v-slot:activator="{ props }">
                 <v-btn color="primary" v-bind="props" prepend-icon="mdi-account-circle">
                     <span class="font-weight-bold text-overline">Profile</span>
-                </v-btn>ß
+                </v-btn>
             </template>
 
             <v-list :lines="false" density="compact" nav width="200">
