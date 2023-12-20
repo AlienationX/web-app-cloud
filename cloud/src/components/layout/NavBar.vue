@@ -13,22 +13,9 @@ const $route = useRoute();
 const profileStore = useProfileStore(); // 获取到store的实例
 const settingStore = useSettingStore();
 
-const toggle = ref(0);
-
-const navLinks = reactive([
-    { text: 'Home', icon: 'mdi-home', route: '/' },
-    { text: 'User', icon: 'mdi-account-group', route: '/user' },
-    { text: '权限管理', icon: 'mdi-security', route: '/security' },
-    { text: 'About', icon: 'mdi-information', route: '/about' },
-]);
-
-const items = [{ title: '用户管理' }, { title: '角色管理' }, { title: '授权管理' }, { title: 'Click Me 2' }];
-
-const menus = profileStore.menuRoutes;
-
 const profileLinks = reactive([
     { text: 'Document', icon: 'mdi-clock', route: '/document' },
-    { text: 'Audience', icon: 'mdi-account', route: '' },
+    { text: 'Offline', icon: 'mdi-account', route: '' },
     { text: 'Setting', icon: 'mdi-cog', route: '' },
     { text: 'Sing Out', icon: 'mdi-export' },
 ]);
@@ -76,7 +63,6 @@ const handle = (event, item) => {
         <template v-for="route of profileStore.menuRoutes" :key="route.path">
             <Menu :route="route" v-if="!route.meta.hidden"></Menu>
         </template>
-        <!-- <Menu v-for="item in profileStore.menuRoutes" :key="item.path" ></Menu> -->
 
         <!-- inset代表不占全部  -->
         <v-divider class="pl-5" inset vertical></v-divider>
@@ -88,34 +74,23 @@ const handle = (event, item) => {
             <template v-slot:activator="{ props }">
                 <v-btn color="primary" v-bind="props" prepend-icon="mdi-account-circle">
                     <span class="font-weight-bold text-overline">Profile</span>
-                </v-btn>
+                </v-btn>ß
             </template>
 
             <v-list :lines="false" density="compact" nav width="200">
                 <v-list-subheader><span class="font-weight-bold text-caption">Profile</span></v-list-subheader>
 
-                <v-list-item
-                    v-for="(item, i) in profileLinks"
-                    :key="i"
-                    :value="item"
-                    router
-                    :to="item.route"
-                    @click="(event) => handle(event, item)"
-                    color="primary"
-                >
+                <v-list-item v-for="(item, i) in profileLinks" :key="i" :value="item" router :to="item.route"
+                    @click="(event) => handle(event, item)" color="primary">
                     <template v-slot:prepend>
                         <v-icon :icon="item.icon" size="small"></v-icon>
                     </template>
 
-                    <v-list-item-title> <span class="text-caption">{{ item.text }}</span></v-list-item-title>
+                    <v-list-item-title> {{ item.text }}</v-list-item-title>
                 </v-list-item>
             </v-list>
         </v-menu>
     </v-app-bar>
 </template>
 
-<style scoped lang="scss">
-.v-list-item__append > .v-icon ~ .v-list-item__spacer {
-    width: 0px;
-}
-</style>
+<style scoped lang="scss"></style>

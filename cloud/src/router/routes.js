@@ -70,13 +70,47 @@ const routes = [
     },
 
     {
+        path: '/analysis',
+        component: () => import('../components/layout/index.vue'),
+        name: 'analysis',
+        meta: {
+            title: '智能分析',
+            hidden: false,
+        },
+        redirect: '/analysis/report',
+        children: [
+            {
+                // 可以配置为user，会默认拼接，但是一级按钮不点击路由跳转会报错，所以还需要写完整路径
+                // path会作为for循环的key，完整路径可以保证唯一性？
+                path: '/analysis/report',
+                component: () => import('../views/acl/UserView.vue'),
+                name: 'report',
+                meta: {
+                    title: 'Report',
+                    hidden: false,
+                    icon: 'mdi-chart-line',
+                },
+            },
+            {
+                path: '/analysis/olap',
+                name: 'olap',
+                component: () => import('../views/acl/RoleView.vue'),
+                meta: {
+                    title: '多维分析',
+                    hidden: false,
+                    icon: 'mdi-chart-tree',
+                },
+            },
+        ],
+    },
+
+    {
         path: '/acl',
         component: () => import('../components/layout/index.vue'),
         name: 'acl',
         meta: {
             title: '权限管理',
             hidden: false,
-            icon: 'mdi-users',
         },
         redirect: '/acl/user',
         children: [
@@ -89,7 +123,7 @@ const routes = [
                 meta: {
                     title: '用户管理',
                     hidden: false,
-                    icon: 'mdi-users',
+                    icon: 'mdi-account',
                 },
             },
             {
@@ -99,7 +133,7 @@ const routes = [
                 meta: {
                     title: '角色管理',
                     hidden: false,
-                    icon: 'mdi-users',
+                    icon: 'mdi-account-multiple',
                 },
             },
             {
@@ -108,6 +142,29 @@ const routes = [
                 component: () => import('../views/acl/PermissionView.vue'),
                 meta: {
                     title: '授权管理',
+                    hidden: false,
+                    icon: 'mdi-shield-lock-open-outline',
+                },
+            },
+        ],
+    },
+
+    {
+        path: '/document',
+        component: () => import('../components/layout/index.vue'),
+        meta: {
+            title: '文档',
+            hidden: false,
+            icon: '',
+        },
+        redirect: '/document',
+        children: [
+            {
+                path: '/document',
+                name: 'document',
+                component: () => import('../views/DocumentView.vue'),
+                meta: {
+                    title: '文档',
                     hidden: false,
                     icon: 'mdi-users',
                 },

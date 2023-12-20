@@ -11,7 +11,7 @@
                     </v-list-item>
                 </v-list>
 
-                <v-divider></v-divider>
+                <v-divider></v-divider>ß
 
                 <v-list :lines="false" density="compact" nav>
                     <v-list-item v-for="(item, i) in items" :key="i" :value="item" color="primary">
