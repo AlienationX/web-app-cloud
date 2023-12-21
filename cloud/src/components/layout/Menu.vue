@@ -4,12 +4,16 @@ import { ref, onMounted } from 'vue';
 // defineProps(['route']);  // 不定义变量接收，可以直接在template中使用。如果在script中使用必须定义接收变量，但是template还是可以不用
 const props = defineProps(['route']);
 
-let menuDownIcon = ref('mdi-chevron-down');  // mdi-chevron-down / mdi-menu-down
+let menuDownIcon = ref('mdi-chevron-down'); // mdi-chevron-down / mdi-menu-down
+let levelOnePath = ref(props.route.path);
 
 onMounted(() => {
-    // 如果没有子路由或者子路由只有1个，则没有下拉箭头图标
     if (!props.route.children || props.route.children.length === 1) {
+        // 如果没有子路由或者子路由只有1个，则没有下拉箭头图标
         menuDownIcon.value = '';
+    } else {
+        // 设置有下拉箭头的菜单的一级路由点击无效
+        levelOnePath.value = '';
     }
 });
 </script>
@@ -17,7 +21,7 @@ onMounted(() => {
 <template>
     <v-menu open-on-hover>
         <template v-slot:activator="{ props }">
-            <v-btn v-bind="props" :append-icon="menuDownIcon" size="small" router :to="route.path">
+            <v-btn v-bind="props" :append-icon="menuDownIcon" size="small" router :to="levelOnePath">
                 {{ route.meta.title }}
             </v-btn>
         </template>
@@ -28,7 +32,7 @@ onMounted(() => {
                     <v-icon :icon="child.meta.icon" size="small"></v-icon>
                 </template>
 
-                <v-list-item-title v-text="child.meta.title" ></v-list-item-title>
+                <v-list-item-title v-text="child.meta.title"></v-list-item-title>
             </v-list-item>
         </v-list>
     </v-menu>

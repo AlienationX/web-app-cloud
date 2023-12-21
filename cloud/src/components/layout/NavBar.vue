@@ -43,8 +43,10 @@ const handle = (event, item) => {
 </script>
 
 <template>
-    <v-app-bar fixed density="compact">
-        <v-app-bar-nav-icon></v-app-bar-nav-icon>
+    <v-app-bar fixed density="compact" :order="settingStore.settings.navBarOrder">
+        <v-app-bar-nav-icon
+            @click="settingStore.settings.isCollapse = !settingStore.settings.isCollapse"
+        ></v-app-bar-nav-icon>
         <v-toolbar-title><span class="font-weight-black text-button">CLOUD</span></v-toolbar-title>
 
         <!-- <v-btn-toggle v-model="toggle" rounded="0" borderless nav>
@@ -80,8 +82,15 @@ const handle = (event, item) => {
             <v-list :lines="false" density="compact" nav width="200">
                 <v-list-subheader><span class="font-weight-bold text-caption">Profile</span></v-list-subheader>
 
-                <v-list-item v-for="(item, i) in profileLinks" :key="i" :value="item" router :to="item.route"
-                    @click="(event) => handle(event, item)" color="primary">
+                <v-list-item
+                    v-for="(item, i) in profileLinks"
+                    :key="i"
+                    :value="item"
+                    router
+                    :to="item.route"
+                    @click="(event) => handle(event, item)"
+                    color="primary"
+                >
                     <template v-slot:prepend>
                         <v-icon :icon="item.icon" size="small"></v-icon>
                     </template>

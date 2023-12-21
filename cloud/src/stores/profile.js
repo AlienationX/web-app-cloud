@@ -1,7 +1,7 @@
 import { ref, reactive, computed } from 'vue';
 import { defineStore } from 'pinia'; //从pinia中导入，defineStore方法，用于定义一个新的store
 
-import routes from '../router/routes'; // TODO 从接口获取，临时使用
+import { routes } from '../router/routes'; // TODO 从接口获取，临时使用
 
 export const useProfileStore = defineStore(
     'profile',

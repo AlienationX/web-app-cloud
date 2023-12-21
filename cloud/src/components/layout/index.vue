@@ -1,36 +1,27 @@
 <script setup>
-import NavBar from './NavBar.vue'
-import Sider from './Sider.vue'
-import Main from './Main.vue'
+import NavBar from './NavBar.vue';
+import SideBar from './SideBar.vue';
+import Main from './Main.vue';
 import Notification from './Notification.vue';
 
-import { onMounted } from 'vue';
-
-import { useProfileStore } from '../../stores/profile.js'
-const profileStore = useProfileStore()
+import { ref, onMounted } from 'vue';
 
 // onMounted(() => {
 //     profileStore.getInfo()
 //     profileStore.getMenuRoutes()
 // });
 </script>
-    
+
 <template>
-    <v-container>
+    <v-layout>
         <Notification />
-        <v-row>
-            <!-- <v-col>
-                <Sider />
-            </v-col> -->
-            <v-col cols="12">
-                <NavBar />
-            </v-col>     
-            <v-col cols="12">
-                <Main></Main>
-            </v-col>
-        </v-row>
-    </v-container>
+
+        <SideBar />
+        <NavBar />
+        <v-main>
+            <Main></Main>
+        </v-main>
+    </v-layout>
 </template>
 
-<style scoped lang="scss">
-</style>
+<style scoped lang="scss"></style>
