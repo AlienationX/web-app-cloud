@@ -26,7 +26,7 @@ const profileStore = useProfileStore();
                 density="compact"
                 icon="mdi-close"
                 color="primary"
-                @click="settingStore.settings.showLoginMsg = false"
+                @click="settingStore.settings.showLayoutMsg = false"
             ></v-btn>
         </template>
     </v-snackbar>

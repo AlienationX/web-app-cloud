@@ -1,5 +1,6 @@
 <script setup>
 import Menu from './Menu.vue';
+import Setting from './Setting.vue';
 
 import { ref, reactive, onMounted } from 'vue';
 
@@ -16,7 +17,6 @@ const settingStore = useSettingStore();
 const settings = settingStore.settings;
 
 const navRoutes = reactive([]);
-const overlay = ref(false);
 
 const profileLinks = reactive([
     { text: 'Document', icon: 'mdi-clock', route: '/document' },
@@ -69,7 +69,7 @@ onMounted(() => {
 
 <template>
     <v-app-bar fixed density="compact" :order="settings.navBarOrder">
-        <v-app-bar-nav-icon @click="settings.sideBarIsCollapse = !settings.sideBarIsCollapse"></v-app-bar-nav-icon>
+        <v-app-bar-nav-icon @click="settings.showSideBar = !settings.showSideBar"></v-app-bar-nav-icon>
         <v-toolbar-title><span class="font-weight-black text-button">CLOUD</span></v-toolbar-title>
 
         <!-- <v-btn-toggle v-model="toggle" rounded="0" borderless nav>
@@ -93,10 +93,8 @@ onMounted(() => {
         <v-divider class="pl-5" inset vertical></v-divider>
 
         <v-btn size="x-small" :icon="settingStore.switchIcon" @click="switchTheme"> </v-btn>
-        <v-btn size="x-small" icon="mdi-cog" @click="overlay = !overlay"> </v-btn>
-
-        <!-- 遮罩层，设置界面 -->
-        <v-overlay v-model="overlay"></v-overlay>
+        <v-btn size="x-small" icon="mdi-cog" @click="settings.showSetting = !settings.showSetting"> </v-btn>
+        <Setting />
 
         <v-menu open-on-hover>
             <template v-slot:activator="{ props }">

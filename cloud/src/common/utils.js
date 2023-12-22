@@ -1,5 +1,4 @@
 
-
 export function fullScreen() {
     // 获取当前是否为全屏
     let full = document.fullscreenElement;

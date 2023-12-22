@@ -33,7 +33,7 @@ const login = () => {
         profileStore.userLogin(); // 用户登录
         const redirect = $route.query.redirect;
         $router.push({ path: redirect || '/' });
-        settingStore.settings.showLoginMsg = true;
+        settingStore.settings.showLayoutMsg = true;
     } else {
         message.value = '用户名和密码错误，请重新输入!';
         visible.snackbar = true;

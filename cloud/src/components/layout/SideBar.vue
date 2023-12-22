@@ -17,7 +17,7 @@ const items = reactive([
 
 <template>
     <v-navigation-drawer
-        v-model="settingStore.settings.sideBarIsCollapse"
+        v-model="settingStore.settings.showSideBar"
         :temporary="settingStore.settings.sideBarOverlay"
         color="grey-darken-3"
         expand-on-hover
