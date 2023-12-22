@@ -1,11 +1,12 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 
-// defineProps(['route']);  // 不定义变量接收，可以直接在template中使用。如果在script中使用必须定义接收变量，但是template还是可以不用
+// defineProps(['route']);
+// 不定义变量接收，可以直接在template中使用。如果在script中使用必须定义接收变量，但是template还是可以不用写props前缀
 const props = defineProps(['route']);
 
-let menuDownIcon = ref('mdi-chevron-down'); // mdi-chevron-down / mdi-menu-down
-let levelOnePath = ref(props.route.path);
+const menuDownIcon = ref('mdi-chevron-down'); // mdi-chevron-down / mdi-menu-down
+const levelOnePath = ref(props.route.path);
 
 onMounted(() => {
     if (!props.route.children || props.route.children.length === 1) {

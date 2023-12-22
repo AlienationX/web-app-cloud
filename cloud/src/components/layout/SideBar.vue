@@ -16,7 +16,13 @@ const items = reactive([
 </script>
 
 <template>
-    <v-navigation-drawer v-model="settingStore.settings.isCollapse" color="grey-darken-2" permanent>
+    <v-navigation-drawer
+        v-model="settingStore.settings.sideBarIsCollapse"
+        :temporary="settingStore.settings.sideBarOverlay"
+        color="grey-darken-3"
+        expand-on-hover
+        rail
+    >
         <v-list :lines="false" density="compact" nav>
             <v-list-item v-for="(item, i) in items" :key="i" :value="item" color="primary">
                 <template v-slot:prepend>

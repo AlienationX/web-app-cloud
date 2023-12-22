@@ -21,8 +21,9 @@ export const navRoutes = [
         component: () => import('../components/layout/index.vue'),
         meta: {
             title: '首页',
-            hidden: false,
             icon: '',
+            hidden: false,
+            location: 'nav',
         },
         redirect: '/home',
         children: [
@@ -32,8 +33,9 @@ export const navRoutes = [
                 name: 'home',
                 meta: {
                     title: '首页',
-                    hidden: false,
                     icon: 'mdi-users',
+                    hidden: false,
+                    location: 'nav',
                 },
             },
             {
@@ -42,8 +44,9 @@ export const navRoutes = [
                 component: () => import('../views/DocumentView.vue'),
                 meta: {
                     title: '文档',
-                    hidden: false,
                     icon: 'mdi-users',
+                    hidden: false,
+                    location: 'nav',
                 },
             },
             {
@@ -52,8 +55,9 @@ export const navRoutes = [
                 component: () => import('../views/ExampleView.vue'),
                 meta: {
                     title: '示例',
-                    hidden: false,
                     icon: 'mdi-users',
+                    hidden: false,
+                    location: 'nav',
                 },
             },
             {
@@ -62,8 +66,9 @@ export const navRoutes = [
                 name: 'about',
                 meta: {
                     title: '关于',
-                    hidden: false,
                     icon: 'mdi-users',
+                    hidden: false,
+                    location: 'nav',
                 },
             },
         ],
@@ -75,7 +80,9 @@ export const navRoutes = [
         name: 'acl',
         meta: {
             title: '权限管理',
+            icon: '',
             hidden: false,
+            location: 'nav',
         },
         redirect: '/acl/user',
         children: [
@@ -87,8 +94,9 @@ export const navRoutes = [
                 name: 'user',
                 meta: {
                     title: '用户管理',
-                    hidden: false,
                     icon: 'mdi-account',
+                    hidden: false,
+                    location: 'nav',
                 },
             },
             {
@@ -97,8 +105,9 @@ export const navRoutes = [
                 component: () => import('../views/acl/RoleView.vue'),
                 meta: {
                     title: '角色管理',
-                    hidden: false,
                     icon: 'mdi-account-multiple',
+                    hidden: false,
+                    location: 'nav',
                 },
             },
             {
@@ -107,31 +116,9 @@ export const navRoutes = [
                 component: () => import('../views/acl/PermissionView.vue'),
                 meta: {
                     title: '授权管理',
-                    hidden: false,
                     icon: 'mdi-shield-lock-open-outline',
-                },
-            },
-        ],
-    },
-
-    {
-        path: '/document',
-        component: () => import('../components/layout/index.vue'),
-        meta: {
-            title: '文档',
-            hidden: false,
-            icon: '',
-        },
-        redirect: '/document',
-        children: [
-            {
-                path: '/document',
-                name: 'document',
-                component: () => import('../views/DocumentView.vue'),
-                meta: {
-                    title: '文档',
                     hidden: false,
-                    icon: '',
+                    location: 'nav',
                 },
             },
         ],
@@ -154,6 +141,7 @@ export const sideRoutes = [
         name: 'analysis',
         meta: {
             title: '智能分析',
+            icon: '',
             hidden: false,
         },
         redirect: '/analysis/report',
@@ -166,8 +154,9 @@ export const sideRoutes = [
                 name: 'report',
                 meta: {
                     title: 'Report',
-                    hidden: false,
                     icon: 'mdi-chart-line',
+                    hidden: false,
+                    location: 'side',
                 },
             },
             {
@@ -176,8 +165,9 @@ export const sideRoutes = [
                 component: () => import('../views/acl/RoleView.vue'),
                 meta: {
                     title: '多维分析',
-                    hidden: false,
                     icon: 'mdi-chart-tree',
+                    hidden: false,
+                    location: 'side',
                 },
             },
         ],

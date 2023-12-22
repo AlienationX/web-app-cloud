@@ -8,7 +8,7 @@ const profileStore = useProfileStore();
 </script>
 
 <template>
-    <v-snackbar v-model="settingStore.settings.showLoginMsg" timeout="3000" location="top right" vertical>
+    <v-snackbar v-model="settingStore.settings.showLayoutMsg" timeout="3000" location="top right" vertical>
         <div class="text-subtitle-1 pb-2">Hi {{ profileStore.info.username }}</div>
 
         <p>This is a longer paragraph explaining something</p>

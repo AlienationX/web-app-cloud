@@ -4,12 +4,13 @@ import { reactive, computed } from 'vue';
 export const useSettingStore = defineStore('setting', () => {
     const settings = reactive({
         theme: 'light',
-        isCollapse: false,
         navBarOrder: 0,  // 导航条的布局位置
+        sideBarIsCollapse: false,  // 侧边栏是否展示
+        sideBarOverlay: false,  // 侧边栏是否遮罩效果
+        showLayoutMsg: false,
 
         refresh: false,
         firstLogin: false,
-        showLoginMsg: false,
     });
 
     // 通过theme计算主题切换按钮的图标

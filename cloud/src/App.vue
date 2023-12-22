@@ -13,6 +13,7 @@ onMounted(() => {
 
 <template>
     <v-app :theme="settingStore.settings.theme">
+        <!-- class="bg-grey-lighten-4" 添加背景色，但是会导致theme切换样式不统一 -->
         <router-view></router-view>
     </v-app>
 </template>
