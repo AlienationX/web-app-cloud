@@ -3,6 +3,7 @@ import { reactive } from 'vue';
 import { useSettingStore } from '../../stores/setting';
 
 const settingStore = useSettingStore();
+const settings = settingStore.settings;
 
 const items = reactive([
     { text: 'My Files', icon: 'mdi-folder' },
@@ -17,11 +18,11 @@ const items = reactive([
 
 <template>
     <v-navigation-drawer
-        v-model="settingStore.settings.showSideBar"
-        :temporary="settingStore.settings.sideBarOverlay"
-        color="grey-darken-3"
+        v-model="settings.showSideBar"
+        :temporary="settings.sideBarOverlay"
         expand-on-hover
-        rail
+        :rail="settings.sideBarExpand"
+        color="grey-darken-3"
     >
         <v-list :lines="false" density="compact" nav>
             <v-list-item v-for="(item, i) in items" :key="i" :value="item" color="primary">

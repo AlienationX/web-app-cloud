@@ -1,6 +1,5 @@
 <script setup>
 import Menu from './Menu.vue';
-import Setting from './Setting.vue';
 
 import { ref, reactive, onMounted } from 'vue';
 
@@ -94,7 +93,6 @@ onMounted(() => {
 
         <v-btn size="x-small" :icon="settingStore.switchIcon" @click="switchTheme"> </v-btn>
         <v-btn size="x-small" icon="mdi-cog" @click="settings.showSetting = !settings.showSetting"> </v-btn>
-        <Setting />
 
         <v-menu open-on-hover>
             <template v-slot:activator="{ props }">

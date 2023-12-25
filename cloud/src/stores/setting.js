@@ -9,6 +9,7 @@ export const useSettingStore = defineStore('setting', () => {
         showLayoutMsg: false, // 布局界面的通知组件是否展示
         showSideBar: false, // 侧边栏是否展示
         showSetting: false, // 弹出右侧的设置界面(遮罩层)
+        sideBarExpand: false,  // 侧边栏是否收缩
 
         refresh: false,
         firstLogin: false,
