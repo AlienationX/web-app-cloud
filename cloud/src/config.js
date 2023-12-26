@@ -6,3 +6,4 @@ export default {
 };
 
 // import settings from './settings.js'
+// TODO 成为全局变量
