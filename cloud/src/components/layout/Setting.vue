@@ -69,6 +69,7 @@ const close = () => {
                 </template>
                 <v-list-item-title class="text-subtitle-2 text-medium-emphasis">收缩效果</v-list-item-title>
                 <v-list-item-subtitle class="text-caption"> 侧边栏自动收缩窄型，只显示图标 </v-list-item-subtitle>
+                <!-- 可以使用span包裹文件，并设置calss=text-truncate实现文本过长展示为省略号的效果 -->
             </v-list-item>
         </v-list>
 
@@ -115,5 +116,4 @@ const close = () => {
     </v-navigation-drawer>
 </template>
 
-<style scoped lang="scss">
-</style>
+<style scoped lang="scss"></style>
