@@ -2,6 +2,7 @@
 import Menu from './Menu.vue';
 
 import { ref, reactive, onMounted } from 'vue';
+import config from '../../config.js';
 
 import { useProfileStore } from '../../stores/profile.js';
 import { useSettingStore } from '../../stores/setting';
@@ -69,7 +70,10 @@ onMounted(() => {
 <template>
     <v-app-bar fixed density="compact" :order="settings.navBarOrder">
         <v-app-bar-nav-icon @click="settings.showSideBar = !settings.showSideBar"></v-app-bar-nav-icon>
-        <v-toolbar-title><span class="font-weight-black text-button">CLOUD</span></v-toolbar-title>
+        <v-toolbar-title v-show="settings.navBarOrder === 0 && settings.showSideBar && !sideBarOverlay ? false : true">
+            <span class="text-overline font-weight-black"> {{ config.title }}</span>
+        </v-toolbar-title>
+        <v-spacer></v-spacer>
 
         <!-- <v-btn-toggle v-model="toggle" rounded="0" borderless nav>
             <v-btn

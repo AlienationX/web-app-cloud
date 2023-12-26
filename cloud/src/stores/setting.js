@@ -4,7 +4,7 @@ import { reactive, computed } from 'vue';
 export const useSettingStore = defineStore('setting', () => {
     const settings = reactive({
         theme: 'light',
-        navBarOrder: 0, // 导航条的布局位置
+        sideBarOrder: 0, // 侧边栏位置顺序
         sideBarOverlay: false, // 侧边栏是否遮罩效果
         showLayoutMsg: false, // 布局界面的通知组件是否展示
         showSideBar: false, // 侧边栏是否展示
@@ -13,6 +13,9 @@ export const useSettingStore = defineStore('setting', () => {
 
         refresh: false,
         firstLogin: false,
+
+        // TODO 多个字体大小默认值
+        // TODO 多个primary等颜色的默认值
     });
 
     // 通过theme计算主题切换按钮的图标

@@ -3,64 +3,80 @@ import { useSettingStore } from '../../stores/setting';
 const settingStore = useSettingStore();
 
 const settings = settingStore.settings;
+
+const close = () => {
+    settings.showSetting = false;
+};
 </script>
 
 <template>
-    <!-- <v-overlay v-model="settings.showSetting"></v-overlay> -->
-
     <v-navigation-drawer v-model="settings.showSetting" temporary location="right" order="-2">
-        <v-container class="bg-grey-lighten-2 font-weight-bold"
-            ><span>Settings</span>
-            <v-btn icon="mdi-close" size="small"></v-btn>
-        </v-container>
+        <v-list>
+            <v-list-item class="text-overline" title="Settings" subtitle="设置">
+                <template v-slot:append>
+                    <v-btn icon="mdi-close" size="small" @click="close"></v-btn>
+                </template>
+                <!-- <v-list-item-title class="text-subtitle-1 font-weight-bold ">Settings</v-list-item-title>
+                <v-list-item-subtitle class="text-body-2">设置</v-list-item-subtitle> -->
+            </v-list-item>
+        </v-list>
         <v-divider></v-divider>
-        <v-switch
-            v-model="settings.navBarOrder"
-            true-value="-1"
-            false-value="0"
-            hide-details
-            color="primary"
-            label="侧边栏高度提升"
-        ></v-switch>
-        <v-switch
-            v-model="settings.sideBarOverlay"
-            hide-details
-            inset
-            color="primary"
-            label="侧边栏临时弹出且使用阴影效果"
-        ></v-switch>
-        <v-switch
-            v-model="settings.sideBarExpand"
-            inline
-            inset
-            color="primary"
-            label="侧边栏是否开启收缩效果"
-        ></v-switch>
-        <v-divider></v-divider>
-        <v-list lines="three">
-            <v-list-subheader>User Controls</v-list-subheader>
 
-            <v-list-item>
-                <v-list-item-title>Content filtering</v-list-item-title>
+        <!-- :lines="false" 会换行显示所有内容，lines=one多出的内容会用省略号显示 -->
+        <v-list lines="one" density="compact">
+            <!-- <v-list-subheader>General 常规 / 主题设置 / 导航设置</v-list-subheader> -->
+            <v-list-subheader>
+                <p class="text-subtitle-2">General 常规</p>
+                <p class="text-caption text-disabled">
+                    自定义你的侧边栏
+                    <!-- <v-tooltip activator="parent" location="bottom">
+                        自定义你的文档是明亮还是黑暗的主题，或者两者的结合
+                    </v-tooltip> -->
+                </p>
+            </v-list-subheader>
 
-                <v-list-item-subtitle>
-                    Set the content filtering level to restrict appts that can be downloaded
-                </v-list-item-subtitle>
+            <v-list-item value="navBarOrder">
+                <template v-slot:prepend="{ isActive }">
+                    <v-list-item-action start>
+                        <v-switch
+                            v-model="settings.navBarOrder"
+                            :true-value="0"
+                            :false-value="-1"
+                            hide-details
+                            color="primary"
+                        ></v-switch>
+                    </v-list-item-action>
+                </template>
+                <v-list-item-title class="text-subtitle-2 text-medium-emphasis">侧边栏高度</v-list-item-title>
+                <v-list-item-subtitle class="text-caption">修改侧边栏高度为全屏高度</v-list-item-subtitle>
             </v-list-item>
 
-            <v-list-item>
-                <v-list-item-title>Password</v-list-item-title>
+            <v-list-item value="sideBarOverlay">
+                <template v-slot:prepend="{ isActive }">
+                    <v-list-item-action start>
+                        <v-switch v-model="settings.sideBarOverlay" hide-details color="primary"></v-switch>
+                    </v-list-item-action>
+                </template>
+                <v-list-item-title class="text-subtitle-2 text-medium-emphasis">临时弹出效果</v-list-item-title>
+                <v-list-item-subtitle class="text-caption"> 使用阴影效果临时弹出侧边栏 </v-list-item-subtitle>
+            </v-list-item>
 
-                <v-list-item-subtitle>
-                    Require password for purchase or use password to restrict purchase
-                </v-list-item-subtitle>
+            <v-list-item value="sideBarExpand">
+                <template v-slot:prepend="{ isActive }">
+                    <v-list-item-action start>
+                        <v-switch v-model="settings.sideBarExpand" hide-details color="primary"></v-switch>
+                    </v-list-item-action>
+                </template>
+                <v-list-item-title class="text-subtitle-2 text-medium-emphasis">收缩效果</v-list-item-title>
+                <v-list-item-subtitle class="text-caption"> 侧边栏自动收缩窄型，只显示图标 </v-list-item-subtitle>
             </v-list-item>
         </v-list>
 
         <v-divider></v-divider>
 
-        <v-list lines="three" select-strategy="classic">
-            <v-list-subheader>General</v-list-subheader>
+        <v-list lines="one" density="compact" select-strategy="classic">
+            <v-list-group></v-list-group>
+            <v-list-subheader>User Controls / 用户设置</v-list-subheader>
 
             <v-list-item value="notifications">
                 <template v-slot:prepend="{ isActive }">
@@ -79,36 +95,25 @@ const settings = settingStore.settings;
             <v-list-item value="sound">
                 <template v-slot:prepend="{ isActive }">
                     <v-list-item-action start>
-                        <v-checkbox-btn :model-value="isActive"></v-checkbox-btn>
+                        <v-switch v-model="settings.sideBarOverlay" hide-details color="primary"></v-switch>
                     </v-list-item-action>
                 </template>
-
                 <v-list-item-title>Sound</v-list-item-title>
-
                 <v-list-item-subtitle> Auto-update apps at any time. Data charges may apply </v-list-item-subtitle>
             </v-list-item>
 
-            <v-list-item value="widgets">
+            <v-list-item value="widget">
                 <template v-slot:prepend="{ isActive }">
                     <v-list-item-action start>
-                        <v-checkbox-btn :model-value="isActive"></v-checkbox-btn>
+                        <v-switch v-model="settings.sideBarExpand" hide-details color="primary"></v-switch>
                     </v-list-item-action>
                 </template>
-
-                <v-list-item-title>Auto-add widgets</v-list-item-title>
-
-                <v-list-item-subtitle>
-                    Automatically add home screen widgets when downloads complete
-                </v-list-item-subtitle>
+                <v-list-item-title>Sound</v-list-item-title>
+                <v-list-item-subtitle> Auto-update apps at any time. Data charges may apply </v-list-item-subtitle>
             </v-list-item>
         </v-list>
     </v-navigation-drawer>
 </template>
 
 <style scoped lang="scss">
-.setting {
-    width: 600px;
-    height: 100vh;
-    background-color: green;
-}
 </style>
