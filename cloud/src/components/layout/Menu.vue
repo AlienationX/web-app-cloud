@@ -7,6 +7,7 @@ const props = defineProps(['route']);
 
 const menuDownIcon = ref('mdi-chevron-down'); // mdi-chevron-down / mdi-menu-down
 const levelOnePath = ref(props.route.path);
+const open = ref(true);
 
 onMounted(() => {
     if (!props.route.children || props.route.children.length === 1) {
@@ -20,7 +21,8 @@ onMounted(() => {
 </script>
 
 <template>
-    <v-menu open-on-hover>
+    <!-- open-on-click解决手机版触屏无法hover的问题 -->
+    <v-menu open-on-hover open-on-click>
         <template v-slot:activator="{ props }">
             <v-btn v-bind="props" :append-icon="menuDownIcon" size="small" router :to="levelOnePath">
                 {{ route.meta.title }}

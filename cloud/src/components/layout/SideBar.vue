@@ -21,11 +21,12 @@ const items = reactive([
     <v-navigation-drawer
         v-model="settings.showSideBar"
         :temporary="settings.sideBarOverlay"
-        expand-on-hover
         :rail="settings.sideBarExpand"
+        :order="settings.sideBarOrder"
+        expand-on-hover
         color="grey-darken-3"
     >
-        <v-list v-if="settings.navBarOrder === 0 ? true : false">
+        <v-list v-if="settings.sideBarOrder === 0 ? true : false">
             <v-list-item prepend-avatar="https://randomuser.me/api/portraits/women/85.jpg">
                 <template v-slot:append>
                     <v-btn size="small" variant="text" icon="mdi-menu-down"></v-btn>

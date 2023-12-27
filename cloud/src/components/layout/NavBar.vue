@@ -68,11 +68,12 @@ onMounted(() => {
 </script>
 
 <template>
-    <v-app-bar fixed density="compact" :order="settings.navBarOrder">
+    <v-app-bar fixed :density="settings.navBarHeight" order="0">
         <v-app-bar-nav-icon @click="settings.showSideBar = !settings.showSideBar"></v-app-bar-nav-icon>
-        <v-toolbar-title v-show="settings.navBarOrder === 0 && settings.showSideBar && !sideBarOverlay ? false : true">
+        <v-toolbar-title v-show="settings.sideBarOrder === 0 && settings.showSideBar && !settings.sideBarOverlay ? false : true">
             <span class="text-overline font-weight-black"> {{ config.title }}</span>
         </v-toolbar-title>
+
         <v-spacer></v-spacer>
 
         <!-- <v-btn-toggle v-model="toggle" rounded="0" borderless nav>

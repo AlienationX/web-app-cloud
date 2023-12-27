@@ -1,16 +1,43 @@
 <script setup>
+import { ref, reactive, onMounted } from 'vue';
 import { useSettingStore } from '../../stores/setting';
 const settingStore = useSettingStore();
 
 const settings = settingStore.settings;
 
+// const tickValue = ref(0);
+const tickLabels = reactive({
+    0: 'Small',
+    1: 'Medium',
+    2: 'Large',
+});
+
 const close = () => {
     settings.showSetting = false;
 };
+
+const move = (modelValue) => {
+    // if (modelValue === 0){}
+    // settings.density = 'compact';
+    // if (modelValue === 1);
+    // settings.density = 'comfortable';
+    // if (modelValue === 2);
+    // settings.density = 'default';
+    console.log('slider move:', modelValue, settings.density);
+};
+
+// onMounted(() => {
+//     const m = {
+//         compact: 0,
+//         comfortable: 1,
+//         default: 2,
+//     };
+//     tickValue.value = m[settings.density];
+// });
 </script>
 
 <template>
-    <v-navigation-drawer v-model="settings.showSetting" temporary location="right" order="-2">
+    <v-navigation-drawer v-model="settings.showSetting" temporary location="right" width="360" order="-2">
         <v-list>
             <v-list-item class="text-overline" title="Settings" subtitle="设置">
                 <template v-slot:append>
@@ -28,20 +55,20 @@ const close = () => {
             <v-list-subheader>
                 <p class="text-subtitle-2">General 常规</p>
                 <p class="text-caption text-disabled">
-                    自定义你的侧边栏
+                    自定义你的侧边栏和导航栏
                     <!-- <v-tooltip activator="parent" location="bottom">
                         自定义你的文档是明亮还是黑暗的主题，或者两者的结合
                     </v-tooltip> -->
                 </p>
             </v-list-subheader>
 
-            <v-list-item value="navBarOrder">
+            <v-list-item value="sideBarOrder">
                 <template v-slot:prepend="{ isActive }">
                     <v-list-item-action start>
                         <v-switch
-                            v-model="settings.navBarOrder"
+                            v-model="settings.sideBarOrder"
                             :true-value="0"
-                            :false-value="-1"
+                            :false-value="1"
                             hide-details
                             color="primary"
                         ></v-switch>
@@ -71,13 +98,66 @@ const close = () => {
                 <v-list-item-subtitle class="text-caption"> 侧边栏自动收缩窄型，只显示图标 </v-list-item-subtitle>
                 <!-- 可以使用span包裹文件，并设置calss=text-truncate实现文本过长展示为省略号的效果 -->
             </v-list-item>
+
+            <v-list-item value="navBarHeight">
+                <template v-slot:prepend="{ isActive }">
+                    <v-list-item-action start>
+                        <v-switch
+                            v-model="settings.navBarHeight"
+                            true-value="default"
+                            false-value="compact"
+                            hide-details
+                            color="primary"
+                        ></v-switch>
+                    </v-list-item-action>
+                </template>
+                <v-list-item-title class="text-subtitle-2 text-medium-emphasis">导航栏高度</v-list-item-title>
+                <v-list-item-subtitle class="text-caption"> 增加导航栏的高度 </v-list-item-subtitle>
+                <!-- 可以使用span包裹文件，并设置calss=text-truncate实现文本过长展示为省略号的效果 -->
+            </v-list-item>
+        </v-list>
+
+        <v-divider></v-divider>
+
+        <v-list lines="three" select-strategy="classic">
+            <v-list-subheader>User Controls / 用户设置</v-list-subheader>
+
+            <v-list-item value="silder">
+                <!-- <template v-slot="{ isActive }"> -->
+                <v-slider
+                    :ticks="tickLabels"
+                    :max="2"
+                    step="1"
+                    show-ticks="always"
+                    tick-size="4"
+                    track-size="4"
+                    color="primary"
+                    @update:modelValue="move"
+                >
+                    <template v-slot:label>
+                        <span class="text-subtitle-2 text-medium-emphasis">显示大小</span>
+                    </template>
+                    <template v-slot:tick-label="data">
+                        <!-- 
+                            data = {
+                                tick: { value: number; position: number; label: string }
+                                index: number
+                            } 
+                        -->
+                        <span class="text-caption text-medium-emphasis text-uppercase"> {{ data.tick.label }}</span>
+                    </template>
+                </v-slider>
+                <!-- :model-value="tickValue" -->
+                <!-- tick-size 点的粗细 -->
+                <!-- rack-size 线的粗细 -->
+                <!-- </template> -->
+            </v-list-item>
         </v-list>
 
         <v-divider></v-divider>
 
         <v-list lines="one" density="compact" select-strategy="classic">
-            <v-list-group></v-list-group>
-            <v-list-subheader>User Controls / 用户设置</v-list-subheader>
+            <v-list-subheader>Others / 其他设置</v-list-subheader>
 
             <v-list-item value="notifications">
                 <template v-slot:prepend="{ isActive }">
