@@ -1,11 +1,10 @@
 <script setup>
-import { ref, reactive, onMounted } from 'vue';
+import { ref, reactive, computed, onMounted } from 'vue';
 import { useSettingStore } from '../../stores/setting';
 const settingStore = useSettingStore();
 
 const settings = settingStore.settings;
 
-// const tickValue = ref(0);
 const tickLabels = reactive({
     0: 'Small',
     1: 'Medium',
@@ -16,24 +15,28 @@ const close = () => {
     settings.showSetting = false;
 };
 
+// 定义的临时转换数据
+const m = {
+    compact: 0,
+    comfortable: 1,
+    default: 2,
+};
+
+// slider移动触发的事件
 const move = (modelValue) => {
-    // if (modelValue === 0){}
-    // settings.density = 'compact';
-    // if (modelValue === 1);
-    // settings.density = 'comfortable';
-    // if (modelValue === 2);
-    // settings.density = 'default';
+    for (let key in m) {
+        if (m[key] === modelValue) {
+            settings.density = key;
+            break;
+        }
+    }
     console.log('slider move:', modelValue, settings.density);
 };
 
-// onMounted(() => {
-//     const m = {
-//         compact: 0,
-//         comfortable: 1,
-//         default: 2,
-//     };
-//     tickValue.value = m[settings.density];
-// });
+// 计算属性
+const tickValue = computed(() => {
+    return m[settings.density];
+});
 </script>
 
 <template>
@@ -132,6 +135,7 @@ const move = (modelValue) => {
                     tick-size="4"
                     track-size="4"
                     color="primary"
+                    :model-value="tickValue"
                     @update:modelValue="move"
                 >
                     <template v-slot:label>

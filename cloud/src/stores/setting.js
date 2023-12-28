@@ -15,7 +15,7 @@ export const useSettingStore = defineStore('setting', () => {
         showSideBar: false, // 侧边栏是否展示
         showSetting: false, // 弹出右侧的设置界面(遮罩层)
 
-        density: 'compact', // 显示大小 defalut/comfortable/compact
+        density: 'compact', // 显示大小 compact/comfortable/defalut
 
         refresh: false,
         firstLogin: false,

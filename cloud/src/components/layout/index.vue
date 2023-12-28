@@ -14,7 +14,8 @@ import { ref, onMounted } from 'vue';
 </script>
 
 <template>
-    <v-layout>
+    <!-- TODO 如果使用v-layout，则drawer无法固定，会随着内容伸长和向下移动。使用v-app就不再需要v-layout? -->
+    <!-- <v-layout> -->
         <Notification />
         <Setting />
 
@@ -23,7 +24,7 @@ import { ref, onMounted } from 'vue';
         <v-main>
             <Main></Main>
         </v-main>
-    </v-layout>
+    <!-- </v-layout> -->
 </template>
 
 <style scoped lang="scss"></style>
