@@ -9,6 +9,8 @@ const props = defineProps(['route']);
 
 const menuDownIcon = ref('mdi-chevron-down'); // mdi-chevron-down / mdi-menu-down
 const levelOnePath = ref(props.route.path);
+const clickMode = ref(true);
+const hoverMode = ref(true);
 
 onMounted(() => {
     if (!props.route.children || props.route.children.length === 1) {
@@ -19,12 +21,14 @@ onMounted(() => {
         levelOnePath.value = '';
     }
     console.log('mobile', mobile.value);
+    clickMode.value = mobile.value;
+    hoverMode.value = !mobile.value;
 });
 </script>
 
 <template>
     <!-- open-on-click解决手机版触屏无法hover的问题 -->
-    <v-menu :open-on-hover="!mobile.value" :open-on-click="mobile.value">
+    <v-menu :open-on-hover="hoverMode" :open-on-click="clickMode">
         <template v-slot:activator="{ props }">
             <v-btn
                 class="d-none d-sm-flex"
