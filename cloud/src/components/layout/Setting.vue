@@ -180,7 +180,7 @@ const tickValue = computed(() => {
             <v-list-item value="sound">
                 <template v-slot:prepend="{ isActive }">
                     <v-list-item-action start>
-                        <v-switch v-model="settings.sideBarOverlay" hide-details color="primary"></v-switch>
+                        <v-switch hide-details color="primary"></v-switch>
                     </v-list-item-action>
                 </template>
                 <v-list-item-title>Sound</v-list-item-title>
@@ -190,10 +190,10 @@ const tickValue = computed(() => {
             <v-list-item value="widget">
                 <template v-slot:prepend="{ isActive }">
                     <v-list-item-action start>
-                        <v-switch v-model="settings.sideBarExpand" hide-details color="primary"></v-switch>
+                        <v-switch hide-details color="primary"></v-switch>
                     </v-list-item-action>
                 </template>
-                <v-list-item-title>Sound</v-list-item-title>
+                <v-list-item-title>Widget</v-list-item-title>
                 <v-list-item-subtitle> Auto-update apps at any time. Data charges may apply </v-list-item-subtitle>
             </v-list-item>
         </v-list>

@@ -1,5 +1,6 @@
 <script setup>
 import { ref, reactive } from 'vue';
+import { VSnackbar } from 'vuetify/components/VSnackbar';
 
 import { useProfileStore } from '../stores/profile.js';
 import { useSettingStore } from '../stores/setting.js';
@@ -15,7 +16,7 @@ const form = reactive({
     password: 'admin',
 });
 
-const loading = ref(false)
+const loading = ref(false);
 
 const visible = reactive({
     password: false,
@@ -37,6 +38,13 @@ const login = () => {
     } else {
         message.value = '用户名和密码错误，请重新输入!';
         visible.snackbar = true;
+        console.log(VSnackbar); // TODO 实现无限弹出通知框
+        // VSnackbar({
+        //     location: "top right",
+        //     timeout: 3000,
+        //     color: "success",
+        //     text: "username or password error."
+        // })
     }
     loading.value = false;
     // setTimeout(() => (loading.value = false), 3000)
@@ -54,19 +62,36 @@ const login = () => {
         <v-card class="mx-auto pa-12 pb-8" elevation="8" width="448">
             <div class="text-subtitle-1 text-medium-emphasis">Account</div>
 
-            <v-text-field density="compact" placeholder="Email address" prepend-inner-icon="mdi-email-outline"
-                variant="outlined" v-model="form.username"></v-text-field>
+            <v-text-field
+                density="compact"
+                placeholder="Email address"
+                prepend-inner-icon="mdi-email-outline"
+                variant="outlined"
+                v-model="form.username"
+            ></v-text-field>
 
             <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">
                 Password
-                <a class="text-caption text-decoration-none text-blue" href="#" rel="noopener noreferrer" target="_blank">
-                    Forgot login password?</a>
+                <a
+                    class="text-caption text-decoration-none text-blue"
+                    href="#"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                >
+                    Forgot login password?</a
+                >
             </div>
 
-            <v-text-field :append-inner-icon="visible.password ? 'mdi-eye-off' : 'mdi-eye'"
-                :type="visible.password ? 'text' : 'password'" density="compact" placeholder="Enter your password"
-                prepend-inner-icon="mdi-lock-outline" variant="outlined"
-                @click:append-inner="visible.password = !visible.password" v-model="form.password"></v-text-field>
+            <v-text-field
+                :append-inner-icon="visible.password ? 'mdi-eye-off' : 'mdi-eye'"
+                :type="visible.password ? 'text' : 'password'"
+                density="compact"
+                placeholder="Enter your password"
+                prepend-inner-icon="mdi-lock-outline"
+                variant="outlined"
+                @click:append-inner="visible.password = !visible.password"
+                v-model="form.password"
+            ></v-text-field>
 
             <!-- <v-card
           class="mb-12"
@@ -81,10 +106,16 @@ const login = () => {
           </v-card-text>
         </v-card> -->
 
-            <v-alert ref="alert" closable density="compact" :text="message"
-                class="text-medium-emphasis text-caption mb-8"></v-alert>
+            <v-alert
+                ref="alert"
+                closable
+                density="compact"
+                :text="message"
+                class="text-medium-emphasis text-caption mb-8"
+            ></v-alert>
 
-            <v-btn block class="mb-8" color="blue" size="large" variant="tonal" @click="login" :loading="loading"> Log In
+            <v-btn block class="mb-8" color="blue" size="large" variant="tonal" @click="login" :loading="loading">
+                Log In
             </v-btn>
 
             <v-snackbar v-model="visible.snackbar" :timeout="visible.timeout" location="top" vertical>

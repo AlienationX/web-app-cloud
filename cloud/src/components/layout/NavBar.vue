@@ -96,12 +96,12 @@ onMounted(() => {
         <!-- inset代表不占全部  -->
         <v-divider class="pl-5" inset vertical></v-divider>
 
-        <v-btn size="x-small" :icon="settingStore.switchIcon" @click="switchTheme"> </v-btn>
-        <v-btn size="x-small" icon="mdi-cog" @click="settings.showSetting = !settings.showSetting"> </v-btn>
+        <v-btn class="d-none d-sm-flex" size="x-small" :icon="settingStore.switchIcon" @click="switchTheme"> </v-btn>
+        <v-btn class="d-none d-sm-flex" size="x-small" icon="mdi-cog" @click="settings.showSetting = !settings.showSetting"> </v-btn>
 
-        <v-menu open-on-hover>
+        <v-menu class="" open-on-hover>
             <template v-slot:activator="{ props }">
-                <v-btn color="primary" v-bind="props" prepend-icon="mdi-account-circle">
+                <v-btn class="d-none d-sm-flex" color="primary" v-bind="props" prepend-icon="mdi-account-circle">
                     <span class="font-weight-bold text-overline">Profile</span>
                 </v-btn>
             </template>

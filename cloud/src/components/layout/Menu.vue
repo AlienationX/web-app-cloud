@@ -24,7 +24,7 @@ onMounted(() => {
     <!-- open-on-click解决手机版触屏无法hover的问题 -->
     <v-menu open-on-hover open-on-click>
         <template v-slot:activator="{ props }">
-            <v-btn v-bind="props" :append-icon="menuDownIcon" size="small" router :to="levelOnePath">
+            <v-btn class="d-none d-sm-flex" v-bind="props" :append-icon="menuDownIcon" size="small" router :to="levelOnePath">
                 {{ route.meta.title }}
             </v-btn>
         </template>

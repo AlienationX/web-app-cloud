@@ -6,7 +6,7 @@ import config from '../../config.js';
 const settingStore = useSettingStore();
 const settings = settingStore.settings;
 
-const items = reactive([
+const sideBarItems = reactive([
     { text: 'My Files', icon: 'mdi-folder' },
     { text: 'Shared with me', icon: 'mdi-account-multiple' },
     { text: 'Starred', icon: 'mdi-star' },
@@ -14,6 +14,11 @@ const items = reactive([
     { text: 'Offline', icon: 'mdi-check-circle' },
     { text: 'Uploads', icon: 'mdi-upload' },
     { text: 'Backups', icon: 'mdi-cloud-upload' },
+]);
+
+const bottomItems = reactive([
+    { text: 'Settings', icon: 'mdi-cog' },
+    { text: 'Sign Out', icon: 'mdi-export' },
 ]);
 </script>
 
@@ -39,7 +44,7 @@ const items = reactive([
         </v-list>
         <v-divider></v-divider>
         <v-list :lines="false" density="compact" nav>
-            <v-list-item v-for="(item, i) in items" :key="i" :value="item" color="primary">
+            <v-list-item v-for="(item, i) in sideBarItems" :key="i" :value="item" color="primary">
                 <template v-slot:prepend>
                     <v-icon :icon="item.icon"></v-icon>
                 </template>
@@ -51,9 +56,9 @@ const items = reactive([
         <template v-slot:append>
             <!-- <v-btn size="x-small" :icon="settingStore.switchIcon" @click="switchTheme"> </v-btn>
             <v-btn size="x-small" icon="mdi-cog" @click="settings.showSetting = !settings.showSetting"> </v-btn> -->
-            <v-divider></v-divider>
+            <v-divider class="d-flex d-sm-none"></v-divider>
             <v-list :lines="false" density="compact" nav>
-                <v-list-item v-for="(item, i) in items" :key="i" :value="item" color="primary">
+                <v-list-item v-for="(item, i) in bottomItems" :key="i" :value="item" color="primary" class="d-flex d-sm-none">
                     <template v-slot:prepend>
                         <v-icon :icon="item.icon"></v-icon>
                     </template>
