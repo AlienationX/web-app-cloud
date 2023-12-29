@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import { reactive, computed } from 'vue';
+import { useDisplay } from 'vuetify';
 
 export const useSettingStore = defineStore('setting', () => {
     const settings = reactive({
@@ -26,8 +27,6 @@ export const useSettingStore = defineStore('setting', () => {
 
     // 通过theme计算主题切换按钮的图标
     const switchIcon = computed(() => (settings.theme === 'light' ? 'mdi-weather-night' : 'mdi-weather-sunny'));
-
-    const getSettings = () => {};
 
     return { settings, switchIcon };
 });
