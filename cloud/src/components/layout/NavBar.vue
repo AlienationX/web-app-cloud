@@ -5,7 +5,7 @@ import { ref, reactive, onMounted } from 'vue';
 import config from '../../config.js';
 
 import { useProfileStore } from '../../stores/profile.js';
-import { useSettingStore } from '../../stores/setting';
+import { useSettingStore } from '../../stores/setting.js';
 
 import { useRouter, useRoute } from 'vue-router';
 const $router = useRouter();

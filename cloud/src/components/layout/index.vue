@@ -1,6 +1,7 @@
 <script setup>
 import NavBar from './NavBar.vue';
 import SideBar from './SideBar.vue';
+import BottomBar from './BottomBar.vue';
 import Main from './Main.vue';
 import Notification from './Notification.vue';
 import Setting from './Setting.vue';
@@ -24,6 +25,7 @@ import { ref, onMounted } from 'vue';
         <v-main>
             <Main></Main>
         </v-main>
+        <BottomBar />
     <!-- </v-layout> -->
 </template>
 

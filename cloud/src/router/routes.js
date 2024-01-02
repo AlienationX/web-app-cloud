@@ -1,6 +1,6 @@
 // TODO 接口请求返回的数据
 
-export const navRoutes = [
+export const publicRoutes = [
     {
         path: '/login',
         // route level code-splitting
@@ -33,7 +33,7 @@ export const navRoutes = [
                 name: 'home',
                 meta: {
                     title: '首页',
-                    icon: 'mdi-users',
+                    icon: 'mdi-home',
                     hidden: false,
                     location: 'nav',
                 },
@@ -44,7 +44,7 @@ export const navRoutes = [
                 component: () => import('../views/DocumentView.vue'),
                 meta: {
                     title: '文档',
-                    icon: 'mdi-users',
+                    icon: 'mdi-file-document-outline',
                     hidden: false,
                     location: 'nav',
                 },
@@ -55,7 +55,7 @@ export const navRoutes = [
                 component: () => import('../views/ExampleView.vue'),
                 meta: {
                     title: '示例',
-                    icon: 'mdi-users',
+                    icon: 'mdi-list-status',
                     hidden: false,
                     location: 'nav',
                 },
@@ -66,7 +66,7 @@ export const navRoutes = [
                 name: 'about',
                 meta: {
                     title: '关于',
-                    icon: 'mdi-users',
+                    icon: 'mdi-information-variant',
                     hidden: false,
                     location: 'nav',
                 },
@@ -134,7 +134,7 @@ export const navRoutes = [
     },
 ];
 
-export const sideRoutes = [
+export const privateRoutes = [
     {
         path: '/analysis',
         component: () => import('../components/layout/index.vue'),
@@ -176,4 +176,4 @@ export const sideRoutes = [
 
 // 拆分成多个routes，分默认路由和接口返回的路由，最后再组合
 // menuRoutes = [...constantRoute, ...userAsyncRoute, anyRoute]
-export const routes = [...navRoutes, ...sideRoutes];
+export const routes = [...publicRoutes, ...privateRoutes];
