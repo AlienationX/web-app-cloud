@@ -55,7 +55,7 @@ export const publicRoutes = [
                 component: () => import('../views/ExampleView.vue'),
                 meta: {
                     title: '示例',
-                    icon: 'mdi-list-status',
+                    icon: 'mdi-view-grid-plus',
                     hidden: false,
                     location: 'nav',
                 },

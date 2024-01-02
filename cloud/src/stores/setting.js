@@ -14,7 +14,8 @@ export const useSettingStore = defineStore('setting', () => {
 
         showLayoutMsg: false, // 布局界面的通知组件是否展示
         showSideBar: false, // 侧边栏是否展示
-        showSetting: false, // 弹出右侧的设置界面(遮罩层)
+        showNavBarSetting: false, // 弹出右侧的设置界面(遮罩层)
+        showSideBarSetting: false, // 弹出侧边栏的设置界面(全屏对话框)
 
         density: 'compact', // 显示大小 compact/comfortable/defalut
 

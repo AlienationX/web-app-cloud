@@ -94,10 +94,12 @@ onMounted(() => {
         </template>
 
         <!-- inset代表不占全部  -->
-        <v-divider class="pl-5" inset vertical></v-divider>
+        <v-divider class="d-none d-sm-flex pl-2" inset vertical></v-divider>
 
-        <v-btn class="d-none d-sm-flex" size="x-small" :icon="settingStore.switchIcon" @click="switchTheme"> </v-btn>
-        <v-btn class="d-none d-sm-flex" size="x-small" icon="mdi-cog" @click="settings.showSetting = !settings.showSetting"> </v-btn>
+        <v-btn size="small" icon="mdi-refresh"> </v-btn>
+        <v-btn class="d-none d-sm-flex" size="small" icon="mdi-fullscreen"> </v-btn>
+        <v-btn class="d-none d-sm-flex" size="small" :icon="settingStore.switchIcon" @click="switchTheme"> </v-btn>
+        <v-btn class="d-none d-sm-flex" size="small" icon="mdi-cog" @click="settings.showNavBarSetting = true"> </v-btn>
 
         <v-menu class="" open-on-hover>
             <template v-slot:activator="{ props }">

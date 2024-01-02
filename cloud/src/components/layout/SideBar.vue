@@ -1,4 +1,6 @@
 <script setup>
+import Setting from '../Setting.vue';
+
 import { reactive } from 'vue';
 import { useSettingStore } from '../../stores/setting';
 import config from '../../config.js';
@@ -31,6 +33,7 @@ const bottomItems = reactive([
         expand-on-hover
         color="grey-darken-3"
     >
+        <!-- Avatar -->
         <v-list v-if="settings.sideBarOrder === 0 ? true : false">
             <v-list-item prepend-avatar="https://randomuser.me/api/portraits/women/85.jpg">
                 <template v-slot:append>
@@ -42,13 +45,15 @@ const bottomItems = reactive([
                 </v-list-item-subtitle>
             </v-list-item>
         </v-list>
+
         <v-divider></v-divider>
+
+        <!-- Menu -->
         <v-list :lines="false" density="compact" nav>
             <v-list-item v-for="(item, i) in sideBarItems" :key="i" :value="item" color="primary">
                 <template v-slot:prepend>
                     <v-icon :icon="item.icon"></v-icon>
                 </template>
-
                 <v-list-item-title v-text="item.text"></v-list-item-title>
             </v-list-item>
         </v-list>
@@ -58,11 +63,31 @@ const bottomItems = reactive([
             <v-btn size="x-small" icon="mdi-cog" @click="settings.showSetting = !settings.showSetting"> </v-btn> -->
             <v-divider class="d-flex d-sm-none"></v-divider>
             <v-list :lines="false" density="compact" nav>
-                <v-list-item v-for="(item, i) in bottomItems" :key="i" :value="item" color="primary" class="d-flex d-sm-none">
+                <!-- Setting -->
+                <v-list-item class="d-flex d-sm-none" color="primary" value="settings">
                     <template v-slot:prepend>
-                        <v-icon :icon="item.icon"></v-icon>
+                        <v-icon icon="mdi-cog"></v-icon>
                     </template>
-                    <v-list-item-title v-text="item.text"></v-list-item-title>
+
+                    <v-dialog
+                        v-model="settings.showSideBarSetting"
+                        fullscreen
+                        :scrim="false"
+                        transition="dialog-bottom-transition"
+                    >
+                        <template v-slot:activator="{ props }">
+                            <v-list-item-title v-bind="props">Settings</v-list-item-title>
+                        </template>
+                        <Setting />
+                    </v-dialog>
+                </v-list-item>
+
+                <!-- Exit -->
+                <v-list-item class="d-flex d-sm-none" color="primary" value="exit">
+                    <template v-slot:prepend>
+                        <v-icon icon="mdi-export"></v-icon>
+                    </template>
+                    <v-list-item-title>Sign Out</v-list-item-title>
                 </v-list-item>
             </v-list>
         </template>

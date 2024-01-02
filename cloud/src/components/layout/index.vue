@@ -4,7 +4,7 @@ import SideBar from './SideBar.vue';
 import BottomBar from './BottomBar.vue';
 import Main from './Main.vue';
 import Notification from './Notification.vue';
-import Setting from './Setting.vue';
+import NavbarSetting from './NavBarSetting.vue';
 
 import { ref, onMounted } from 'vue';
 
@@ -18,7 +18,7 @@ import { ref, onMounted } from 'vue';
     <!-- TODO 如果使用v-layout，则drawer无法固定，会随着内容伸长和向下移动。使用v-app就不再需要v-layout? -->
     <!-- <v-layout> -->
         <Notification />
-        <Setting />
+        <NavbarSetting />
 
         <SideBar />
         <NavBar />
