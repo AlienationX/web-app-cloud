@@ -15,7 +15,9 @@ export default {
 // 超大号     (Extra large)          xl      分辨率 1080p 到 1440p 的桌面电脑    1920px > < 2560px
 // 超大号     (Extra extra large)    xxl     4K 和超宽屏幕                       > 2560px
 
-// mobile(xs)
+// mobile(移动设备)= phone + tablet
+
+// phone(xs)
 // 仅在 xs 大小时隐藏    .d-none .d-sm-flex
 // 仅在 xs 大小时可见    .d-flex .d-sm-none
 
