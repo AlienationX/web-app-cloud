@@ -69,9 +69,11 @@ const bottomItems = reactive([
                         <v-icon icon="mdi-cog"></v-icon>
                     </template>
 
+                    <!-- TODO  scrollable 无法滚动... -->
                     <v-dialog
                         v-model="settings.showSideBarSetting"
                         fullscreen
+                        scrollable
                         :scrim="false"
                         transition="dialog-bottom-transition"
                     >
