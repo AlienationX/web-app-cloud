@@ -20,7 +20,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <v-bottom-navigation grow class="d-flex d-sm-none" color="error" order="3">
+    <v-bottom-navigation grow class="d-flex d-sm-none" color="primary" order="3">
         <v-btn
             v-for="route in bottomRoutes"
             :key="route.path"
