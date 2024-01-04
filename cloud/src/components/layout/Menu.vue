@@ -1,7 +1,8 @@
 <script setup>
 import { ref, onMounted } from 'vue';
-import { useDisplay } from 'vuetify';
-const { platform, mobile, name, width, height } = useDisplay();
+import { useSettingStore } from '../../stores/setting';
+
+const settingStore = useSettingStore();
 
 // defineProps(['route']);
 // 不定义变量接收，可以直接在template中使用。如果在script中使用必须定义接收变量，但是template还是可以不用写props前缀
@@ -9,8 +10,6 @@ const props = defineProps(['route']);
 
 const menuDownIcon = ref('mdi-chevron-down'); // mdi-chevron-down / mdi-menu-down
 const levelOnePath = ref(props.route.path);
-const clickMode = ref(true);
-const hoverMode = ref(true);
 
 onMounted(() => {
     if (!props.route.children || props.route.children.length === 1) {
@@ -20,15 +19,12 @@ onMounted(() => {
         // 设置有下拉箭头的菜单的一级路由点击无效
         levelOnePath.value = '';
     }
-    console.log('mobile', mobile.value);
-    clickMode.value = mobile.value;
-    hoverMode.value = !mobile.value;
 });
 </script>
 
 <template>
     <!-- open-on-click解决手机版触屏无法hover的问题 -->
-    <v-menu :open-on-hover="hoverMode" :open-on-click="clickMode">
+    <v-menu :open-on-hover="!settingStore.isMobile" :open-on-click="settingStore.isMobile">
         <template v-slot:activator="{ props }">
             <v-btn
                 class="d-none d-sm-flex"

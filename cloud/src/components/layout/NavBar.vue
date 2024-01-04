@@ -3,6 +3,7 @@ import Menu from './Menu.vue';
 
 import { ref, reactive, onMounted } from 'vue';
 import config from '../../config.js';
+import { fullScreen } from '../../common/utils.js';
 
 import { useProfileStore } from '../../stores/profile.js';
 import { useSettingStore } from '../../stores/setting.js';
@@ -97,11 +98,11 @@ onMounted(() => {
         <v-divider class="d-none d-sm-flex pl-2" inset vertical></v-divider>
 
         <v-btn size="small" icon="mdi-refresh"> </v-btn>
-        <v-btn class="d-none d-sm-flex" size="small" icon="mdi-fullscreen"> </v-btn>
+        <v-btn class="d-none d-sm-flex" size="small" icon="mdi-fullscreen" @click="fullScreen"> </v-btn>
         <v-btn class="d-none d-sm-flex" size="small" :icon="settingStore.switchIcon" @click="switchTheme"> </v-btn>
         <v-btn class="d-none d-sm-flex" size="small" icon="mdi-cog" @click="settings.showNavBarSetting = true"> </v-btn>
 
-        <v-menu class="" open-on-hover>
+        <v-menu :open-on-hover="!settingStore.isMobile" :open-on-click="settingStore.isMobile">
             <template v-slot:activator="{ props }">
                 <v-btn class="d-none d-sm-flex" color="primary" v-bind="props" prepend-icon="mdi-account-circle">
                     <span class="font-weight-bold text-overline">Profile</span>

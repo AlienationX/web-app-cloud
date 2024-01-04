@@ -3,6 +3,8 @@ import { reactive, computed } from 'vue';
 import { useDisplay } from 'vuetify';
 
 export const useSettingStore = defineStore('setting', () => {
+    const { platform, mobile, name, width, height } = useDisplay();
+
     const settings = reactive({
         theme: 'light',
 
@@ -29,5 +31,10 @@ export const useSettingStore = defineStore('setting', () => {
     // 通过theme计算主题切换按钮的图标
     const switchIcon = computed(() => (settings.theme === 'light' ? 'mdi-weather-night' : 'mdi-weather-sunny'));
 
-    return { settings, switchIcon };
+    // 封装移动端的逻辑判断
+    const isMobile = computed(() => {
+        return mobile.value;
+    });
+
+    return { settings, switchIcon, isMobile };
 });

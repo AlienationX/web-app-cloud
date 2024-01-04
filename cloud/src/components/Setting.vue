@@ -42,7 +42,6 @@ const tickValue = computed(() => {
 </script>
 
 <template>
-    <!-- <v-container class="fluid"> -->
     <div>
         <v-list>
             <v-list-item class="text-overline" title="Settings" subtitle="设置">
@@ -55,7 +54,7 @@ const tickValue = computed(() => {
         </v-list>
         <v-divider></v-divider>
 
-        <!-- :lines="false" 会换行显示所有内容，lines=one多出的内容会用省略号显示 -->
+        <!-- :lines="false" 会换行显示所有内容，lines=one多出的内容会用省略号显示 -->        
         <v-list lines="one" density="compact">
             <!-- <v-list-subheader>General 常规 / 主题设置 / 导航设置</v-list-subheader> -->
             <v-list-subheader>
@@ -190,7 +189,7 @@ const tickValue = computed(() => {
                 <v-list-item-subtitle> Auto-update apps at any time. Data charges may apply </v-list-item-subtitle>
             </v-list-item>
 
-            <v-list-item value="widget">
+            <v-list-item value="widget" v-for="n in 5" :key="n" :value="n">
                 <template v-slot:prepend="{ isActive }">
                     <v-list-item-action start>
                         <v-switch hide-details color="primary"></v-switch>
@@ -200,8 +199,8 @@ const tickValue = computed(() => {
                 <v-list-item-subtitle> Auto-update apps at any time. Data charges may apply </v-list-item-subtitle>
             </v-list-item>
         </v-list>
+
     </div>
-    <!-- </v-container> -->
 </template>
 
 <style scoped lang="scss"></style>

@@ -4,7 +4,7 @@ export function fullScreen() {
     let full = document.fullscreenElement;
     if (full){
         // 退出全屏
-        document.exitFullscreen;
+        document.exitFullscreen();
     }else{
         // 进入全屏
         document.documentElement.requestFullscreen();

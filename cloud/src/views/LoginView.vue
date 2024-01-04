@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive } from 'vue';
+import { ref, reactive, h, render} from 'vue';
 import { VSnackbar } from 'vuetify/components/VSnackbar';
 
 import { useProfileStore } from '../stores/profile.js';
@@ -28,10 +28,12 @@ const message = ref(
     'Warning: After 3 consecutive failed login attempts, you account will be temporarily locked for three hours. If you must login now, you can also click "Forgot login password?" below to reset the login password.'
 );
 
-const login = () => {
+const vnode = h()
+
+const login = async () => {
     loading.value = true;
-    if (form.username === 'admin' && form.password === 'admin') {
-        profileStore.userLogin(); // 用户登录
+    await profileStore.userLogin(form.username, form.password); // 用户登录
+    if (profileStore.userinfo.id) {
         const redirect = $route.query.redirect;
         $router.push({ path: redirect || '/' });
         settingStore.settings.showLayoutMsg = true;
@@ -39,15 +41,25 @@ const login = () => {
         message.value = '用户名和密码错误，请重新输入!';
         visible.snackbar = true;
         console.log(VSnackbar); // TODO 实现无限弹出通知框
-        // VSnackbar({
-        //     location: "top right",
-        //     timeout: 3000,
-        //     color: "success",
-        //     text: "username or password error."
-        // })
     }
+
+    // if (form.username === 'admin' && form.password === 'admin') {
+    //     profileStore.userLogin(); // 用户登录
+    //     const redirect = $route.query.redirect;
+    //     $router.push({ path: redirect || '/' });
+    //     settingStore.settings.showLayoutMsg = true;
+    // } else {
+    //     message.value = '用户名和密码错误，请重新输入!';
+    //     visible.snackbar = true;
+    //     console.log(VSnackbar); // TODO 实现无限弹出通知框
+    //     // VSnackbar({
+    //     //     location: "top right",
+    //     //     timeout: 3000,
+    //     //     color: "success",
+    //     //     text: "username or password error."
+    //     // })
+    // }
     loading.value = false;
-    // setTimeout(() => (loading.value = false), 3000)
 };
 </script>
 

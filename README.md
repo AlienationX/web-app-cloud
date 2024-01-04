@@ -8,6 +8,7 @@ web应用，cloud - 网盘
 npm create vue@latest
 
 npm install vue-router@4
+npm install axios
 npm install pinia
 npm install vuetify
 npm install @mdi/font -D

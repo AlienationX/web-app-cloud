@@ -18,7 +18,7 @@ router.beforeEach((to, from, next) => {
     // Uncaught Error: [🍍]: "getActivePinia()" was called but there was no active Pinia. Are you trying to use a store before calling "app.use(pinia)"?
     const profileStore = useProfileStore();
     const token = profileStore.token;
-    const username = profileStore.info.username;
+    const username = profileStore.userinfo.username;
     if (token) {
         // TODO token is invalid, 判断token是否有效/过期
 
@@ -43,7 +43,7 @@ router.beforeEach((to, from, next) => {
                     next();
                 } catch (error) {
                     // 获取失败，比如token过期等，返回登录页面重新登录
-                    userStore.$reset();
+                    profileStore.$reset();
                     next({ path: '/login', query: { redirect: to.path } });
                 }
             }
