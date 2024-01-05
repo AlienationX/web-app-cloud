@@ -5,17 +5,12 @@ const settingStore = useSettingStore();
 
 const settings = settingStore.settings;
 
+// --------------------------------- 滑块设置
 const tickLabels = reactive({
     0: 'Small',
     1: 'Medium',
     2: 'Large',
 });
-
-const close = (event, item) => {
-    console.log(event, item);
-    settings.showNavBarSetting = false;
-    settings.showSideBarSetting = false;
-};
 
 // 定义的临时转换数据
 const m = {
@@ -39,6 +34,16 @@ const move = (modelValue) => {
 const tickValue = computed(() => {
     return m[settings.density];
 });
+
+// --------------------------------- 导航栏设置
+const appBarBehavior = reactive([]);
+
+// --------------------------------- 关闭按钮事件
+const close = (event, item) => {
+    console.log(event, item);
+    settings.showNavBarSetting = false;
+    settings.showSideBarSetting = false;
+};
 </script>
 
 <template>
@@ -107,20 +112,25 @@ const tickValue = computed(() => {
             </v-list-item>
 
             <!-- TODO 导航条设置，固定、效果、高度、颜色 -->
-            <v-list-item value="navBarHeight">
+            <v-list-item value="navBarFixed">
                 <template v-slot:prepend="{ isActive }">
                     <v-list-item-action start>
-                        <v-switch
-                            v-model="settings.navBarHeight"
-                            true-value="default"
-                            false-value="compact"
-                            hide-details
-                            color="primary"
-                        ></v-switch>
+                        <v-switch v-model="settings.navBarFixed" hide-details color="primary"></v-switch>
                     </v-list-item-action>
                 </template>
-                <v-list-item-title class="text-subtitle-2 text-medium-emphasis">导航栏高度</v-list-item-title>
-                <v-list-item-subtitle class="text-caption"> 增加导航栏的高度 </v-list-item-subtitle>
+                <v-list-item-title class="text-subtitle-2 text-medium-emphasis">固定导航栏</v-list-item-title>
+                <v-list-item-subtitle class="text-caption"> 导航栏固定在最上方 </v-list-item-subtitle>
+                <!-- 可以使用span包裹文件，并设置calss=text-truncate实现文本过长展示为省略号的效果 -->
+            </v-list-item>
+
+            <v-list-item value="navBarFlat">
+                <template v-slot:prepend="{ isActive }">
+                    <v-list-item-action start>
+                        <v-switch v-model="settings.navBarFlat" hide-details color="primary"></v-switch>
+                    </v-list-item-action>
+                </template>
+                <v-list-item-title class="text-subtitle-2 text-medium-emphasis">导航栏完全扁平化</v-list-item-title>
+                <v-list-item-subtitle class="text-caption"> 启用导航栏扁平化效果，且没有下边框 </v-list-item-subtitle>
                 <!-- 可以使用span包裹文件，并设置calss=text-truncate实现文本过长展示为省略号的效果 -->
             </v-list-item>
         </v-list>

@@ -10,7 +10,8 @@ export const useSettingStore = defineStore(
         const settings = reactive({
             theme: 'light',
 
-            navBarHeight: 'compact', // 导航栏的高度
+            navBarFixed: true,  // 导航栏固定
+            navBarFlat: false, // 导航栏扁平效果
 
             sideBarOrder: 0, // 侧边栏位置顺序，设置为0会高于narbar的0，设置为1会低于narbar的0
             sideBarOverlay: false, // 侧边栏是否遮罩效果

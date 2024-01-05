@@ -69,7 +69,26 @@ onMounted(() => {
 </script>
 
 <template>
-    <v-app-bar fixed :density="settings.navBarHeight" order="0">
+    <!-- density 默认三种高度设置从小到大 compact/comfortable/defalut -->
+    <!-- flat 扁平化，且没边框所以不推荐使用 -->
+    <!-- order 控制drawer等侧边栏的先后顺序 -->
+    <!-- fixed ??? -->
+
+    <!-- 
+        scroll-behavior 控制滚动条行为
+        hide：默认插槽内容会随用户向下滚动而隐藏。而 extension 插槽则会保留。
+        collapse：会在角落收缩成一团。
+        elevate：当向下滚动时，会在应用栏添加阴影效果。忽略 scroll-threshold 属性，任意的滚动都会添加阴影。
+        fade-image：背景图片会随着滚动条下拉而渐隐
+        inverted：没有任何的效果，但会倒转上面提到的效果
+    -->
+    <v-app-bar 
+        :density="settings.density"
+        :fixed="settings.navBarFixed" 
+        :flat="settings.navBarFlat"
+        :scroll-behavior="scroollBehavior"
+        order="0"
+    >
         <v-app-bar-nav-icon @click="settings.showSideBar = !settings.showSideBar"></v-app-bar-nav-icon>
         <v-toolbar-title v-show="settings.sideBarOrder === 0 && settings.showSideBar && !settings.sideBarOverlay ? false : true">
             <span class="text-overline font-weight-black"> {{ config.title }}</span>
@@ -98,6 +117,8 @@ onMounted(() => {
         <v-divider class="d-none d-sm-flex pl-2" inset vertical></v-divider>
 
         <v-btn size="small" icon="mdi-refresh"> </v-btn>
+        <v-btn class="d-flex d-sm-none" size="small" icon="mdi-dots-vertical"></v-btn>
+
         <v-btn class="d-none d-sm-flex" size="small" icon="mdi-fullscreen" @click="fullScreen"> </v-btn>
         <v-btn class="d-none d-sm-flex" size="small" :icon="settingStore.switchIcon" @click="switchTheme"> </v-btn>
         <v-btn class="d-none d-sm-flex" size="small" icon="mdi-cog" @click="settings.showNavBarSetting = true"> </v-btn>
