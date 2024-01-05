@@ -43,9 +43,6 @@ const handle = (event, item) => {
         // 跳转到登录页面
         $router.push({ path: '/login', query: { redirect: $route.path } });
     }
-
-    // 关闭侧边栏
-    // settings.showSideBar = false;
 };
 </script>
 

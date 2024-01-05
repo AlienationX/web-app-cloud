@@ -175,5 +175,5 @@ export const privateRoutes = [
 ];
 
 // 拆分成多个routes，分默认路由和接口返回的路由，最后再组合
-// menuRoutes = [...constantRoute, ...userAsyncRoute, anyRoute]
+// routes = [...constantRoute, ...userAsyncRoute, anyRoute]
 export const routes = [...publicRoutes, ...privateRoutes];

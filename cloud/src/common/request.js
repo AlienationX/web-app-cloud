@@ -39,6 +39,7 @@ request.interceptors.response.use(
             });
         } else {
             // TODO 这个的status会是多少？
+            console.log("-------------------> response.status:", response.status)
             return Promise.reject(response.data);
         }
     },

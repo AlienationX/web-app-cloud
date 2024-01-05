@@ -7,7 +7,7 @@ import { useProfileStore } from '../stores/profile';
 import nprogress from 'nprogress';
 import 'nprogress/nprogress.css';
 nprogress.configure({ showSpinner: false }); // 去掉右上角的转圈
-// console.log("开启守卫和进度条显示")  // TODO 但是login页面第一次使用进度条不显示?
+// console.log("开启守卫和进度条显示")
 
 // 全局前置守卫
 router.beforeEach((to, from, next) => {
@@ -36,16 +36,21 @@ router.beforeEach((to, from, next) => {
                 //   await userStore.userLogout()
                 //   next({ path: '/login', query: { redirect: to.path } })
                 // }
-                try {
-                    // 没有username通过token重新获取。刷新页面需要更新用户信息和用户菜单
-                    profileStore.getInfo();
-                    profileStore.getMenuRoutes();
-                    next();
-                } catch (error) {
-                    // 获取失败，比如token过期等，返回登录页面重新登录
-                    profileStore.$reset();
-                    next({ path: '/login', query: { redirect: to.path } });
-                }
+
+                // 没有username通过token重新获取。刷新页面需要更新用户信息和用户菜单
+
+                (async () => {
+                    await profileStore.getUserInfo();
+                    await profileStore.getPrivilege();
+                    // 如果无法获取到用户信息，可能是token过期问题
+                    if (username) {
+                        next();
+                    } else {
+                        // 获取失败，比如token过期等，返回登录页面重新登录
+                        profileStore.$reset();
+                        next({ path: '/login', query: { redirect: to.path } });
+                    }
+                })();
             }
         }
     } else {

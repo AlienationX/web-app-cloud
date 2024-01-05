@@ -8,7 +8,7 @@ const profileStore = useProfileStore();
 const bottomRoutes = reactive([]);
 
 onMounted(() => {
-    profileStore.menuRoutes
+    profileStore.privilege.routes
         .filter((route) => route.path === '/')
         .map((homeRoute) => {
             if (homeRoute.children) {

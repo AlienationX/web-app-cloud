@@ -48,7 +48,7 @@ const handle = (event, item) => {
 };
 
 onMounted(() => {
-    profileStore.menuRoutes
+    profileStore.privilege.routes
         .filter((route) => route.meta.location === 'nav')
         .map((route) => {
             if (route.path === '/' && route.children) {
@@ -58,7 +58,7 @@ onMounted(() => {
             }
         });
 
-    profileStore.menuRoutes
+    profileStore.privilege.routes
         .filter((route) => route.path === '/')
         .map((homeRoute) => {
             if (homeRoute.children) {
