@@ -28,7 +28,22 @@ const message = ref(
     'Warning: After 3 consecutive failed login attempts, you account will be temporarily locked for three hours. If you must login now, you can also click "Forgot login password?" below to reset the login password.'
 );
 
-const vnode = h()
+
+// const container = ref()
+// const showMessage = () => {
+//     // 使用JSX语法创建组件
+//     const MessageComponents = () => {
+//         return (
+//             <v-btn>TEST</v-btn>
+//         )
+//     }
+
+//     // 动态创建虚拟组件
+//     const vnode = h(MessageComponents, )
+
+//     // 挂载组件到指定节点
+//     render(iconCopy, container)
+// }
 
 const login = async () => {
     loading.value = true;
@@ -64,7 +79,7 @@ const login = async () => {
 </script>
 
 <template>
-    <v-container class="fill-height">
+    <v-container class="fill-height" ref="container">
         <!-- <v-img
         class="mx-auto my-6"
         max-width="228"

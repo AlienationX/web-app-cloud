@@ -43,6 +43,7 @@ const tickValue = computed(() => {
 
 <template>
     <div>
+        <!-- TODO toolbar实现? -->
         <v-list>
             <v-list-item class="text-overline" title="Settings" subtitle="设置">
                 <template v-slot:append>
@@ -54,7 +55,7 @@ const tickValue = computed(() => {
         </v-list>
         <v-divider></v-divider>
 
-        <!-- :lines="false" 会换行显示所有内容，lines=one多出的内容会用省略号显示 -->        
+        <!-- :lines="false" 会换行显示所有内容，lines=one多出的内容会用省略号显示 -->
         <v-list lines="one" density="compact">
             <!-- <v-list-subheader>General 常规 / 主题设置 / 导航设置</v-list-subheader> -->
             <v-list-subheader>
@@ -67,6 +68,7 @@ const tickValue = computed(() => {
                 </p>
             </v-list-subheader>
 
+            <!-- TODO for循环 -->
             <v-list-item value="sideBarOrder">
                 <template v-slot:prepend="{ isActive }">
                     <v-list-item-action start>
@@ -104,6 +106,7 @@ const tickValue = computed(() => {
                 <!-- 可以使用span包裹文件，并设置calss=text-truncate实现文本过长展示为省略号的效果 -->
             </v-list-item>
 
+            <!-- TODO 导航条设置，固定、效果、高度、颜色 -->
             <v-list-item value="navBarHeight">
                 <template v-slot:prepend="{ isActive }">
                     <v-list-item-action start>
@@ -199,7 +202,6 @@ const tickValue = computed(() => {
                 <v-list-item-subtitle> Auto-update apps at any time. Data charges may apply </v-list-item-subtitle>
             </v-list-item>
         </v-list>
-
     </div>
 </template>
 
