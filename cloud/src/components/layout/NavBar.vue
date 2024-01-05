@@ -42,7 +42,7 @@ const logout = () => {
 
 const handle = (event, item) => {
     console.log(event, item);
-    console.log(`click ${item.text}`);
+    console.log('click', item.text);
     // 如果点击sing out按钮，则退出登录
     if (item.text === 'Sing Out') logout();
 };
@@ -82,15 +82,17 @@ onMounted(() => {
         fade-image：背景图片会随着滚动条下拉而渐隐
         inverted：没有任何的效果，但会倒转上面提到的效果
     -->
-    <v-app-bar 
+    <v-app-bar
         :density="settings.density"
-        :fixed="settings.navBarFixed" 
+        :fixed="settings.navBarFixed"
         :flat="settings.navBarFlat"
         :scroll-behavior="scroollBehavior"
         order="0"
     >
         <v-app-bar-nav-icon @click="settings.showSideBar = !settings.showSideBar"></v-app-bar-nav-icon>
-        <v-toolbar-title v-show="settings.sideBarOrder === 0 && settings.showSideBar && !settings.sideBarOverlay ? false : true">
+        <v-toolbar-title
+            v-show="settings.sideBarOrder === 0 && settings.showSideBar && !settings.sideBarOverlay ? false : true"
+        >
             <span class="text-overline font-weight-black"> {{ config.title }}</span>
         </v-toolbar-title>
 
