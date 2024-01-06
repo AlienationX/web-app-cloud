@@ -39,6 +39,7 @@ request.interceptors.response.use(
             });
         } else {
             // TODO 这个的status会是多少？
+            alert("这个是成功请求，但是返回的状态码不是200，而是", response.status)
             console.log("-------------------> response.status:", response.status)
             return Promise.reject(response.data);
         }
