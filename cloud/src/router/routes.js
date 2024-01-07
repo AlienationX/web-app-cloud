@@ -44,7 +44,7 @@ export const publicRoutes = [
                 component: () => import('../views/DocumentView.vue'),
                 meta: {
                     title: '文档',
-                    icon: 'mdi-file-document-outline',
+                    icon: 'mdi-file-document',
                     hidden: false,
                     location: 'nav',
                 },
@@ -66,7 +66,7 @@ export const publicRoutes = [
                 name: 'about',
                 meta: {
                     title: '关于',
-                    icon: 'mdi-information-variant',
+                    icon: 'mdi-information',
                     hidden: false,
                     location: 'nav',
                 },
@@ -116,7 +116,7 @@ export const publicRoutes = [
                 component: () => import('../views/acl/PermissionView.vue'),
                 meta: {
                     title: '授权管理',
-                    icon: 'mdi-shield-lock-open-outline',
+                    icon: 'mdi-shield-lock-open',
                     hidden: false,
                     location: 'nav',
                 },
