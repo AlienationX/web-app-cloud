@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive, computed, onMounted } from 'vue';
+import { ref, reactive, computed, watch, onMounted } from 'vue';
 import { useSettingStore } from '../stores/setting';
 const settingStore = useSettingStore();
 
@@ -36,7 +36,17 @@ const tickValue = computed(() => {
 });
 
 // --------------------------------- 导航栏设置
-const appBarBehavior = reactive([]);
+const navBarHide = settings.navBarBehavior.indexOf('hide') >= 0 ? ref(false) : ref(true);
+
+watch(navBarHide, (oldValue, newValue) => {
+    if (newValue) {
+        // 如果newValue为true，则增加hide属性
+        settings.navBarBehavior.push('hide');
+    } else {
+        // 否则删除hide属性
+        settings.navBarBehavior.splice(settings.navBarBehavior.indexOf('hide'), 1);
+    }
+});
 
 // --------------------------------- 关闭按钮事件
 const close = (event, item) => {
@@ -112,10 +122,10 @@ const close = (event, item) => {
             </v-list-item>
 
             <!-- TODO 导航条设置，固定、效果、高度、颜色 -->
-            <v-list-item value="navBarFixed">
+            <v-list-item value="navBarHide">
                 <template v-slot:prepend="{ isActive }">
                     <v-list-item-action start>
-                        <v-switch v-model="settings.navBarFixed" hide-details color="primary"></v-switch>
+                        <v-switch v-model="navBarHide" hide-details color="primary"></v-switch>
                     </v-list-item-action>
                 </template>
                 <v-list-item-title class="text-subtitle-2 text-medium-emphasis">固定导航栏</v-list-item-title>

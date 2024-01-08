@@ -81,12 +81,14 @@ onMounted(() => {
         elevate：当向下滚动时，会在应用栏添加阴影效果。忽略 scroll-threshold 属性，任意的滚动都会添加阴影。
         fade-image：背景图片会随着滚动条下拉而渐隐
         inverted：没有任何的效果，但会倒转上面提到的效果
+
+        scroll-threshold 属性（单位是像素）决定了滚动条需要向下滚动多少才有应用栏的滚动效果。
     -->
     <v-app-bar
         :density="settings.density"
-        :fixed="settings.navBarFixed"
         :flat="settings.navBarFlat"
-        :scroll-behavior="scroollBehavior"
+        :scroll-behavior="settings.navBarBehavior.join(' ')"
+        scroll-threshold="1"
         order="0"
     >
         <v-app-bar-nav-icon @click="settings.showSideBar = !settings.showSideBar"></v-app-bar-nav-icon>
