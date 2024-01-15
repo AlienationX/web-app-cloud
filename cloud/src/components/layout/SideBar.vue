@@ -1,7 +1,7 @@
 <script setup>
 import Setting from '../Setting.vue';
 
-import { ref, reactive } from 'vue';
+import { ref, reactive, onMounted } from 'vue';
 import { useSettingStore } from '../../stores/setting.js';
 import { useProfileStore } from '../../stores/profile.js';
 import config from '../../config.js';
@@ -16,15 +16,7 @@ import { useRouter, useRoute } from 'vue-router';
 const $router = useRouter();
 const $route = useRoute();
 
-const sideBarItems = reactive([
-    { text: 'My Files', icon: 'mdi-folder' },
-    { text: 'Shared with me', icon: 'mdi-account-multiple' },
-    { text: 'Starred', icon: 'mdi-star' },
-    { text: 'Recent', icon: 'mdi-history' },
-    { text: 'Offline', icon: 'mdi-check-circle' },
-    { text: 'Uploads', icon: 'mdi-upload' },
-    { text: 'Backups', icon: 'mdi-cloud-upload' },
-]);
+const sideBarItems = reactive([]);
 
 const bottomItems = reactive([
     { text: 'Settings', icon: 'mdi-cog' },
@@ -44,6 +36,18 @@ const handle = (event, item) => {
         $router.push({ path: '/login', query: { redirect: $route.path } });
     }
 };
+
+onMounted(() => {
+    profileStore.privilege.routes
+        .filter((route) => route.meta.location === 'side')
+        .map((route) => {
+            if (route.path === '/' && route.children) {
+                sideBarItems.push(route.children[0]);
+            } else {
+                sideBarItems.push(route);
+            }
+        });
+});
 </script>
 
 <template>
@@ -73,17 +77,34 @@ const handle = (event, item) => {
 
         <!-- Menu -->
         <v-list :lines="false" density="compact" nav>
-            <v-list-item v-for="(item, i) in sideBarItems" :key="i" :value="item" color="primary">
+            <!-- <v-list-item v-for="(item, i) in sideBarItems" :key="i" :value="item" color="primary">
                 <template v-slot:prepend>
                     <v-icon :icon="item.icon"></v-icon>
                 </template>
                 <v-list-item-title v-text="item.text"></v-list-item-title>
-            </v-list-item>
+            </v-list-item> -->
+
+            <v-list-item prepend-icon="mdi-home" title="Home" route to="/"></v-list-item>
+
+            <v-list-group v-for="route in sideBarItems" :key="route.path" :value="route.name">
+                <template v-slot:activator="{ props }">
+                    <v-list-item v-bind="props" :title="route.meta.title" :prepend-icon="route.meta.icon"></v-list-item>
+                </template>
+
+                <v-list-item
+                    v-for="child in route.children"
+                    :key="child.path"
+                    :value="child.meta.title"
+                    :title="child.meta.title"
+                    color="primary"
+                    router
+                    :to="child.path"
+                ></v-list-item>
+            </v-list-group>
         </v-list>
 
+        <!-- 底部导航按钮 -->
         <template v-slot:append>
-            <!-- <v-btn size="x-small" :icon="settingStore.switchIcon" @click="switchTheme"> </v-btn>
-            <v-btn size="x-small" icon="mdi-cog" @click="settings.showSetting = !settings.showSetting"> </v-btn> -->
             <v-divider class="d-flex d-sm-none"></v-divider>
 
             <v-list :lines="false" density="compact" nav>

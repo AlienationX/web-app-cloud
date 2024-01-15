@@ -50,9 +50,9 @@ export const publicRoutes = [
                 },
             },
             {
-                path: '/example',
-                name: 'example',
-                component: () => import('../views/ExampleView.vue'),
+                path: '/workbench',
+                name: 'workbench',
+                component: () => import('../views/WorkbenchView.vue'),
                 meta: {
                     title: '示例',
                     icon: 'mdi-view-grid-plus',
@@ -79,7 +79,7 @@ export const publicRoutes = [
         component: () => import('../components/layout/index.vue'),
         name: 'acl',
         meta: {
-            title: '权限管理',
+            title: '系统管理',
             icon: '',
             hidden: false,
             location: 'nav',
@@ -115,7 +115,18 @@ export const publicRoutes = [
                 name: 'permission',
                 component: () => import('../views/acl/PermissionView.vue'),
                 meta: {
-                    title: '授权管理',
+                    title: '权限管理',
+                    icon: 'mdi-shield-lock-open',
+                    hidden: false,
+                    location: 'nav',
+                },
+            },
+            {
+                path: '/acl/connection',
+                name: 'connection',
+                component: () => import('../views/acl/PermissionView.vue'),
+                meta: {
+                    title: '数据源配置',
                     icon: 'mdi-shield-lock-open',
                     hidden: false,
                     location: 'nav',
@@ -141,8 +152,9 @@ export const privateRoutes = [
         name: 'analysis',
         meta: {
             title: '智能分析',
-            icon: '',
+            icon: 'mdi-chart-timeline-variant-shimmer',
             hidden: false,
+            location: 'side',
         },
         redirect: '/analysis/report',
         children: [
@@ -164,8 +176,202 @@ export const privateRoutes = [
                 name: 'olap',
                 component: () => import('../views/acl/RoleView.vue'),
                 meta: {
-                    title: '多维分析',
+                    title: 'OLAP',
                     icon: 'mdi-chart-tree',
+                    hidden: false,
+                    location: 'side',
+                },
+            },
+        ],
+    },
+
+    {
+        path: '/hospital',
+        component: () => import('../components/layout/index.vue'),
+        name: 'hospital',
+        meta: {
+            title: '医院总览',
+            icon: 'mdi-hospital-box',
+            hidden: false,
+            location: 'side',
+        },
+        redirect: '/hospital/overview',
+        children: [
+            {
+                // 可以配置为user，会默认拼接，但是一级按钮不点击路由跳转会报错，所以还需要写完整路径
+                // path会作为for循环的key，完整路径可以保证唯一性？
+                path: '/hospital/overview',
+                component: () => import('../views/acl/UserView.vue'),
+                name: 'overview',
+                meta: {
+                    title: '医院画像',
+                    icon: 'mdi-chart-bar-stacked',
+                    hidden: false,
+                    location: 'side',
+                },
+            },
+            {
+                path: '/hospital/indicator',
+                name: 'indicator',
+                component: () => import('../views/acl/RoleView.vue'),
+                meta: {
+                    title: '指标体系',
+                    icon: 'mdi-chart-tree',
+                    hidden: false,
+                    location: 'side',
+                },
+            },
+        ],
+    },
+
+    {
+        path: '/medical',
+        component: () => import('../components/layout/index.vue'),
+        name: 'medical',
+        meta: {
+            title: '欺诈风控',
+            icon: 'mdi-chart-donut-variant',
+            hidden: false,
+            location: 'side',
+        },
+        redirect: '/medical/macro',
+        children: [
+            {
+                // 可以配置为user，会默认拼接，但是一级按钮不点击路由跳转会报错，所以还需要写完整路径
+                // path会作为for循环的key，完整路径可以保证唯一性？
+                path: '/medical/macro',
+                component: () => import('../views/acl/UserView.vue'),
+                name: 'macro',
+                meta: {
+                    title: '城市宏观指标体系',
+                    icon: 'mdi-chart-line',
+                    hidden: false,
+                    location: 'side',
+                },
+            },
+            {
+                path: '/medical/risk',
+                name: 'risk',
+                component: () => import('../views/acl/RoleView.vue'),
+                meta: {
+                    title: '欺诈风控模型',
+                    icon: 'mdi-chart-tree',
+                    hidden: false,
+                    location: 'side',
+                },
+            },
+            {
+                path: '/medical/module',
+                name: 'module',
+                component: () => import('../views/acl/RoleView.vue'),
+                meta: {
+                    title: '风控模型维护',
+                    icon: 'mdi-chart-tree',
+                    hidden: false,
+                    location: 'side',
+                },
+            },
+            {
+                path: '/medical/task',
+                name: 'task',
+                component: () => import('../views/acl/RoleView.vue'),
+                meta: {
+                    title: '建模任务管理',
+                    icon: 'mdi-chart-tree',
+                    hidden: false,
+                    location: 'side',
+                },
+            },
+            {
+                path: '/medical/hospital',
+                name: 'hospital',
+                component: () => import('../views/acl/RoleView.vue'),
+                meta: {
+                    title: '医院多算子模型综合分析',
+                    icon: 'mdi-chart-tree',
+                    hidden: false,
+                    location: 'side',
+                },
+            },
+            {
+                path: '/analysis/patient',
+                name: 'patient',
+                component: () => import('../views/acl/RoleView.vue'),
+                meta: {
+                    title: '患者多算子模型综合分析',
+                    icon: 'mdi-chart-tree',
+                    hidden: false,
+                    location: 'side',
+                },
+            },
+        ],
+    },
+
+    {
+        path: '/repository',
+        component: () => import('../components/layout/index.vue'),
+        name: 'repository',
+        meta: {
+            title: '医学知识库维护',
+            icon: 'mdi-package-variant-closed',
+            hidden: false,
+            location: 'side',
+        },
+        redirect: '/repository/rule',
+        children: [
+            {
+                // 可以配置为user，会默认拼接，但是一级按钮不点击路由跳转会报错，所以还需要写完整路径
+                // path会作为for循环的key，完整路径可以保证唯一性？
+                path: '/repository/rule',
+                component: () => import('../views/acl/UserView.vue'),
+                name: 'rule',
+                meta: {
+                    title: '规则库',
+                    icon: 'mdi-pencil-ruler',
+                    hidden: false,
+                    location: 'side',
+                },
+            },
+            {
+                path: '/repository/case',
+                name: 'case',
+                component: () => import('../views/acl/RoleView.vue'),
+                meta: {
+                    title: '案例库',
+                    icon: 'mdi-format-list-bulleted',
+                    hidden: false,
+                    location: 'side',
+                },
+            },
+            {
+                path: '/repository/drug',
+                name: 'drug',
+                component: () => import('../views/acl/RoleView.vue'),
+                meta: {
+                    title: '药品规则库',
+                    icon: 'mdi-pill',
+                    hidden: false,
+                    location: 'side',
+                },
+            },
+            {
+                path: '/repository/drug-case',
+                name: 'DrugCase',
+                component: () => import('../views/acl/RoleView.vue'),
+                meta: {
+                    title: '药品案例库',
+                    icon: 'mdi-format-list-group',
+                    hidden: false,
+                    location: 'side',
+                },
+            },
+            {
+                path: '/repository/algorithm',
+                name: 'algorithm',
+                component: () => import('../views/acl/RoleView.vue'),
+                meta: {
+                    title: '算法模型库',
+                    icon: 'mdi-numeric-9-plus-box-multiple',
                     hidden: false,
                     location: 'side',
                 },
