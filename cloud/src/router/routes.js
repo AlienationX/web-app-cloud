@@ -44,7 +44,7 @@ export const publicRoutes = [
                 component: () => import('../views/DocumentView.vue'),
                 meta: {
                     title: '文档',
-                    icon: 'mdi-file-document',
+                    icon: 'mdi-book-open-variant',
                     hidden: false,
                     location: 'nav',
                 },
