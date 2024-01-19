@@ -37,17 +37,20 @@ onMounted(() => {
             </v-card-text>
         </v-card>
 
-        <v-container v-for="route in routes" :key="route.path">
-            <v-card hover>
-                <v-card-title> {{ route.meta.title }} </v-card-title>
+        <v-card hover class="my-5" v-for="route in routes" :key="route.path">
+            <v-card-title class="text-subtitle-1"> {{ route.meta.title }} </v-card-title>
 
-                <v-card-actions>
-                    <v-btn color="orange-lighten-2" variant="text"> Explore </v-btn>
-                </v-card-actions>
-            </v-card>
-        </v-container>
+            <v-divider></v-divider>
 
-        <NavIconBtn v-for="route in routes" :key="route.path"> 
-        </NavIconBtn>
+            <v-card-text>
+                    <v-row class="d-flex flex-row justify-start">
+                        <!-- <v-col v-for="route in routes" :key="route.path"> -->
+                        <v-col v-for="n in 14" :key="n" justify="center">
+                            <!-- <v-btn color="orange-lighten-2" variant="text"> Explore </v-btn> -->
+                            <NavIconBtn></NavIconBtn>
+                        </v-col>
+                    </v-row>
+            </v-card-text>
+        </v-card>
     </v-container>
 </template>
