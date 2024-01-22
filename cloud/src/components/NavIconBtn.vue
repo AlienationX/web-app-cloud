@@ -40,10 +40,7 @@ onMounted(() => {
 <template>
     <!-- <v-btn icon="mdi-calendar" size="x-large">多维分析</v-btn> -->
     <div class="text-center">
-        <v-avatar size="80" rounded="0">
-            <!-- <v-img cover src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"></v-img> -->
-            <v-icon color="primary" size="x-large" :icon="icon"></v-icon>
-        </v-avatar>
+        <v-icon color="primary" size="60" :icon="icon"></v-icon>
         <span class="d-block text-caption">{{ icon.substring(4) }}</span>
     </div>
 </template>

@@ -43,9 +43,9 @@ onMounted(() => {
             <v-divider></v-divider>
 
             <v-card-text>
-                    <v-row class="d-flex flex-row justify-start">
+                    <v-row>
                         <!-- <v-col v-for="route in routes" :key="route.path"> -->
-                        <v-col v-for="n in 14" :key="n" justify="center">
+                        <v-col v-for="n in 14" :key="n">
                             <!-- <v-btn color="orange-lighten-2" variant="text"> Explore </v-btn> -->
                             <NavIconBtn></NavIconBtn>
                         </v-col>
