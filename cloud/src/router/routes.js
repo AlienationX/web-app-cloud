@@ -19,6 +19,7 @@ export const publicRoutes = [
     {
         path: '/',
         component: () => import('../components/layout/index.vue'),
+        name: '/',
         meta: {
             title: '首页',
             icon: '',

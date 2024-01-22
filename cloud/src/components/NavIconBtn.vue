@@ -38,10 +38,10 @@ onMounted(() => {
 </script>
 
 <template>
-    <!-- <v-btn icon="mdi-calendar" size="x-large">多维分析</v-btn> -->
     <div class="text-center">
         <v-icon color="primary" size="60" :icon="icon"></v-icon>
-        <span class="d-block text-caption">{{ icon.substring(4) }}</span>
+        <!-- <span class="d-block text-caption">{{ icon.substring(4) }}</span> -->
+        <span class="d-block text-caption">{{ route.meta.title }}</span>
     </div>
 </template>
 

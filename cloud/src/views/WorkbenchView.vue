@@ -12,9 +12,7 @@ onMounted(() => {
     profileStore.privilege.routes
         // .filter((route) => route.meta.location === 'side')
         .map((route) => {
-            if (route.path === '/' && route.children) {
-                routes.push(route.children[0]);
-            } else {
+            if (!/login|any/.test(route.name)) {
                 routes.push(route);
             }
         });
@@ -25,7 +23,7 @@ onMounted(() => {
     <v-container>
         <!-- <MemuList /> -->
         <!-- TODO 分组的流式瀑布的按钮菜单，类似联通移动的app -->
-        <v-card class="mx-auto" hover>
+        <v-card hover>
             <v-card-item>
                 <v-card-title> Card title </v-card-title>
                 <v-card-subtitle> Card subtitle secondary text </v-card-subtitle>
@@ -43,13 +41,11 @@ onMounted(() => {
             <v-divider></v-divider>
 
             <v-card-text>
-                    <v-row>
-                        <!-- <v-col v-for="route in routes" :key="route.path"> -->
-                        <v-col v-for="n in 14" :key="n">
-                            <!-- <v-btn color="orange-lighten-2" variant="text"> Explore </v-btn> -->
-                            <NavIconBtn></NavIconBtn>
-                        </v-col>
-                    </v-row>
+                <v-row>
+                    <v-col v-for="child in route.children" :key="child.path">
+                        <NavIconBtn :route="child"></NavIconBtn>
+                    </v-col>
+                </v-row>
             </v-card-text>
         </v-card>
     </v-container>
