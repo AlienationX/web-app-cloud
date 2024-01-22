@@ -37,12 +37,26 @@ onMounted(() => {
 
         <v-card hover class="my-5" v-for="route in routes" :key="route.path">
             <v-card-title class="text-subtitle-1"> {{ route.meta.title }} </v-card-title>
+            <!--<template v-slot:title>
+                <!~~ v-card 增加 :prepend-icon="route.meta.icon" ~~>
+                <span class="text-subtitle-1">{{ route.meta.title }}</span>
+            </template>-->
 
             <v-divider></v-divider>
 
             <v-card-text>
                 <v-row>
-                    <v-col v-for="child in route.children" :key="child.path">
+                    <v-col
+                        v-for="child in route.children"
+                        :key="child.path"
+                        cols="3"
+                        xs="3"
+                        sm="2"
+                        md="2"
+                        lg="1"
+                        xl="1"
+                        xxl="1"
+                    >
                         <NavIconBtn :route="child"></NavIconBtn>
                     </v-col>
                 </v-row>

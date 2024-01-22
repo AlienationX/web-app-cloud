@@ -2,6 +2,10 @@
 const props = defineProps(['route']);
 
 import { ref, onMounted } from 'vue';
+import { useSettingStore } from '../stores/setting';
+const settingStore = useSettingStore();
+
+const settings = settingStore.settings;
 
 const icons = [
     'mdi-angular',
@@ -38,7 +42,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <div class="text-center">
+    <div class="text-center" route>
         <v-icon color="primary" size="60" :icon="icon"></v-icon>
         <!-- <span class="d-block text-caption">{{ icon.substring(4) }}</span> -->
         <span class="d-block text-caption">{{ route.meta.title }}</span>

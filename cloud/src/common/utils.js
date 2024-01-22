@@ -1,11 +1,10 @@
-
 export function fullScreen() {
     // 获取当前是否为全屏
     let full = document.fullscreenElement;
-    if (full){
+    if (full) {
         // 退出全屏
         document.exitFullscreen();
-    }else{
+    } else {
         // 进入全屏
         document.documentElement.requestFullscreen();
     }
