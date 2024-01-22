@@ -50,13 +50,15 @@ onMounted(() => {
                         v-for="child in route.children"
                         :key="child.path"
                         cols="3"
-                        xs="3"
                         sm="2"
                         md="2"
                         lg="1"
                         xl="1"
                         xxl="1"
                     >
+                        <!-- Props like justify-sm and justify-md exist, but justify-xs does not, it is simply justify -->
+                        <!-- The xs prop does not exist on v-col. The equivalent to this is the cols prop -->
+                        <!-- xs已不在存在，等同于cols的设置 -->
                         <NavIconBtn :route="child"></NavIconBtn>
                     </v-col>
                 </v-row>

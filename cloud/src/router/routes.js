@@ -163,7 +163,7 @@ export const privateRoutes = [
                 // 可以配置为user，会默认拼接，但是一级按钮不点击路由跳转会报错，所以还需要写完整路径
                 // path会作为for循环的key，完整路径可以保证唯一性？
                 path: '/analysis/report',
-                component: () => import('../views/acl/UserView.vue'),
+                component: () => import('../views/TemplateView.vue'),
                 name: 'report',
                 meta: {
                     title: 'Report',
@@ -175,7 +175,7 @@ export const privateRoutes = [
             {
                 path: '/analysis/olap',
                 name: 'olap',
-                component: () => import('../views/acl/RoleView.vue'),
+                component: () => import('../views/TemplateView.vue'),
                 meta: {
                     title: 'OLAP',
                     icon: 'mdi-chart-tree',
@@ -187,22 +187,22 @@ export const privateRoutes = [
     },
 
     {
-        path: '/hospital',
+        path: '/organization',
         component: () => import('../components/layout/index.vue'),
-        name: 'hospital',
+        name: 'organization',
         meta: {
             title: '医院总览',
             icon: 'mdi-hospital-box',
             hidden: false,
             location: 'side',
         },
-        redirect: '/hospital/overview',
+        redirect: '/organization/overview',
         children: [
             {
                 // 可以配置为user，会默认拼接，但是一级按钮不点击路由跳转会报错，所以还需要写完整路径
                 // path会作为for循环的key，完整路径可以保证唯一性？
-                path: '/hospital/overview',
-                component: () => import('../views/acl/UserView.vue'),
+                path: '/organization/overview',
+                component: () => import('../views/TemplateView.vue'),
                 name: 'overview',
                 meta: {
                     title: '医院画像',
@@ -212,9 +212,9 @@ export const privateRoutes = [
                 },
             },
             {
-                path: '/hospital/indicator',
+                path: '/organization/indicator',
                 name: 'indicator',
-                component: () => import('../views/acl/RoleView.vue'),
+                component: () => import('../views/TemplateView.vue'),
                 meta: {
                     title: '指标体系',
                     icon: 'mdi-chart-tree',
@@ -241,7 +241,7 @@ export const privateRoutes = [
                 // 可以配置为user，会默认拼接，但是一级按钮不点击路由跳转会报错，所以还需要写完整路径
                 // path会作为for循环的key，完整路径可以保证唯一性？
                 path: '/medical/macro',
-                component: () => import('../views/acl/UserView.vue'),
+                component: () => import('../views/TemplateView.vue'),
                 name: 'macro',
                 meta: {
                     title: '城市宏观指标体系',
@@ -253,7 +253,7 @@ export const privateRoutes = [
             {
                 path: '/medical/risk',
                 name: 'risk',
-                component: () => import('../views/acl/RoleView.vue'),
+                component: () => import('../views/TemplateView.vue'),
                 meta: {
                     title: '欺诈风控模型',
                     icon: 'mdi-chart-tree',
@@ -264,7 +264,7 @@ export const privateRoutes = [
             {
                 path: '/medical/module',
                 name: 'module',
-                component: () => import('../views/acl/RoleView.vue'),
+                component: () => import('../views/TemplateView.vue'),
                 meta: {
                     title: '风控模型维护',
                     icon: 'mdi-chart-tree',
@@ -275,7 +275,7 @@ export const privateRoutes = [
             {
                 path: '/medical/task',
                 name: 'task',
-                component: () => import('../views/acl/RoleView.vue'),
+                component: () => import('../views/TemplateView.vue'),
                 meta: {
                     title: '建模任务管理',
                     icon: 'mdi-chart-tree',
@@ -286,7 +286,7 @@ export const privateRoutes = [
             {
                 path: '/medical/hospital',
                 name: 'hospital',
-                component: () => import('../views/acl/RoleView.vue'),
+                component: () => import('../views/TemplateView.vue'),
                 meta: {
                     title: '医院多算子模型综合分析',
                     icon: 'mdi-chart-tree',
@@ -295,9 +295,9 @@ export const privateRoutes = [
                 },
             },
             {
-                path: '/analysis/patient',
+                path: '/medical/patient',
                 name: 'patient',
-                component: () => import('../views/acl/RoleView.vue'),
+                component: () => import('../views/TemplateView.vue'),
                 meta: {
                     title: '患者多算子模型综合分析',
                     icon: 'mdi-chart-tree',
@@ -324,7 +324,7 @@ export const privateRoutes = [
                 // 可以配置为user，会默认拼接，但是一级按钮不点击路由跳转会报错，所以还需要写完整路径
                 // path会作为for循环的key，完整路径可以保证唯一性？
                 path: '/repository/rule',
-                component: () => import('../views/acl/UserView.vue'),
+                component: () => import('../views/TemplateView.vue'),
                 name: 'rule',
                 meta: {
                     title: '规则库',
@@ -336,7 +336,7 @@ export const privateRoutes = [
             {
                 path: '/repository/case',
                 name: 'case',
-                component: () => import('../views/acl/RoleView.vue'),
+                component: () => import('../views/TemplateView.vue'),
                 meta: {
                     title: '案例库',
                     icon: 'mdi-format-list-bulleted',
@@ -347,7 +347,7 @@ export const privateRoutes = [
             {
                 path: '/repository/drug',
                 name: 'drug',
-                component: () => import('../views/acl/RoleView.vue'),
+                component: () => import('../views/TemplateView.vue'),
                 meta: {
                     title: '药品规则库',
                     icon: 'mdi-pill',
@@ -358,7 +358,7 @@ export const privateRoutes = [
             {
                 path: '/repository/drug-case',
                 name: 'DrugCase',
-                component: () => import('../views/acl/RoleView.vue'),
+                component: () => import('../views/TemplateView.vue'),
                 meta: {
                     title: '药品案例库',
                     icon: 'mdi-format-list-group',
@@ -369,7 +369,7 @@ export const privateRoutes = [
             {
                 path: '/repository/algorithm',
                 name: 'algorithm',
-                component: () => import('../views/acl/RoleView.vue'),
+                component: () => import('../views/TemplateView.vue'),
                 meta: {
                     title: '算法模型库',
                     icon: 'mdi-numeric-9-plus-box-multiple',
