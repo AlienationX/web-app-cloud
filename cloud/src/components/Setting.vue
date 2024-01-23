@@ -6,47 +6,57 @@ const settingStore = useSettingStore();
 const settings = settingStore.settings;
 
 // --------------------------------- 滑块设置
-const tickLabels = reactive({
-    0: 'Small',
-    1: 'Medium',
-    2: 'Large',
-});
+const useSlider = () => {
+    const tickLabels = reactive({
+        0: 'Small',
+        1: 'Medium',
+        2: 'Large',
+    });
 
-// 定义的临时转换数据
-const m = {
-    compact: 0,
-    comfortable: 1,
-    default: 2,
-};
+    // 定义的临时转换数据
+    const m = {
+        compact: 0,
+        comfortable: 1,
+        default: 2,
+    };
 
-// slider移动触发的事件
-const move = (modelValue) => {
-    for (let key in m) {
-        if (m[key] === modelValue) {
-            settings.density = key;
-            break;
+    // slider移动触发的事件
+    const move = (modelValue) => {
+        for (let key in m) {
+            if (m[key] === modelValue) {
+                settings.density = key;
+                break;
+            }
         }
-    }
-    console.log('slider move:', modelValue, settings.density);
+    };
+
+    // 计算属性
+    const tickValue = computed(() => {
+        return m[settings.density];
+    });
+
+    return { tickLabels, tickValue, move };
 };
 
-// 计算属性
-const tickValue = computed(() => {
-    return m[settings.density];
-});
+const { tickLabels, tickValue, move } = useSlider();
 
 // --------------------------------- 导航栏设置
-const navBarHide = settings.navBarBehavior.indexOf('hide') >= 0 ? ref(false) : ref(true);
+const useNavBarHide = () => {
+    const navBarHide = settings.navBarBehavior.indexOf('hide') >= 0 ? ref(false) : ref(true);
 
-watch(navBarHide, (oldValue, newValue) => {
-    if (newValue) {
-        // 如果newValue为true，则增加hide属性
-        settings.navBarBehavior.push('hide');
-    } else {
-        // 否则删除hide属性
-        settings.navBarBehavior.splice(settings.navBarBehavior.indexOf('hide'), 1);
-    }
-});
+    watch(navBarHide, (oldValue, newValue) => {
+        if (newValue) {
+            // 如果newValue为true，则增加hide属性
+            settings.navBarBehavior.push('hide');
+        } else {
+            // 否则删除hide属性
+            settings.navBarBehavior.splice(settings.navBarBehavior.indexOf('hide'), 1);
+        }
+    });
+    return { navBarHide };
+};
+
+const { navBarHide } = useNavBarHide();
 
 // --------------------------------- 关闭按钮事件
 const close = (event, item) => {
