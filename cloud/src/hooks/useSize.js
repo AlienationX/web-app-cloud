@@ -20,6 +20,8 @@ export const useGetIconSize = () => {
     return { iconSize };
 };
 
-export const useGetTitleTextSize = () => {};
+export const useGetTitleStyle = () => {};
 
-export const useGetContentTextSize = () => {};
+export const useGetSubTitleStyle = () => {};
+
+export const useGetTextStyle = () => {};

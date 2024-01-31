@@ -51,12 +51,12 @@ const paths = reactive([
         href: 'breadcrumbs_dashboard',
     },
     {
-        title: 'Link 1',
+        title: 'Link1',
         disabled: false,
         href: 'breadcrumbs_link_1',
     },
     {
-        title: 'Link 2',
+        title: 'Link2',
         disabled: false,
         href: 'breadcrumbs_link_2',
     },

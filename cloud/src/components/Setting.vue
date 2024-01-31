@@ -44,6 +44,7 @@ const { tickLabels, tickValue, move } = useSlider();
 const useNavBarHide = () => {
     const navBarHide = settings.navBarBehavior.indexOf('hide') >= 0 ? ref(false) : ref(true);
 
+    // 监听navBarHide值的变化
     watch(navBarHide, (oldValue, newValue) => {
         if (newValue) {
             // 如果newValue为true，则增加hide属性
@@ -53,14 +54,14 @@ const useNavBarHide = () => {
             settings.navBarBehavior.splice(settings.navBarBehavior.indexOf('hide'), 1);
         }
     });
+
     return { navBarHide };
 };
 
 const { navBarHide } = useNavBarHide();
 
 // --------------------------------- 关闭按钮事件
-const close = (event, item) => {
-    console.log(event, item);
+const close = () => {
     settings.showNavBarSetting = false;
     settings.showSideBarSetting = false;
 };

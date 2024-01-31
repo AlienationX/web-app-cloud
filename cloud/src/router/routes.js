@@ -128,7 +128,7 @@ export const publicRoutes = [
                 component: () => import('../views/acl/PermissionView.vue'),
                 meta: {
                     title: '数据源配置',
-                    icon: 'mdi-shield-lock-open',
+                    icon: 'mdi-database-cog',
                     hidden: false,
                     location: 'nav',
                 },

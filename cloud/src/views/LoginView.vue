@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive, h, render} from 'vue';
+import { ref, reactive, h, render } from 'vue';
 import { VSnackbar } from 'vuetify/components/VSnackbar';
 
 import { useProfileStore } from '../stores/profile.js';
@@ -11,75 +11,44 @@ import { useRouter, useRoute } from 'vue-router';
 const $router = useRouter();
 const $route = useRoute();
 
-const form = reactive({
-    username: 'admin',
-    password: 'admin',
-});
+const useLogin = () => {
+    const form = reactive({
+        username: 'admin',
+        password: 'admin',
+    });
+    const loading = ref(false);
+    const message = ref(
+        'Warning: After 3 consecutive failed login attempts, you account will be temporarily locked for three hours. If you must login now, you can also click "Forgot login password?" below to reset the login password.'
+    );
+    const visible = reactive({
+        password: false,
+        snackbar: false,
+        timeout: ref(2000),
+    });
 
-const loading = ref(false);
+    const login = async () => {
+        loading.value = true;
+        await profileStore.userLogin(form.username, form.password); // 用户登录
+        if (profileStore.userinfo.id) {
+            const redirect = $route.query.redirect;
+            $router.push({ path: redirect || '/' });
+            settingStore.settings.showLayoutMsg = true;
+        } else {
+            message.value = '用户名和密码错误，请重新输入!';
+            visible.snackbar = true;
+            console.log(VSnackbar); // TODO 实现无限弹出通知框，vuetify好像不支持
+        }
+        loading.value = false;
+    };
 
-const visible = reactive({
-    password: false,
-    snackbar: false,
-    timeout: ref(2000),
-});
-
-const message = ref(
-    'Warning: After 3 consecutive failed login attempts, you account will be temporarily locked for three hours. If you must login now, you can also click "Forgot login password?" below to reset the login password.'
-);
-
-
-// const container = ref()
-// const showMessage = () => {
-//     // 使用JSX语法创建组件
-//     const MessageComponents = () => {
-//         return (
-//             <v-btn>TEST</v-btn>
-//         )
-//     }
-
-//     // 动态创建虚拟组件
-//     const vnode = h(MessageComponents, )
-
-//     // 挂载组件到指定节点
-//     render(iconCopy, container)
-// }
-
-const login = async () => {
-    loading.value = true;
-    await profileStore.userLogin(form.username, form.password); // 用户登录
-    if (profileStore.userinfo.id) {
-        const redirect = $route.query.redirect;
-        $router.push({ path: redirect || '/' });
-        settingStore.settings.showLayoutMsg = true;
-    } else {
-        message.value = '用户名和密码错误，请重新输入!';
-        visible.snackbar = true;
-        console.log(VSnackbar); // TODO 实现无限弹出通知框
-    }
-
-    // if (form.username === 'admin' && form.password === 'admin') {
-    //     profileStore.userLogin(); // 用户登录
-    //     const redirect = $route.query.redirect;
-    //     $router.push({ path: redirect || '/' });
-    //     settingStore.settings.showLayoutMsg = true;
-    // } else {
-    //     message.value = '用户名和密码错误，请重新输入!';
-    //     visible.snackbar = true;
-    //     console.log(VSnackbar); // TODO 实现无限弹出通知框
-    //     // VSnackbar({
-    //     //     location: "top right",
-    //     //     timeout: 3000,
-    //     //     color: "success",
-    //     //     text: "username or password error."
-    //     // })
-    // }
-    loading.value = false;
+    return { form, message, loading, visible, login };
 };
+
+const { form, message, loading, visible, login } = useLogin();
 </script>
 
 <template>
-    <v-container class="fill-height" ref="container">
+    <v-container class="fill-height container">
         <!-- <v-img
         class="mx-auto my-6"
         max-width="228"
@@ -87,7 +56,7 @@ const login = async () => {
       ></v-img> -->
 
         <v-card class="mx-auto pa-12 pb-8" elevation="8" width="448">
-            <div class="text-subtitle-1 text-medium-emphasis">Account</div>
+            <div class="mb-1 text-caption text-medium-emphasis">Email or Username</div>
 
             <v-text-field
                 density="compact"
@@ -97,22 +66,14 @@ const login = async () => {
                 v-model="form.username"
             ></v-text-field>
 
-            <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">
-                Password
-                <a
-                    class="text-caption text-decoration-none text-blue"
-                    href="#"
-                    rel="noopener noreferrer"
-                    target="_blank"
-                >
-                    Forgot login password?</a
-                >
-            </div>
+            <div class="mb-1 text-overline text-medium-emphasis">Password</div>
 
             <v-text-field
                 :append-inner-icon="visible.password ? 'mdi-eye-off' : 'mdi-eye'"
                 :type="visible.password ? 'text' : 'password'"
                 density="compact"
+                single-line
+                flat
                 placeholder="Enter your password"
                 prepend-inner-icon="mdi-lock-outline"
                 variant="outlined"
@@ -141,9 +102,11 @@ const login = async () => {
                 class="text-medium-emphasis text-caption mb-8"
             ></v-alert>
 
-            <v-btn block class="mb-8" color="blue" size="large" variant="tonal" @click="login" :loading="loading">
-                Log In
-            </v-btn>
+            <v-btn block class="mb-2" color="blue" variant="tonal" @click="login" :loading="loading"> Log In </v-btn>
+
+            <div class="justify-right">
+                <v-btn class="text-blue text-caption" size="small" variant="text">Forgot your password?</v-btn>
+            </div>
 
             <v-snackbar v-model="visible.snackbar" :timeout="visible.timeout" location="top" vertical>
                 <div class="text-subtitle-1 pb-2">Notification</div>
@@ -155,13 +118,28 @@ const login = async () => {
                 </template>
             </v-snackbar>
 
-            <v-card-text class="text-center">
+            <!-- <v-card-text class="text-center">
                 <a class="text-blue text-decoration-none" href="#" rel="noopener noreferrer" target="_blank">
                     Sign up now <v-icon icon="mdi-chevron-right"></v-icon>
                 </a>
-            </v-card-text>
+            </v-card-text> -->
         </v-card>
     </v-container>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.container {
+    background: url('/g8_login_dark.svg') center top / auto no-repeat;
+    background-size: cover;
+    // transition: opacity 3s ease-in-out 0s;
+}
+
+.v-container {
+    max-width: 100%;
+}
+
+// .v-text-field {
+//     background-color: green;
+//     height: 48px;
+// }
+</style>
