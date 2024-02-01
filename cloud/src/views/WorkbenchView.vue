@@ -25,14 +25,24 @@ onMounted(() => {
         <!-- TODO 分组的流式瀑布的按钮菜单，类似联通移动的app -->
         <v-card hover>
             <v-card-item>
-                <v-card-title> Card title </v-card-title>
+                <v-card-title> Enjoy our latest update :) </v-card-title>
                 <v-card-subtitle> Card subtitle secondary text </v-card-subtitle>
             </v-card-item>
 
-            <v-card-text>
+            <v-card-text class="py-0">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
                 dolore magna aliqua.
+                <p class="text-subtitle-1">What's new</p>
+                <p>- newer upgrade</p>
+                <p>- newer upgrade</p>
             </v-card-text>
+
+            <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn variant="plain" size="small" color="warning"
+                    ><span class="text-caption font-weight-bold"> I got it ! </span></v-btn
+                >
+            </v-card-actions>
         </v-card>
 
         <v-card hover class="my-5" v-for="route in routes" :key="route.path">

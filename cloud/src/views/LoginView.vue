@@ -50,80 +50,90 @@ const { form, message, loading, visible, login } = useLogin();
 <template>
     <v-container class="fill-height container">
         <!-- <v-img
-        class="mx-auto my-6"
-        max-width="228"
-        src="https://cdn.vuetifyjs.com/docs/images/logos/vuetify-logo-v3-slim-text-light.svg"
-      ></v-img> -->
+            class="mx-auto my-6"
+            max-width="228"
+            src="https://cdn.vuetifyjs.com/docs/images/logos/vuetify-logo-v3-slim-text-light.svg"
+        ></v-img> -->
 
-        <v-card class="mx-auto pa-12 pb-8" elevation="8" width="448">
-            <div class="mb-1 text-caption text-medium-emphasis">Email or Username</div>
+        <v-form class="mx-auto">
+            <v-card class="mx-auto pa-12 pb-8" elevation="8" width="448">
+                <v-img
+                    class="mx-auto my-6"
+                    max-width="228"
+                    src="https://cdn.vuetifyjs.com/docs/images/logos/vuetify-logo-v3-slim-text-light.svg"
+                ></v-img>
 
-            <v-text-field
-                density="compact"
-                placeholder="Email address"
-                prepend-inner-icon="mdi-email-outline"
-                variant="outlined"
-                v-model="form.username"
-            ></v-text-field>
+                <div class="mb-1 text-caption text-medium-emphasis">Email or Username</div>
 
-            <div class="mb-1 text-overline text-medium-emphasis">Password</div>
+                <v-text-field
+                    density="compact"
+                    placeholder="Email address"
+                    prepend-inner-icon="mdi-email-outline"
+                    variant="outlined"
+                    v-model="form.username"
+                ></v-text-field>
 
-            <v-text-field
-                :append-inner-icon="visible.password ? 'mdi-eye-off' : 'mdi-eye'"
-                :type="visible.password ? 'text' : 'password'"
-                density="compact"
-                single-line
-                flat
-                placeholder="Enter your password"
-                prepend-inner-icon="mdi-lock-outline"
-                variant="outlined"
-                @click:append-inner="visible.password = !visible.password"
-                v-model="form.password"
-            ></v-text-field>
+                <div class="mb-1 text-overline text-medium-emphasis">Password</div>
 
-            <!-- <v-card
-          class="mb-12"
-          color="surface-variant"
-          variant="tonal"
-        >
-          <v-card-text class="text-medium-emphasis text-caption" v-if="message">
-            {{ message }}
-          </v-card-text>
-          <v-card-text class="text-medium-emphasis text-caption" v-else>
-            Warning: After 3 consecutive failed login attempts, you account will be temporarily locked for three hours. If you must login now, you can also click "Forgot login password?" below to reset the login password.
-          </v-card-text>
-        </v-card> -->
+                <v-text-field
+                    :append-inner-icon="visible.password ? 'mdi-eye-off' : 'mdi-eye'"
+                    :type="visible.password ? 'text' : 'password'"
+                    density="compact"
+                    single-line
+                    flat
+                    placeholder="Enter your password"
+                    prepend-inner-icon="mdi-lock-outline"
+                    variant="outlined"
+                    @click:append-inner="visible.password = !visible.password"
+                    v-model="form.password"
+                ></v-text-field>
 
-            <v-alert
-                ref="alert"
-                closable
-                density="compact"
-                :text="message"
-                class="text-medium-emphasis text-caption mb-8"
-            ></v-alert>
+                <!-- <v-card
+                  class="mb-12"
+                  color="surface-variant"
+                  variant="tonal"
+                >
+                  <v-card-text class="text-medium-emphasis text-caption" v-if="message">
+                    {{ message }}
+                  </v-card-text>
+                  <v-card-text class="text-medium-emphasis text-caption" v-else>
+                    Warning: After 3 consecutive failed login attempts, you account will be temporarily locked for three hours. If you must login now, you can also click "Forgot login password?" below to reset the login password.
+                  </v-card-text>
+                </v-card> -->
 
-            <v-btn block class="mb-2" color="blue" variant="tonal" @click="login" :loading="loading"> Log In </v-btn>
+                <v-alert
+                    ref="alert"
+                    closable
+                    density="compact"
+                    :text="message"
+                    class="text-medium-emphasis text-caption mb-8"
+                ></v-alert>
 
-            <div class="justify-right">
-                <v-btn class="text-blue text-caption" size="small" variant="text">Forgot your password?</v-btn>
-            </div>
+                <v-btn block class="mb-2" color="blue" variant="tonal" @click="login" :loading="loading">
+                    Log In
+                </v-btn>
 
-            <v-snackbar v-model="visible.snackbar" :timeout="visible.timeout" location="top" vertical>
-                <div class="text-subtitle-1 pb-2">Notification</div>
+                <!-- <v-row justify="end"> -->
+                    <v-btn class="text-blue text-caption" size="small" variant="text">Forgot your password?</v-btn>
+                <!-- </v-row> -->
 
-                <p>{{ message }}</p>
+                <v-snackbar v-model="visible.snackbar" :timeout="visible.timeout" location="top" vertical>
+                    <div class="text-subtitle-1 pb-2">Notification</div>
 
-                <template v-slot:actions>
-                    <v-btn color="indigo" variant="text" @click="visible.snackbar = false"> Close </v-btn>
-                </template>
-            </v-snackbar>
+                    <p>{{ message }}</p>
 
-            <!-- <v-card-text class="text-center">
+                    <template v-slot:actions>
+                        <v-btn color="indigo" variant="text" @click="visible.snackbar = false"> Close </v-btn>
+                    </template>
+                </v-snackbar>
+
+                <!-- <v-card-text class="text-center">
                 <a class="text-blue text-decoration-none" href="#" rel="noopener noreferrer" target="_blank">
                     Sign up now <v-icon icon="mdi-chevron-right"></v-icon>
                 </a>
             </v-card-text> -->
-        </v-card>
+            </v-card>
+        </v-form>
     </v-container>
 </template>
 
