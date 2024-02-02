@@ -49,7 +49,7 @@ request.interceptors.response.use(
         // TODO 其实都不用进行二次转换处理，就用原生的返回数据即可
 
         let message = '';
-        let status = error.response.status;
+        let status = error.response.status || '';
         switch (status) {
             // 401: 未登录
             // 未登录则跳转登录页面，并携带当前页面的路径
@@ -71,7 +71,7 @@ request.interceptors.response.use(
                 message = '服务器出现问题';
                 break;
             default:
-                message = error.response.data.message;
+                message = error.response.data.message || 'Looks loke you lost your connection. Please check it and try again.';
                 break;
         }
         // TODO 弹出全局消息框

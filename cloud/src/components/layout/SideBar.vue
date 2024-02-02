@@ -16,28 +16,8 @@ import { useRouter, useRoute } from 'vue-router';
 const $router = useRouter();
 const $route = useRoute();
 
-const sideBarItems = reactive([]);
-
-const bottomItems = reactive([
-    { text: 'Settings', icon: 'mdi-cog' },
-    { text: 'Sign Out', icon: 'mdi-export' },
-]);
-
-const handle = (event, item) => {
-    console.log(event, item);
-
-    if (item.text === 'Settings') {
-        settings.showSideBarSetting = true;
-    } else if (item.text === 'Sign Out') {
-        // TODO 封装成hooks使用?
-        // 重置store的数据
-        profileStore.$reset();
-        // 跳转到登录页面
-        $router.push({ path: '/login', query: { redirect: $route.path } });
-    }
-};
-
-onMounted(() => {
+const useSideBar = () => {
+    const sideBarItems = reactive([]);
     profileStore.privilege.routes
         .filter((route) => route.meta.location === 'side')
         .map((route) => {
@@ -47,7 +27,27 @@ onMounted(() => {
                 sideBarItems.push(route);
             }
         });
-});
+
+    const openSetting = () => {
+        settings.showSideBarSetting = true;
+    };
+
+    const signOut = () => {
+        // 重置store的数据
+        profileStore.$reset();
+        // 跳转到登录页面
+        $router.push({ path: '/login', query: { redirect: $route.path } });
+    };
+
+    const bottomItems = reactive([
+        { text: 'Settings', icon: 'mdi-cog', handle: openSetting },
+        { text: 'Sign Out', icon: 'mdi-export', handle: signOut },
+    ]);
+
+    return { sideBarItems, bottomItems };
+};
+
+const { sideBarItems, bottomItems } = useSideBar();
 </script>
 
 <template>
@@ -114,11 +114,12 @@ onMounted(() => {
                     v-for="(item, key) in bottomItems"
                     :key="key"
                     :value="item"
+                    @click="item.handle"
                 >
                     <template v-slot:prepend>
                         <v-icon :icon="item.icon"></v-icon>
                     </template>
-                    <v-list-item-title v-text="item.text" @click="(event) => handle(event, item)"></v-list-item-title>
+                    <v-list-item-title v-text="item.text"></v-list-item-title>
                 </v-list-item>
             </v-list>
 
@@ -143,6 +144,4 @@ onMounted(() => {
     </v-navigation-drawer>
 </template>
 
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>

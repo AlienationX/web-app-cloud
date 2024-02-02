@@ -56,7 +56,6 @@ export const useProfileStore = defineStore(
 
         // store重置，数据还原成默认值
         function $reset() {
-            console.log('start remove');
             token.value = '';
 
             // info = {}  // 无效

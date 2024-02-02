@@ -7,13 +7,13 @@ const settingStore = useSettingStore();
 // const screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
 // const isMobile = screenWidth < 768;
 // const isTablet = screenWidth >=768 && screenWidth < 1024
-// else isPC
+// const isPC = screenWidth >= 1024
 
 import { useTheme, useDisplay } from 'vuetify';
 
 // 可以获取到很多信息
 // platform: 包括系统平台和浏览器类型 win/mac/linux android/ios chrome/edge/firefox/opera/electron/ cordova? touch? ssr?
-// mobile: 是否手机
+// mobile: 是否移动设备，包括手机和平板
 // name: 返回 xs / sm / md / lg / xl / xxl
 // width and height
 console.log('useDisplay', useDisplay());
@@ -38,7 +38,7 @@ onMounted(() => {
     // TODO Test
     console.log('User Agent', navigator.userAgent);
     console.log('platform', platform.value); // 返回对象
-    console.log('display', name.value);
+    console.log('display', name.value);  // 返回 xs / sm / md / lg / xl / xxl
     console.log('mobile', mobile.value);
     console.log('width and heiht', width.value, height.value);
     console.log('theme', theme);

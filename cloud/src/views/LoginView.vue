@@ -1,5 +1,8 @@
 <script setup>
 import { ref, reactive, h, render } from 'vue';
+import { useDisplay } from 'vuetify';
+const { name } = useDisplay();
+
 import { VSnackbar } from 'vuetify/components/VSnackbar';
 
 import { useProfileStore } from '../stores/profile.js';
@@ -32,7 +35,10 @@ const useLogin = () => {
         if (profileStore.userinfo.id) {
             const redirect = $route.query.redirect;
             $router.push({ path: redirect || '/' });
-            settingStore.settings.showLayoutMsg = true;
+            // 手机端界面太小，不弹出欢迎消息框。使用css的 class="d-none d-sm-flex" 控制失败
+            if (name.value !== 'xs') {
+                settingStore.settings.showLayoutMsg = true;
+            }
         } else {
             message.value = '用户名和密码错误，请重新输入!';
             visible.snackbar = true;
@@ -114,9 +120,10 @@ const { form, message, loading, visible, login } = useLogin();
                 </v-btn>
 
                 <!-- <v-row justify="end"> -->
-                    <v-btn class="text-blue text-caption" size="small" variant="text">Forgot your password?</v-btn>
+                <v-btn class="text-blue text-caption" size="small" variant="text">Forgot your password?</v-btn>
                 <!-- </v-row> -->
 
+                <!-- 手机端不显示,css的d-none无法控制 -->
                 <v-snackbar v-model="visible.snackbar" :timeout="visible.timeout" location="top" vertical>
                     <div class="text-subtitle-1 pb-2">Notification</div>
 

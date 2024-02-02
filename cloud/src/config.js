@@ -5,7 +5,7 @@ export default {
     logoHidden: false,
 };
 
-// import settings from './settings.js'
+// import config from './config.js'
 // TODO 成为全局变量
 
 // 超小号     (Extra small)          xs      小型到大型的手机                    < 600px

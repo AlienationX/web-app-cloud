@@ -39,6 +39,11 @@ export const useSettingStore = defineStore(
             return mobile.value;
         });
 
+        // const screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
+        // const isMobile = screenWidth < 768;
+        // const isTablet = screenWidth >=768 && screenWidth < 1024
+        // const isPC = screenWidth >= 1024
+
         return { settings, switchIcon, isMobile };
     },
     {

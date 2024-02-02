@@ -1,6 +1,7 @@
 {
     "name": "Progressive Times web app",
     "short_name": "Progressive Times",
+    "description": "this is description...",
     "start_url": "index.html",
     "display": "standalone",
     "theme_color": "#FFDF00",
