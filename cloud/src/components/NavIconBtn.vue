@@ -35,12 +35,17 @@ const useRandomMdiIcons = () => {
         'mdi-twitter',
     ];
 
+    const colors = ['primary', 'secondary', 'info', 'warning', 'success', 'error'];
+
     const index = Math.floor(Math.random() * icons.length);
     const icon = ref(icons[index]);
-    return { icon };
+
+    const color = ref(colors[Math.floor(Math.random() * colors.length)]);
+
+    return { icon, color };
 };
 
-const { icon } = useRandomMdiIcons();
+const { icon, color } = useRandomMdiIcons();
 const { iconSize } = useGetIconSize();
 
 const btnRouter = (event, path) => {
@@ -50,7 +55,7 @@ const btnRouter = (event, path) => {
 
 <template>
     <div class="text-center" @click="btnRouter($event, route.path)">
-        <v-icon color="primary" :size="60" :icon="icon"></v-icon>
+        <v-icon :color="color" :size="60" :icon="icon"></v-icon>
         <!-- <span class="d-block text-caption">{{ icon.substring(4) }}</span> -->
         <span class="d-block text-caption">{{ route.meta.title }}</span>
     </div>

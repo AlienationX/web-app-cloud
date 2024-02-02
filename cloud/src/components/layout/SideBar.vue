@@ -115,6 +115,7 @@ const { sideBarItems, bottomItems } = useSideBar();
                     :key="key"
                     :value="item"
                     @click="item.handle"
+                    :active="false"
                 >
                     <template v-slot:prepend>
                         <v-icon :icon="item.icon"></v-icon>

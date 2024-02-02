@@ -62,7 +62,7 @@ const { form, message, loading, visible, login } = useLogin();
         ></v-img> -->
 
         <v-form class="mx-auto">
-            <v-card class="mx-auto pa-12 pb-8" elevation="8" width="448">
+            <v-card class="mx-auto pa-12 pb-8" elevation="8" max-width="460">
                 <v-img
                     class="mx-auto my-6"
                     max-width="228"
