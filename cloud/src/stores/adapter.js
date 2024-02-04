@@ -33,7 +33,6 @@ export const useAdapterStore = defineStore(
 
         // 监听navBarHide值的变化
         watch(density, (newValue, oldValue) => {
-            console.log(oldValue, newValue)
             if (newValue === 'compact') {
                 size.btnSize = 'small';
             }
@@ -45,7 +44,6 @@ export const useAdapterStore = defineStore(
             if (newValue === 'default') {
                 size.btnSize = 'large';
             }
-            console.log(newValue, 'size', size.btnSize);
         });
 
         // 封装移动端(phone + tablet)的逻辑判断
