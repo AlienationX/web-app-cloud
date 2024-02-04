@@ -25,6 +25,7 @@ const useLogin = () => {
     );
     const visible = reactive({
         password: false,
+        alert: true,
         snackbar: false,
         timeout: ref(2000),
     });
@@ -41,6 +42,7 @@ const useLogin = () => {
             }
         } else {
             message.value = '用户名和密码错误，请重新输入!';
+            visible.alert = true;
             visible.snackbar = true;
             console.log(VSnackbar); // TODO 实现无限弹出通知框，vuetify好像不支持
         }
@@ -62,14 +64,14 @@ const { form, message, loading, visible, login } = useLogin();
         ></v-img> -->
 
         <v-form class="mx-auto">
-            <v-card class="mx-auto pa-12 pb-8" elevation="8" max-width="460">
+            <v-card class="mx-auto pa-12 pb-8" elevation="8" max-width="460" min-width="380">
                 <v-img
                     class="mx-auto my-6"
                     max-width="228"
                     src="https://cdn.vuetifyjs.com/docs/images/logos/vuetify-logo-v3-slim-text-light.svg"
                 ></v-img>
 
-                <div class="mb-1 text-caption text-medium-emphasis">Email or Username</div>
+                <div class="mb-1 text-body-2 text-medium-emphasis">Email or Username</div>
 
                 <v-text-field
                     density="compact"
@@ -79,7 +81,7 @@ const { form, message, loading, visible, login } = useLogin();
                     v-model="form.username"
                 ></v-text-field>
 
-                <div class="mb-1 text-overline text-medium-emphasis">Password</div>
+                <div class="mb-1 text-body-2 text-medium-emphasis">Password</div>
 
                 <v-text-field
                     :append-inner-icon="visible.password ? 'mdi-eye-off' : 'mdi-eye'"
@@ -108,11 +110,12 @@ const { form, message, loading, visible, login } = useLogin();
                 </v-card> -->
 
                 <v-alert
-                    ref="alert"
-                    closable
-                    density="compact"
-                    :text="message"
                     class="text-medium-emphasis text-caption mb-8"
+                    :model-value="visible.alert"
+                    :text="message"
+                    density="compact"
+                    closable
+                    @click:close="visible.alert = false"
                 ></v-alert>
 
                 <v-btn block class="mb-2" color="blue" variant="tonal" @click="login" :loading="loading">
@@ -134,11 +137,11 @@ const { form, message, loading, visible, login } = useLogin();
                     </template>
                 </v-snackbar>
 
-                <!-- <v-card-text class="text-center">
-                <a class="text-blue text-decoration-none" href="#" rel="noopener noreferrer" target="_blank">
-                    Sign up now <v-icon icon="mdi-chevron-right"></v-icon>
-                </a>
-            </v-card-text> -->
+                <v-card-text class="text-center">
+                    <a class="text-blue text-decoration-none" href="#" rel="noopener noreferrer" target="_blank">
+                        Sign up now <v-icon icon="mdi-chevron-right"></v-icon>
+                    </a>
+                </v-card-text>
             </v-card>
         </v-form>
     </v-container>

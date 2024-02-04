@@ -7,6 +7,7 @@ import { fullScreen } from '../../common/utils.js';
 
 import { useProfileStore } from '../../stores/profile.js';
 import { useSettingStore } from '../../stores/setting.js';
+import { useAdapterStore } from '../../stores/adapter.js';
 
 import { useRouter, useRoute } from 'vue-router';
 const $router = useRouter();
@@ -14,6 +15,7 @@ const $route = useRoute();
 
 const profileStore = useProfileStore();
 const settingStore = useSettingStore();
+const adapterStore = useAdapterStore();
 
 const settings = settingStore.settings;
 
@@ -85,7 +87,7 @@ onMounted(() => {
         scroll-threshold 属性（单位是像素）决定了滚动条需要向下滚动多少才有应用栏的滚动效果。
     -->
     <v-app-bar
-        :density="settings.density"
+        :density="adapterStore.density"
         :flat="settings.navBarFlat"
         :scroll-behavior="settings.navBarBehavior.join(' ')"
         scroll-threshold="1"
@@ -127,7 +129,7 @@ onMounted(() => {
         <v-btn class="d-none d-sm-flex" size="small" :icon="settingStore.switchIcon" @click="switchTheme"> </v-btn>
         <v-btn class="d-none d-sm-flex" size="small" icon="mdi-cog" @click="settings.showNavBarSetting = true"> </v-btn>
 
-        <v-menu :open-on-hover="!settingStore.isMobile" :open-on-click="settingStore.isMobile">
+        <v-menu :open-on-hover="!adapterStore.isMobile" :open-on-click="adapterStore.isMobile">
             <template v-slot:activator="{ props }">
                 <v-btn class="d-none d-sm-flex" color="primary" v-bind="props" prepend-icon="mdi-account-circle">
                     <span class="font-weight-bold text-overline">Profile</span>

@@ -1,8 +1,8 @@
 <script setup>
 import { ref, onMounted } from 'vue';
-import { useSettingStore } from '../../stores/setting';
+import { useAdapterStore } from '../../stores/adapter.js';
 
-const settingStore = useSettingStore();
+const adapterStore = useAdapterStore();
 
 // defineProps(['route']);
 // 不定义变量接收，可以直接在template中使用。如果在script中使用必须定义接收变量，但是template还是可以不用写props前缀
@@ -24,7 +24,7 @@ onMounted(() => {
 
 <template>
     <!-- open-on-click解决手机版触屏无法hover的问题 -->
-    <v-menu :open-on-hover="!settingStore.isMobile" :open-on-click="settingStore.isMobile">
+    <v-menu :open-on-hover="!adapterStore.isMobile" :open-on-click="adapterStore.isMobile">
         <template v-slot:activator="{ props }">
             <v-btn
                 class="d-none d-sm-flex"

@@ -45,11 +45,12 @@ request.interceptors.response.use(
         }
     },
     (error) => {
-        console.log('raw error:', error);
+        console.log('raw error:', error);  // error = AxiosError
+        
         // TODO 其实都不用进行二次转换处理，就用原生的返回数据即可
-
-        let message = '';
-        let status = error.response.status || '';
+        let code = error.code;
+        let message = error.message;
+        let status = '???'
         switch (status) {
             // 401: 未登录
             // 未登录则跳转登录页面，并携带当前页面的路径

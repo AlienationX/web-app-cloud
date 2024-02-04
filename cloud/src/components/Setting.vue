@@ -1,7 +1,9 @@
 <script setup>
 import { ref, reactive, computed, watch, onMounted } from 'vue';
 import { useSettingStore } from '../stores/setting';
+import { useAdapterStore } from '../stores/adapter.js';
 const settingStore = useSettingStore();
+const adapterStore = useAdapterStore();
 
 const settings = settingStore.settings;
 
@@ -24,7 +26,7 @@ const useSlider = () => {
     const move = (modelValue) => {
         for (let key in m) {
             if (m[key] === modelValue) {
-                settings.density = key;
+                adapterStore.density = key;
                 break;
             }
         }
@@ -32,7 +34,7 @@ const useSlider = () => {
 
     // 计算属性
     const tickValue = computed(() => {
-        return m[settings.density];
+        return m[adapterStore.density];
     });
 
     return { tickLabels, tickValue, move };

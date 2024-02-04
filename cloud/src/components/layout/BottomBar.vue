@@ -2,10 +2,10 @@
 import { ref, reactive, onMounted } from 'vue';
 
 import { useProfileStore } from '../../stores/profile.js';
-import { useSettingStore } from '../../stores/setting.js'
+import { useAdapterStore } from '../../stores/adapter.js'
 
 const profileStore = useProfileStore();
-const settingStore = useSettingStore();
+const adapterStore = useAdapterStore();
 
 const bottomRoutes = reactive([]);
 
@@ -21,7 +21,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <v-bottom-navigation grow class="d-flex d-sm-none" :density="settingStore.settings.density" color="primary" order="3">
+    <v-bottom-navigation grow class="d-flex d-sm-none" :density="adapterStore.density" color="primary" order="3">
         <v-btn
             v-for="route in bottomRoutes"
             :key="route.path"

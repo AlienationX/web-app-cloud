@@ -45,7 +45,7 @@ onMounted(() => {
         </v-card>
 
         <v-card hover class="my-5" v-for="route in routes" :key="route.path">
-            <v-card-title class="text-subtitle-1 font-weight-bold"> {{ route.meta.title }} </v-card-title>
+            <v-card-title class="text-subtitle-1"> {{ route.meta.title }} </v-card-title>
             <!--<template v-slot:title>
                 <!~~ v-card 增加 :prepend-icon="route.meta.icon" ~~>
                 <span class="text-subtitle-1">{{ route.meta.title }}</span>

@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { reactive, computed } from 'vue';
+import { reactive, computed, watch } from 'vue';
 import { useDisplay } from 'vuetify';
 
 // 超小号     (Extra small)          xs      小型到大型的手机                               < 600px
@@ -13,29 +13,16 @@ import { useDisplay } from 'vuetify';
 // 中  >= 600px  < 1920px
 // 大  >= 1920px 
 
-export const useAdaptionStore = defineStore(
-    'adaption',
+export const useThemeStore = defineStore(
+    'theme',
     () => {
         const { platform, mobile, name, width, height } = useDisplay();
 
-        const size = reactive({
-            density: 'compact', // 显示大小 compact/comfortable/defalut
-
-            btnSmallSize: 'small',
-            btnMediumSize: '',
-            btnLargeSize: 'large',
-
-            textSmallSize: '',
-            textMediumSize: '',
-            textLargeSize: '',
+        const color = reactive({
+            primary: '',
         });
 
-        // 封装移动端的逻辑判断
-        const isMobile = computed(() => {
-            return mobile.value;
-        });
-
-        return { settings, switchIcon, isMobile };
+        return { color };
     },
     {
         persist: {
@@ -44,7 +31,7 @@ export const useAdaptionStore = defineStore(
             // 存储位置，默认 localStorage，还支持sessionStorage，cookie比较复杂
             // storage: sessionStorage,
             // 指定存储的内容
-            paths: ['adaption'],
+            paths: ['theme'],
         },
     }
 );
