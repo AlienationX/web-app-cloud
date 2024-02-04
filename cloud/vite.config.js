@@ -20,6 +20,12 @@ export default defineConfig({
                 changeOrigin: true, //支持跨域
                 rewrite: (path) => path.replace(/^\/api/, ''), //重写路径,替换/api
             },
+            '/test': {
+                target: 'https://api.uomg.com',
+                changeOrigin: true,
+                rewrite: (path) => path.replace(/^\/test/, ''),
+            },
+            // 
         },
     },
 });

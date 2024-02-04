@@ -47,13 +47,13 @@ const useNavBarHide = () => {
     const navBarHide = settings.navBarBehavior.indexOf('hide') >= 0 ? ref(false) : ref(true);
 
     // 监听navBarHide值的变化
-    watch(navBarHide, (oldValue, newValue) => {
+    watch(navBarHide, (newValue, oldValue) => {
         if (newValue) {
-            // 如果newValue为true，则增加hide属性
-            settings.navBarBehavior.push('hide');
-        } else {
-            // 否则删除hide属性
+            // 如果newValue为true，则删除hide属性
             settings.navBarBehavior.splice(settings.navBarBehavior.indexOf('hide'), 1);
+        } else {
+            // 如果newValue为false，则增加hide属性
+            settings.navBarBehavior.push('hide');
         }
     });
 

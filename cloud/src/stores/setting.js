@@ -38,7 +38,7 @@ export const useSettingStore = defineStore(
             // 存储位置，默认 localStorage，还支持sessionStorage，cookie比较复杂
             // storage: sessionStorage,
             // 指定存储的内容
-            paths: ['setting'],
+            paths: ['settings'],
         },
     }
 );

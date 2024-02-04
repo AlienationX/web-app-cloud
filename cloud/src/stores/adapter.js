@@ -17,34 +17,35 @@ export const useAdapterStore = defineStore(
     'adapter',
     () => {
         const { platform, mobile, name, width, height } = useDisplay();
-        
+
         const density = ref('compact');
         const size = reactive({
             density: 'compact', // 显示大小 compact/comfortable/defalut
 
-            btnSmallSize: 'small',
+            btnSize: 'small',
             btnMediumSize: '',
-            btnLargeSize: 'large',
+            btnLargeSize: '',
 
-            textSmallSize: '',
+            textSize: '',
             textMediumSize: '',
             textLargeSize: '',
         });
 
         // 监听navBarHide值的变化
-        watch(density, (oldValue, newValue) => {
+        watch(density, (newValue, oldValue) => {
+            console.log(oldValue, newValue)
             if (newValue === 'compact') {
-                size.btnSmallSize = 'xsmall';
+                size.btnSize = 'small';
             }
 
             if (newValue === 'comfortable') {
-                size.btnSmallSize = 'small';
+                size.btnSize = undefined;
             }
 
             if (newValue === 'default') {
-                size.btnSmallSize = 'large';
+                size.btnSize = 'large';
             }
-            console.log('size', size.btnSmallSize);
+            console.log(newValue, 'size', size.btnSize);
         });
 
         // 封装移动端(phone + tablet)的逻辑判断
@@ -66,7 +67,7 @@ export const useAdapterStore = defineStore(
             // 存储位置，默认 localStorage，还支持sessionStorage，cookie比较复杂
             // storage: sessionStorage,
             // 指定存储的内容
-            paths: ['adapter'],
+            paths: ['density', 'size'],
         },
     }
 );

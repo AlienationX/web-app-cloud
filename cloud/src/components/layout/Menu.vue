@@ -30,7 +30,7 @@ onMounted(() => {
                 class="d-none d-sm-flex"
                 v-bind="props"
                 :append-icon="menuDownIcon"
-                size="small"
+                :size="adapterStore.size.btnSize"
                 router
                 :to="levelOnePath"
             >
