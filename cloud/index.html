@@ -16,7 +16,11 @@
         <script>
             // 1. 注册service-worker，缓存各种文件及数据
             if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('service-worker.js');
+                try {
+                    await navigator.serviceWorker.register('service-worker.js');
+                } catch(e) {
+                    console.log('service-worker registration failed');
+                }
             }
 
             // 2. 离线模式通知

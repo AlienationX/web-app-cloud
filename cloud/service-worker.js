@@ -9,3 +9,4 @@
 // fastest则是两个同时进行，哪个快执行哪个。
 // cacheOnly和networkOnly比较不常用。
 
+console.log('service-worker starting...');

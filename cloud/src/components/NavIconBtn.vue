@@ -35,7 +35,22 @@ const useRandomMdiIcons = () => {
         'mdi-twitter',
     ];
 
-    const colors = ['primary', 'secondary', 'info', 'warning', 'success', 'error'];
+    const colors = [
+        'primary',
+        'secondary',
+        'info',
+        'warning',
+        'success',
+        'error',
+        'red',
+        'pink',
+        'purple',
+        'indigo',
+        'green',
+        'lime',
+        'orange',
+        'deep-orange',
+    ];
 
     const index = Math.floor(Math.random() * icons.length);
     const icon = ref(icons[index]);
