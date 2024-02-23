@@ -23,7 +23,6 @@ const useIndicator = () => {
     // 获取 followers 数量
     (async () => {
         let followersRes = await reqGitHubUserFollowers(profileStore.userinfo.username);
-        console.log(followersRes);
         indicator.followers = followersRes.data.length;
     })();
 

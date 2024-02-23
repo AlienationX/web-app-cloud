@@ -28,6 +28,11 @@ const profileLinks = reactive([
     { text: 'Sing Out', icon: 'mdi-export' },
 ]);
 
+const updateRefsh = () => {
+    // 监听该值的变化即可，true/flase 无所谓
+    settings.refresh = !settings.refresh;
+};
+
 const switchTheme = () => {
     // 修改theme主题值
     settings.theme = settings.theme === 'light' ? 'dark' : 'light';
@@ -122,8 +127,8 @@ onMounted(() => {
         <!-- inset代表不占全部  -->
         <v-divider class="d-none d-sm-flex pl-2" inset vertical></v-divider>
 
-        <v-btn size="small" icon="mdi-refresh"> </v-btn>
-        <v-btn class="d-flex d-sm-none" size="small" icon="mdi-dots-vertical"></v-btn>
+        <v-btn size="small" icon="mdi-refresh" @click="updateRefsh"> </v-btn>
+        <v-btn class="d-flex d-sm-none" size="small" icon="mdi-dots-vertical"> </v-btn>
 
         <v-btn class="d-none d-sm-flex" size="small" icon="mdi-fullscreen" @click="fullScreen"> </v-btn>
         <v-btn class="d-none d-sm-flex" size="small" :icon="settingStore.switchIcon" @click="switchTheme"> </v-btn>

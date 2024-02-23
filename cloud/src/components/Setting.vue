@@ -1,6 +1,6 @@
 <script setup>
 import { ref, reactive, computed, watch, onMounted } from 'vue';
-import { useSettingStore } from '../stores/setting';
+import { useSettingStore } from '../stores/setting.js';
 import { useAdapterStore } from '../stores/adapter.js';
 const settingStore = useSettingStore();
 const adapterStore = useAdapterStore();

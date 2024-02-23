@@ -1,9 +1,26 @@
-<script setup></script>
+<script setup>
+import { ref, watch, nextTick } from 'vue';
+import { useSettingStore } from '@/stores/setting.js';
+const settingStore = useSettingStore();
+
+let flag = ref(true);
+// 监视reactive: 监视reactive所定义的一个响应式数据的某个属性，需要写成函数
+watch(
+    () => settingStore.settings.refresh,
+    () => {
+        flag.value = false;
+        // 重新渲染
+        nextTick(() => {
+            flag.value = true;
+        });
+    }
+);
+</script>
 
 <template>
     <router-view v-slot="{ Component }">
         <transition name="fade">
-            <component :is="Component" />
+            <component :is="Component" v-if="flag" />
         </transition>
     </router-view>
 </template>
