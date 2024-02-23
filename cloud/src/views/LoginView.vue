@@ -14,6 +14,11 @@ import { useRouter, useRoute } from 'vue-router';
 const $router = useRouter();
 const $route = useRoute();
 
+const formWidth = ref(380);
+if (name.value !== 'xs') {
+    formWidth.value = 460;
+}
+
 const useLogin = () => {
     const form = reactive({
         username: 'admin',
@@ -27,7 +32,7 @@ const useLogin = () => {
         password: false,
         alert: true,
         snackbar: false,
-        timeout: ref(2000),
+        timeout: ref(3000),
     });
 
     const login = async () => {
@@ -41,7 +46,7 @@ const useLogin = () => {
                 settingStore.settings.showLayoutMsg = true;
             }
         } else {
-            message.value = '用户名和密码错误，请重新输入!';
+            message.value = profileStore.message;
             visible.alert = true;
             visible.snackbar = true;
             console.log(VSnackbar); // TODO 实现无限弹出通知框，vuetify好像不支持
@@ -64,7 +69,8 @@ const { form, message, loading, visible, login } = useLogin();
         ></v-img> -->
 
         <v-form class="mx-auto">
-            <v-card class="mx-auto pa-12 pb-8" elevation="8" max-width="460" min-width="380">
+            <v-card class="mx-auto pa-12 pb-8" elevation="8" :width="formWidth">
+                <!-- max-width="460" min-width="380" -->
                 <v-img
                     class="mx-auto my-6"
                     max-width="228"

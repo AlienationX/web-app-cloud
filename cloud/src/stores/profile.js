@@ -14,6 +14,7 @@ export const useProfileStore = defineStore(
             routes: [],
             disable: [], // 按钮权限的控制，禁用(隐藏)的按钮。为空即为拥有全部按钮权限
         });
+        let message = ref('');
 
         async function getUserInfo() {
             // 根据token获取用户信息
@@ -28,8 +29,30 @@ export const useProfileStore = defineStore(
             // TODO 正常接口应该是不需要参数，headers携带token请求即可
             let result = await reqGitHubUser(token.value);
 
-            Object.assign(userinfo, result.data); // 只能使用该方式修改对象的值不会丢失响应式。
-            userinfo.username = userinfo.login; // github的接口没有username，赋值login。
+            // TODO 判断 登录成功 or 用户名密码错误 or 网络请求错误
+            if (result.code && result.code === 200) {
+                // 1.登录成功返回 code data message 数据
+                Object.assign(userinfo, result.data); // 只能使用该方式修改对象的值不会丢失响应式。
+                userinfo.username = userinfo.login; // github的接口没有username，赋值login。
+                // message = '登录成功！';
+            } else if (result.response && result.response.status && result.response.status === 404) {
+                // 2.用户名密码错误
+                message.value = result.response.statusText + ', ' + result.message;
+                message.value = '用户名和密码错误，请重新输入!';
+            } else if (result.response && result.response.status && result.response.status === 403) {
+                // 3.接口错误
+                // code: "ERR_BAD_REQUEST"
+                // message: "Request failed with status code 403"
+                message.value = result.code + ', ' + result.message;
+            } else {
+                // 4.网络请求错误
+                // code: "ERR_NETWORK"
+                // message: ""Network Error""
+                message.value = result.code + ', ' + result.message;
+                message.value = '网络问题，请检查网络是否正常连接！';
+            }
+
+            message.value && console.log(message.value);
         }
 
         async function getPrivilege() {
@@ -77,8 +100,8 @@ export const useProfileStore = defineStore(
             removeToken();
         }
 
-        return { token, userinfo, privilege, getUserInfo, getPrivilege, userLogin, $reset };
-    },
+        return { token, userinfo, privilege, message, getUserInfo, getPrivilege, userLogin, $reset };
+    }
     // {
     //     persist: {
     //         // 存储的 key， 默认是 defineStore 的第一个参数

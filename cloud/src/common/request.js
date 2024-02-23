@@ -27,7 +27,7 @@ request.interceptors.request.use(
 // TODO 响应拦截器。统一返回结果必须存在 code(status) / message(statusText) / data，否则返回自定义的响应体。
 request.interceptors.response.use(
     (response) => {
-        console.log('raw response:', response);
+        console.log('request response:', response.config.url, response);
         // response包含的key {config, data, headers, request, status, statusText}
         // 携带的token在config.headers.token中
         // TODO 封装返回结果必须存在 code(status) / message(statusText) / data，否则返回自定义的响应体。
@@ -39,42 +39,43 @@ request.interceptors.response.use(
             });
         } else {
             // TODO 这个的status会是多少？
-            alert("这个是成功请求，但是返回的状态码不是200，而是", response.status)
-            console.log("-------------------> response.status:", response.status)
+            alert('这个是成功请求，但是返回的状态码不是200，而是', response.status);
+            console.log('-------------------> response.status:', response.status);
             return Promise.reject(response.data);
         }
     },
     (error) => {
-        console.log('raw error:', error);  // error = AxiosError
-        
+        console.log('request error:', error); // error = AxiosError
+
         // TODO 其实都不用进行二次转换处理，就用原生的返回数据即可
         let code = error.code;
         let message = error.message;
-        let status = '???'
-        switch (status) {
-            // 401: 未登录
-            // 未登录则跳转登录页面，并携带当前页面的路径
-            // 在登录成功后返回当前页面，这一步需要在登录页操作。
-            case 401:
-                message = '未登录';
-                break;
-            // 403 token过期
-            // 登录过期对用户进行提示
-            // 清除本地token和清空vuex中token对象
-            // 跳转登录页面
-            case 403:
-                message = '登录过期，请重新登录';
-                break;
-            case 404:
-                message = '网络请求错误';
-                break;
-            case 500:
-                message = '服务器出现问题';
-                break;
-            default:
-                message = error.response.data.message || 'Looks loke you lost your connection. Please check it and try again.';
-                break;
-        }
+        console.log('except error ==>', { code, message });
+        // let status = '???'
+        // switch (status) {
+        //     // 401: 未登录
+        //     // 未登录则跳转登录页面，并携带当前页面的路径
+        //     // 在登录成功后返回当前页面，这一步需要在登录页操作。
+        //     case 401:
+        //         message = '未登录';
+        //         break;
+        //     // 403 token过期
+        //     // 登录过期对用户进行提示
+        //     // 清除本地token和清空vuex中token对象
+        //     // 跳转登录页面
+        //     case 403:
+        //         message = '登录过期，请重新登录';
+        //         break;
+        //     case 404:
+        //         message = '网络请求错误';
+        //         break;
+        //     case 500:
+        //         message = '服务器出现问题';
+        //         break;
+        //     default:
+        //         message = 'Looks loke you lost your connection. Please check it and try again.';
+        //         break;
+        // }
         // TODO 弹出全局消息框
         // ElMessage({
         //   type: 'error',

@@ -16,6 +16,8 @@ npm install vuetify
 npm install @mdi/font -D
 npm install sass -D
 
+npm install echarts
+
 npm install nprogress
 # npm install pinia-plugin-persist
 npm install pinia-plugin-persistedstate
@@ -23,7 +25,7 @@ npm install pinia-plugin-persistedstate
 
 ```shell
 # 安装package.json里面的所有依赖
-npm install --registry=https://registry.npm.taobao.org  # 已过期
+# npm install --registry=https://registry.npm.taobao.org  # 已过期
 npm install --registry=https://registry.npmmirror.com
 
 # 其他npm镜像地址

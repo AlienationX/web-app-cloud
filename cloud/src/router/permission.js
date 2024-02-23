@@ -2,7 +2,7 @@ import router from './index';
 import config from '../config.js';
 
 import { useProfileStore } from '../stores/profile.js';
-import { getToken } from '@/common/auth.js'
+import { getToken } from '@/common/auth.js';
 
 // 增加路由切换的顶部进度条
 import nprogress from 'nprogress';
@@ -24,7 +24,7 @@ router.beforeEach((to, from, next) => {
         // TODO token is invalid, 判断token是否有效/过期
         // 如果token被刷新掉，就从本地获取
         // pinia如果再外面修改值，不需要使用.value
-        profileStore.token = token; 
+        profileStore.token = token;
 
         if (to.path === '/login') {
             next({ path: '/' });
@@ -42,7 +42,6 @@ router.beforeEach((to, from, next) => {
                 // }
 
                 // 没有username通过token重新获取。刷新页面需要更新用户信息和用户菜单
-
                 (async () => {
                     await profileStore.getUserInfo();
                     await profileStore.getPrivilege();
@@ -51,6 +50,7 @@ router.beforeEach((to, from, next) => {
                         next();
                     } else {
                         // 获取失败，比如token过期等，返回登录页面重新登录
+                        alert('用户认证已过期，请重新登录！');
                         profileStore.$reset();
                         next({ path: '/login', query: { redirect: to.path } });
                     }
