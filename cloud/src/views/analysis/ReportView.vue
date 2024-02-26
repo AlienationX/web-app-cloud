@@ -5,6 +5,7 @@ import {
     reqGitHubUserFollowers,
     reqGitHubUserSubscriptions,
     reqGitHubUserRepos,
+    reqGitHubUserRepo,
     reqGitHubUserRepoCommits,
 } from '../../common/api.js';
 
@@ -51,10 +52,30 @@ const useIndicator = () => {
     return { indicator, repos, reposProps };
 };
 
-const { indicator, repos, reposProps } = useIndicator();
+const useSelectRepo = () => {
+    const repoInfo = reactive({});
+
+    const changeSelectValue = (selectValue) => {
+        console.log(selectValue);
+        const repo = selectValue.name;
+        (async () => {
+            let repoRes = await reqGitHubUserRepo(profileStore.userinfo.username, repo);
+            const reg = /description|html_url|language|created_at|updated_at|pushed_at/;
+            for (let key in repoRes.data) {
+                if (key.search(reg) !== -1) {
+                    // 变量做key需要使用中括号
+                    repoInfo[key] = repoRes.data[key];
+                }
+            }
+            console.log(repoInfo);
+        })();
+    };
+
+    return { repoInfo, changeSelectValue };
+};
 
 // ref模板引用必须写在外层，且只能在onMounted里面，即挂载完毕后获取
-const lineChartDom = ref();
+// const lineChartDom = ref();
 const useRepoCommitsChart = () => {
     const myChart = echarts.init(lineChartDom.value);
     const option = {
@@ -81,7 +102,6 @@ const useRepoCommitsChart = () => {
     // })();
 };
 
-const areaChartDom = ref();
 const useAreaChart = () => {
     const myChart = echarts.init(areaChartDom.value);
 
@@ -146,6 +166,11 @@ const useAreaChart = () => {
     myChart.setOption(option);
 };
 
+const { indicator, repos, reposProps } = useIndicator();
+const { repoInfo, changeSelectValue } = useSelectRepo();
+const lineChartDom = ref();
+const areaChartDom = ref();
+
 onMounted(() => {
     useRepoCommitsChart();
     useAreaChart();
@@ -180,8 +205,14 @@ onMounted(() => {
                             :items="repos"
                             :item-props="reposProps"
                             density="compact"
-                            variant="solo"
+                            variant="outlined"
+                            @update:modelValue="changeSelectValue"
                         ></v-select>
+                        <p v-for="(v, k) in repoInfo" :key="k">
+                            <span class="text-subtitle-1 font-weight-bold">{{ k }}:</span> {{ v }}
+                        </p>
+
+                        <v-divider></v-divider>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
                         labore et dolore magna aliqua.
                         <p class="text-subtitle-1">What's new</p>
@@ -209,7 +240,7 @@ onMounted(() => {
                         <v-card-title class="text-subtitle-1"> Area Chart </v-card-title>
                     </v-card-item>
                     <v-divider></v-divider>
-                    <div ref="areaChartDom" class="chart"></div>
+                    <v-card-text><div ref="areaChartDom" class="chart"></div></v-card-text>
                 </v-card>
             </v-col>
         </v-row>

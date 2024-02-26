@@ -27,7 +27,7 @@ request.interceptors.request.use(
 // TODO 响应拦截器。统一返回结果必须存在 code(status) / message(statusText) / data，否则返回自定义的响应体。
 request.interceptors.response.use(
     (response) => {
-        console.log('request response:', response.config.url, response);
+        console.log('request raw response:', response.config.url, response);
         // response包含的key {config, data, headers, request, status, statusText}
         // 携带的token在config.headers.token中
         // TODO 封装返回结果必须存在 code(status) / message(statusText) / data，否则返回自定义的响应体。
@@ -45,12 +45,12 @@ request.interceptors.response.use(
         }
     },
     (error) => {
-        console.log('request error:', error); // error = AxiosError
+        console.log('request raw error:', error); // error = AxiosError
 
         // TODO 其实都不用进行二次转换处理，就用原生的返回数据即可
         let code = error.code;
         let message = error.message;
-        console.log('except error ==>', { code, message });
+        console.log('request except error ==>', { code, message });
         // let status = '???'
         // switch (status) {
         //     // 401: 未登录

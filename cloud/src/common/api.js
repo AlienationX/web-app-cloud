@@ -25,7 +25,7 @@ const GitHubAPI = {
     FOLLOWERS_URL: '/users/${username}/followers',
     SUBSCRIPTIONS_URL: '/users/${username}/subscriptions',
     REPOS_URL: '/users/${username}/repos',
-    REPO_URL: '/users/${username}/${repo}',
+    REPO_URL: '/repos/${username}/${repo}',
     REPO_COMMITS_URL: '/repos/${username}/${repo}/commits',
 };
 
