@@ -54,9 +54,9 @@ const useIndicator = () => {
 
 const useSelectRepo = () => {
     const repoInfo = reactive({});
+    const isSelected = ref(true);
 
     const changeSelectValue = (selectValue) => {
-        console.log(selectValue);
         const repo = selectValue.name;
         (async () => {
             let repoRes = await reqGitHubUserRepo(profileStore.userinfo.username, repo);
@@ -67,11 +67,10 @@ const useSelectRepo = () => {
                     repoInfo[key] = repoRes.data[key];
                 }
             }
-            console.log(repoInfo);
+            isSelected.value = false;
         })();
     };
-
-    return { repoInfo, changeSelectValue };
+    return { repoInfo, isSelected, changeSelectValue };
 };
 
 // ref模板引用必须写在外层，且只能在onMounted里面，即挂载完毕后获取
@@ -167,7 +166,7 @@ const useAreaChart = () => {
 };
 
 const { indicator, repos, reposProps } = useIndicator();
-const { repoInfo, changeSelectValue } = useSelectRepo();
+const { repoInfo, isSelected, changeSelectValue } = useSelectRepo();
 const lineChartDom = ref();
 const areaChartDom = ref();
 
@@ -212,12 +211,14 @@ onMounted(() => {
                             <span class="text-subtitle-1 font-weight-bold">{{ k }}:</span> {{ v }}
                         </p>
 
-                        <v-divider></v-divider>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua.
-                        <p class="text-subtitle-1">What's new</p>
-                        <p>- newer upgrade</p>
-                        <p>- newer upgrade</p>
+                        <div v-show="isSelected">
+                            <!-- <v-divider></v-divider> -->
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                            labore et dolore magna aliqua.
+                            <p class="text-subtitle-1">What's new</p>
+                            <p>- newer upgrade</p>
+                            <p>- newer upgrade</p>
+                        </div>
                     </v-card-text>
                 </v-card>
             </v-col>
