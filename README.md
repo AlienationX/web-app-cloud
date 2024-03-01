@@ -17,6 +17,7 @@ npm install @mdi/font -D
 npm install sass -D
 
 npm install echarts
+npm install vue-echarts
 
 npm install nprogress
 # npm install pinia-plugin-persist

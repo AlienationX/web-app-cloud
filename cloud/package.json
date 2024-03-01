@@ -15,6 +15,7 @@
     "pinia-plugin-persistedstate": "^3.2.1",
     "pwa-asset-generator": "^6.3.1",
     "vue": "^3.3.4",
+    "vue-echarts": "^6.6.9",
     "vue-router": "^4.2.5",
     "vuetify": "^3.4.0"
   },

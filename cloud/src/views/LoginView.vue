@@ -134,12 +134,12 @@ const { form, message, loading, visible, login } = useLogin();
 
                 <!-- 手机端不显示,css的d-none无法控制 -->
                 <v-snackbar v-model="visible.snackbar" :timeout="visible.timeout" location="top" vertical>
-                    <div class="text-subtitle-1 pb-2">Notification</div>
+                    <p class="text-info text-subtitle-1 font-weight-bold pb-2">Notification</p>
 
-                    <p>{{ message }}</p>
+                    <p class="text-caption">{{ message }}</p>
 
                     <template v-slot:actions>
-                        <v-btn color="indigo" variant="text" @click="visible.snackbar = false"> Close </v-btn>
+                        <v-btn class="font-weight-bold" color="red" variant="text" @click="visible.snackbar = false"> Close </v-btn>
                     </template>
                 </v-snackbar>
 

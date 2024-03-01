@@ -26,6 +26,7 @@ const GitHubAPI = {
     SUBSCRIPTIONS_URL: '/users/${username}/subscriptions',
     REPOS_URL: '/users/${username}/repos',
     REPO_URL: '/repos/${username}/${repo}',
+    REPO_LANGUAGES_URL: '/repos/${username}/${repo}/languages',
     REPO_COMMITS_URL: '/repos/${username}/${repo}/commits',
 };
 
@@ -46,6 +47,10 @@ export const reqGitHubUserRepos = (username) => {
 
 export const reqGitHubUserRepo = (username, repo) => {
     return request.get(GitHubAPI.REPO_URL.replace('${username}', username).replace('${repo}', repo));
+};
+
+export const reqGitHubUserRepoLanguages = (username, repo) => {
+    return request.get(GitHubAPI.REPO_LANGUAGES_URL.replace('${username}', username).replace('${repo}', repo));
 };
 
 export const reqGitHubUserRepoCommits = (username, repo) => {

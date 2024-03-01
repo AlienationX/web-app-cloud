@@ -1,15 +1,16 @@
 <script setup>
-import { ref, reactive, onMounted } from 'vue';
-import * as echarts from 'echarts';
+import { ref, reactive, computed, onMounted } from 'vue';
+import VChart from 'vue-echarts';
 import {
     reqGitHubUserFollowers,
     reqGitHubUserSubscriptions,
     reqGitHubUserRepos,
     reqGitHubUserRepo,
+    reqGitHubUserRepoLanguages,
     reqGitHubUserRepoCommits,
-} from '../../common/api.js';
+} from '@/common/api.js';
 
-import { useProfileStore } from '../../stores/profile.js';
+import { useProfileStore } from '@/stores/profile.js';
 const profileStore = useProfileStore();
 
 const useIndicator = () => {
@@ -54,7 +55,7 @@ const useIndicator = () => {
 
 const useSelectRepo = () => {
     const repoInfo = reactive({});
-    const isSelected = ref(true);
+    const repoName = ref('');
 
     const changeSelectValue = (selectValue) => {
         const repo = selectValue.name;
@@ -67,17 +68,80 @@ const useSelectRepo = () => {
                     repoInfo[key] = repoRes.data[key];
                 }
             }
-            isSelected.value = false;
+            repoName.value = repoRes.data['name'];
+
+            useRepoLanguagesData(repo);
         })();
     };
-    return { repoInfo, isSelected, changeSelectValue };
+
+    return { repoInfo, repoName, changeSelectValue };
 };
 
+const useRepoLanguagesData = (repo) => {
+    (async () => {
+        let languagesRes = await reqGitHubUserRepoLanguages(profileStore.userinfo.username, repo);
+        langData.length = 0;
+        for (let name in languagesRes.data) {
+            langData.push({
+                name: name,
+                value: languagesRes.data[name],
+            });
+        }
+    })();
+};
+
+const useRepoCommitsChart = () => {};
+
+const { indicator, repos, reposProps } = useIndicator();
+const { repoInfo, repoName, changeSelectValue } = useSelectRepo();
+const langTitle = computed(() => {
+    return 'languages of ' + repoName.value;
+});
+const langData = reactive([]);
+
+const langOption = ref({
+    title: {
+        text: langTitle,
+        // subtext: 'Fake Data',
+        left: 'center',
+    },
+    tooltip: {
+        trigger: 'item',
+    },
+    legend: {
+        orient: 'vertical',
+        left: 'left',
+    },
+    series: [
+        {
+            // name: 'Access From',
+            type: 'pie',
+            radius: ['40%', '70%'],
+            data: langData,
+            emphasis: {
+                itemStyle: {
+                    shadowBlur: 10,
+                    shadowOffsetX: 0,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)',
+                },
+            },
+        },
+    ],
+});
+
+// ---------------------------- charts原始api，使用比较复杂，强烈推荐使用vue-echarts
+const lineChartDom = ref();
+const areaChartDom = ref();
+import * as echarts from 'echarts';
 // ref模板引用必须写在外层，且只能在onMounted里面，即挂载完毕后获取
 // const lineChartDom = ref();
-const useRepoCommitsChart = () => {
+const useLineChart = () => {
     const myChart = echarts.init(lineChartDom.value);
     const option = {
+        title: {
+            left: 'center',
+            text: 'DEMO Line Chart',
+        },
         xAxis: {
             type: 'category',
             data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
@@ -93,12 +157,8 @@ const useRepoCommitsChart = () => {
             },
         ],
     };
-    myChart.setOption(option);
 
-    // (async () => {
-    //     let followersRes = await reqGitHubUserRepoCommits(profileStore.userinfo.username);
-    //     indicator.followers = followersRes.data.length;
-    // })();
+    myChart.setOption(option);
 };
 
 const useAreaChart = () => {
@@ -120,7 +180,7 @@ const useAreaChart = () => {
         },
         title: {
             left: 'center',
-            text: 'Large Ara Chart',
+            text: 'DEMO Large Ara Chart',
         },
         toolbox: {
             feature: {
@@ -164,15 +224,45 @@ const useAreaChart = () => {
 
     myChart.setOption(option);
 };
-
-const { indicator, repos, reposProps } = useIndicator();
-const { repoInfo, isSelected, changeSelectValue } = useSelectRepo();
-const lineChartDom = ref();
-const areaChartDom = ref();
-
 onMounted(() => {
-    useRepoCommitsChart();
+    useLineChart();
     useAreaChart();
+});
+
+const option = ref({
+    title: {
+        text: 'Referer of a Website',
+        subtext: 'Fake Data',
+        left: 'center',
+    },
+    tooltip: {
+        trigger: 'item',
+    },
+    legend: {
+        orient: 'vertical',
+        left: 'left',
+    },
+    series: [
+        {
+            name: 'Access From',
+            type: 'pie',
+            radius: ['40%', '70%'],
+            data: [
+                { value: 1048, name: 'Search Engine' },
+                { value: 735, name: 'Direct' },
+                { value: 580, name: 'Email' },
+                { value: 484, name: 'Union Ads' },
+                { value: 300, name: 'Video Ads' },
+            ],
+            emphasis: {
+                itemStyle: {
+                    shadowBlur: 10,
+                    shadowOffsetX: 0,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)',
+                },
+            },
+        },
+    ],
 });
 </script>
 
@@ -211,7 +301,7 @@ onMounted(() => {
                             <span class="text-subtitle-1 font-weight-bold">{{ k }}:</span> {{ v }}
                         </p>
 
-                        <div v-show="isSelected">
+                        <div v-show="repoName ? false : true">
                             <!-- <v-divider></v-divider> -->
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
                             labore et dolore magna aliqua.
@@ -223,13 +313,15 @@ onMounted(() => {
                 </v-card>
             </v-col>
 
-            <v-col cols="12" sm="12" md="8" lg="8" xl="8" xxl="8">
+            <v-col cols="12" sm="12" md="8" lg="8" xl="8" xxl="8" v-show="langData.length > 0 ? true : false">
                 <v-card elevation="8">
-                    <v-card-item>
-                        <v-card-title> Line Chart </v-card-title>
+                    <!-- <v-card-item>
+                        <v-card-title> Languages </v-card-title>
                     </v-card-item>
-                    <v-divider></v-divider>
-                    <div ref="lineChartDom" class="chart"></div>
+                    <v-divider></v-divider> -->
+                    <v-card-text>
+                        <v-chart class="chart" :option="langOption" autoresize />
+                    </v-card-text>
                 </v-card>
             </v-col>
         </v-row>
@@ -237,10 +329,38 @@ onMounted(() => {
         <v-row>
             <v-col col="12">
                 <v-card elevation="8">
-                    <v-card-item>
-                        <v-card-title class="text-subtitle-1"> Area Chart </v-card-title>
+                    <!-- <v-card-item>
+                        <v-card-title class="text-subtitle-1"> DEMO Area Chart </v-card-title>
                     </v-card-item>
-                    <v-divider></v-divider>
+                    <v-divider></v-divider> -->
+                    <v-card-text>
+                        <v-chart class="chart" :option="option" autoresize />
+                    </v-card-text>
+                </v-card>
+            </v-col>
+        </v-row>
+
+        <!-- echart的原始方式，比较麻烦，强烈推荐使用vue-echart -->
+        <!-- 不需要考虑挂在ref等问题，只需要写个option即可，太强了 -->
+        <v-row>
+            <v-col col="12">
+                <v-card elevation="8">
+                    <!-- <v-card-item>
+                        <v-card-title class="text-subtitle-1"> DEMO Area Chart </v-card-title>
+                    </v-card-item>
+                    <v-divider></v-divider> -->
+                    <v-card-text><div ref="lineChartDom" class="chart"></div></v-card-text>
+                </v-card>
+            </v-col>
+        </v-row>
+
+        <v-row>
+            <v-col col="12">
+                <v-card elevation="8">
+                    <!-- <v-card-item>
+                        <v-card-title class="text-subtitle-1"> DEMO Area Chart </v-card-title>
+                    </v-card-item>
+                    <v-divider></v-divider> -->
                     <v-card-text><div ref="areaChartDom" class="chart"></div></v-card-text>
                 </v-card>
             </v-col>
