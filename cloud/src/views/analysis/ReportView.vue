@@ -107,6 +107,7 @@ const langOption = ref({
     },
     tooltip: {
         trigger: 'item',
+        formatter: '{b}: {c}',
     },
     legend: {
         orient: 'vertical',
@@ -118,6 +119,15 @@ const langOption = ref({
             type: 'pie',
             radius: ['40%', '70%'],
             data: langData,
+            label: {
+                show: true,
+                position: 'outside', // 在内部显示，outseide 是在外部显示
+                formatter: '{b} {d}%', // formatter 是标签内容的格式器，用于转换格式。支持 字符串和回调函数两种形式。
+                // { a }：系列名
+                // { b }：数据名
+                // { c }：数据值
+                // { d }：百分比
+            },
             emphasis: {
                 itemStyle: {
                     shadowBlur: 10,
@@ -313,7 +323,7 @@ const option = ref({
                 </v-card>
             </v-col>
 
-            <v-col cols="12" sm="12" md="8" lg="8" xl="8" xxl="8" v-show="langData.length > 0 ? true : false">
+            <v-col cols="12" sm="12" md="8" lg="8" xl="8" xxl="8" v-if="langData.length > 0 ? true : false">
                 <v-card elevation="8">
                     <!-- <v-card-item>
                         <v-card-title> Languages </v-card-title>
