@@ -57,6 +57,8 @@ const useSelectRepo = () => {
     const repoInfo = reactive({});
     const repoName = ref('');
 
+    const repoLanguages = reactive({});
+
     const changeSelectValue = (selectValue) => {
         const repo = selectValue.name;
         (async () => {
@@ -107,11 +109,12 @@ const langOption = ref({
     },
     tooltip: {
         trigger: 'item',
-        formatter: '{b}: {c}',
+        // formatter: '{b}  {c}',
     },
     legend: {
-        orient: 'vertical',
-        left: 'left',
+        orient: 'vertical',  // 图例列表的布局朝向。 horizontal vertical
+        top: 'top',
+        left: 'right',  // 图例位置。top和left结合为右上
     },
     series: [
         {
