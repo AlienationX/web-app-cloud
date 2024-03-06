@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive, computed, onMounted } from 'vue';
+import { ref, reactive, computed, onMounted, toRef } from 'vue';
 import VChart from 'vue-echarts';
 import {
     reqGitHubUserFollowers,
@@ -57,7 +57,7 @@ const useSelectRepo = () => {
     const repoInfo = reactive({});
     const repoName = ref('');
 
-    const repoLanguages = reactive({});
+    const { languagesOption, getLanguagesData, languagesShow } = useRepoLanguagesChart();
 
     const changeSelectValue = (selectValue) => {
         const repo = selectValue.name;
@@ -72,75 +72,84 @@ const useSelectRepo = () => {
             }
             repoName.value = repoRes.data['name'];
 
-            useRepoLanguagesData(repo);
+            getLanguagesData(repo);
         })();
     };
 
-    return { repoInfo, repoName, changeSelectValue };
+    return { repoInfo, repoName, changeSelectValue, languagesOption, languagesShow };
 };
 
-const useRepoLanguagesData = (repo) => {
-    (async () => {
-        let languagesRes = await reqGitHubUserRepoLanguages(profileStore.userinfo.username, repo);
-        langData.length = 0;
-        for (let name in languagesRes.data) {
-            langData.push({
-                name: name,
-                value: languagesRes.data[name],
-            });
-        }
-    })();
+const useRepoLanguagesChart = () => {
+    const languagesConfig = reactive({
+        title: '',
+        data: [],
+    });
+
+    const languagesShow = ref(false);
+
+    const getLanguagesData = (repo) => {
+        (async () => {
+            let languagesRes = await reqGitHubUserRepoLanguages(profileStore.userinfo.username, repo);
+            languagesConfig.title = 'languages of ' + repo;
+            languagesConfig.data.length = 0;
+            for (let name in languagesRes.data) {
+                languagesConfig.data.push({
+                    name: name,
+                    value: languagesRes.data[name],
+                });
+            }
+            languagesShow.value = true;
+        })();
+    };
+
+    const languagesOption = ref({
+        title: {
+            text: toRef(languagesConfig, 'title'), // 必须使用toRef，否则丢失响应式
+            // subtext: 'Fake Data',
+            left: 'center',
+        },
+        tooltip: {
+            trigger: 'item',
+            // formatter: '{b}  {c}',
+        },
+        legend: {
+            orient: 'vertical', // 图例列表的布局朝向。 horizontal vertical
+            top: 'top',
+            left: 'right', // 图例位置。top和left结合为右上
+        },
+        series: [
+            {
+                // name: 'Access From',
+                type: 'pie',
+                radius: ['40%', '70%'],
+                data: languagesConfig.data,
+                label: {
+                    show: true,
+                    position: 'outside', // 在内部显示，outseide 是在外部显示
+                    formatter: '{b} {d}%', // formatter 是标签内容的格式器，用于转换格式。支持 字符串和回调函数两种形式。
+                    // { a }：系列名
+                    // { b }：数据名
+                    // { c }：数据值
+                    // { d }：百分比
+                },
+                emphasis: {
+                    itemStyle: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)',
+                    },
+                },
+            },
+        ],
+    });
+
+    return { languagesOption, getLanguagesData, languagesShow };
 };
 
 const useRepoCommitsChart = () => {};
 
 const { indicator, repos, reposProps } = useIndicator();
-const { repoInfo, repoName, changeSelectValue } = useSelectRepo();
-const langTitle = computed(() => {
-    return 'languages of ' + repoName.value;
-});
-const langData = reactive([]);
-
-const langOption = ref({
-    title: {
-        text: langTitle,
-        // subtext: 'Fake Data',
-        left: 'center',
-    },
-    tooltip: {
-        trigger: 'item',
-        // formatter: '{b}  {c}',
-    },
-    legend: {
-        orient: 'vertical',  // 图例列表的布局朝向。 horizontal vertical
-        top: 'top',
-        left: 'right',  // 图例位置。top和left结合为右上
-    },
-    series: [
-        {
-            // name: 'Access From',
-            type: 'pie',
-            radius: ['40%', '70%'],
-            data: langData,
-            label: {
-                show: true,
-                position: 'outside', // 在内部显示，outseide 是在外部显示
-                formatter: '{b} {d}%', // formatter 是标签内容的格式器，用于转换格式。支持 字符串和回调函数两种形式。
-                // { a }：系列名
-                // { b }：数据名
-                // { c }：数据值
-                // { d }：百分比
-            },
-            emphasis: {
-                itemStyle: {
-                    shadowBlur: 10,
-                    shadowOffsetX: 0,
-                    shadowColor: 'rgba(0, 0, 0, 0.5)',
-                },
-            },
-        },
-    ],
-});
+const { repoInfo, repoName, changeSelectValue, languagesOption, languagesShow } = useSelectRepo();
 
 // ---------------------------- charts原始api，使用比较复杂，强烈推荐使用vue-echarts
 const lineChartDom = ref();
@@ -162,6 +171,7 @@ const useLineChart = () => {
         yAxis: {
             type: 'value',
         },
+        grid: { left: 50, right: 30 },
         series: [
             {
                 data: [820, 932, 901, 934, 1290, 1330, 1320],
@@ -197,9 +207,9 @@ const useAreaChart = () => {
         },
         toolbox: {
             feature: {
-                dataZoom: {
-                    yAxisIndex: 'none',
-                },
+                // dataZoom: {
+                //     yAxisIndex: 'none',
+                // },
                 restore: {},
                 saveAsImage: {},
             },
@@ -223,6 +233,7 @@ const useAreaChart = () => {
                 end: 20,
             },
         ],
+        grid: { left: 50, right: 30 },
         series: [
             {
                 name: 'Fake Data',
@@ -242,7 +253,7 @@ onMounted(() => {
     useAreaChart();
 });
 
-const option = ref({
+const option = {
     title: {
         text: 'Referer of a Website',
         subtext: 'Fake Data',
@@ -255,6 +266,7 @@ const option = ref({
         orient: 'vertical',
         left: 'left',
     },
+    grid: { top:'30%', left: '15%' },
     series: [
         {
             name: 'Access From',
@@ -276,7 +288,7 @@ const option = ref({
             },
         },
     ],
-});
+};
 </script>
 
 <template>
@@ -310,8 +322,8 @@ const option = ref({
                             variant="outlined"
                             @update:modelValue="changeSelectValue"
                         ></v-select>
-                        <p v-for="(v, k) in repoInfo" :key="k">
-                            <span class="text-subtitle-1 font-weight-bold">{{ k }}:</span> {{ v }}
+                        <p v-for="(v, k) in repoInfo" :key="k" class="text-body-2">
+                            <span class="font-weight-bold">{{ k }}: </span> {{ v }}
                         </p>
 
                         <div v-show="repoName ? false : true">
@@ -326,14 +338,14 @@ const option = ref({
                 </v-card>
             </v-col>
 
-            <v-col cols="12" sm="12" md="8" lg="8" xl="8" xxl="8" v-if="langData.length > 0 ? true : false">
+            <v-col cols="12" sm="12" md="8" lg="8" xl="8" xxl="8" v-if="languagesShow">
                 <v-card elevation="8">
                     <!-- <v-card-item>
                         <v-card-title> Languages </v-card-title>
                     </v-card-item>
                     <v-divider></v-divider> -->
                     <v-card-text>
-                        <v-chart class="chart" :option="langOption" autoresize />
+                        <v-chart class="chart" :option="languagesOption" autoresize />
                     </v-card-text>
                 </v-card>
             </v-col>

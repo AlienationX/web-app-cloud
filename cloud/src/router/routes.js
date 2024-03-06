@@ -10,7 +10,21 @@ export const publicRoutes = [
         component: () => import('../views/LoginView.vue'),
         name: 'login', // 如果使用name属性，可以避免path写错或方便修改？
         meta: {
-            title: '注册',
+            title: '登录',
+            icon: '',
+            hidden: true,
+        },
+    },
+    {
+        path: '/production',
+        // route level code-splitting
+        // this generates a separate chunk (About.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        // component: LoginView,
+        component: () => import('../views/ProductionView.vue'),
+        name: 'production', // 如果使用name属性，可以避免path写错或方便修改？
+        meta: {
+            title: '产品下载',
             icon: '',
             hidden: true,
         },
