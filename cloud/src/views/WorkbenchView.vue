@@ -3,7 +3,7 @@ import NavIconBtn from '@/components/NavIconBtn.vue';
 
 import { ref, reactive, onMounted } from 'vue';
 
-import { useProfileStore } from '../stores/profile';
+import { useProfileStore } from '@/stores/profile';
 const profileStore = useProfileStore();
 
 const routes = reactive([]);
@@ -12,7 +12,7 @@ onMounted(() => {
     profileStore.privilege.routes
         // .filter((route) => route.meta.location === 'side')
         .map((route) => {
-            if (!/login|any/.test(route.name)) {
+            if (!/login|register|production|any/.test(route.name)) {
                 routes.push(route);
             }
         });

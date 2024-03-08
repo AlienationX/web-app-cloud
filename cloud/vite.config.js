@@ -10,14 +10,14 @@ export default defineConfig({
         vue(),
         VitePWA({
             manifest: {
-                // 安装应用后显示的应用名
-                name: 'Progressive Times Web App',
+                name: 'Progressive Times Web App', // 安装应用后显示的应用名
                 short_name: 'Progressive Times',
-                description: 'This is a awe production',
-                start_url: 'index.html',
-                display: 'standalone', //
-                theme_color: '#B71C1C', // 应用栏的颜色
-                background_color: '#4A148C',
+                description: '渐进式 Web App',
+                // start_url: 'index.html',
+                display: 'standalone', // fullscreen(无状态栏) standalone(有状态栏) minimal-ui(有地址栏)
+                theme_color: '#B71C1C', // 应用程序的主题颜色（应用栏/状态栏）红色
+                background_color: '#4A148C', // 启动动画的背景颜色
+                // orientation: 定义默认应用显示方向，竖屏、横屏
                 // 至少配置一个图标
                 icons: [
                     {
@@ -46,7 +46,8 @@ export default defineConfig({
                     },
                 ],
             },
-            registerType: 'autoUpdate',
+            registerType: 'prompt', // autoUpdate prompt
+            // includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
             workbox: {
                 // 缓存相关静态资源
                 globPatterns: ['**/*.{js,css,html,ico,png,jpg,svg}'],
@@ -56,11 +57,11 @@ export default defineConfig({
                 //     mode !== 'production'
                 //         ? {
                 //               urlPattern: ({ url }) => url.origin === 'https://app-api-0.com',
-                //               handler: 'NetworkFirst',
+                //               handler: 'NetworkFirst', // 网络优先策略
                 //               options: {
                 //                   cacheName: 'wisbayar-api',
                 //                   cacheableResponse: {
-                //                       statuses: [200],
+                //                       statuses: [200],  // 缓存的响应状态码
                 //                   },
                 //               },
                 //           }
@@ -92,7 +93,7 @@ export default defineConfig({
                 //             cacheName: 'wisbayar-js',
                 //             expiration: {
                 //                 maxEntries: 30, // 最多缓存30个，超过的按照LRU原则删除
-                //                 maxAgeSeconds: 30 * 24 * 60 * 60,
+                //                 maxAgeSeconds: 30 * 24 * 60 * 60, // 缓存有效期，30天
                 //             },
                 //             cacheableResponse: {
                 //                 statuses: [200],

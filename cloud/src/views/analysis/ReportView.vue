@@ -266,7 +266,7 @@ const option = {
         orient: 'vertical',
         left: 'left',
     },
-    grid: { top:'30%', left: '15%' },
+    grid: { top: '30%', left: '15%' },
     series: [
         {
             name: 'Access From',
@@ -307,7 +307,7 @@ const option = {
 
         <v-row>
             <v-col cols="12" sm="12" md="4" lg="4" xl="4" xxl="4">
-                <v-card elevation="8" style="height: 100%">
+                <v-card elevation="8">
                     <v-card-item>
                         <v-card-title> Repo Infomation </v-card-title>
                         <v-card-subtitle> 仓库信息 </v-card-subtitle>
@@ -339,14 +339,16 @@ const option = {
             </v-col>
 
             <v-col cols="12" sm="12" md="8" lg="8" xl="8" xxl="8" v-if="languagesShow">
-                <v-card elevation="8">
+                <v-card elevation="8" class="fill-height">
                     <!-- <v-card-item>
                         <v-card-title> Languages </v-card-title>
                     </v-card-item>
                     <v-divider></v-divider> -->
-                    <v-card-text>
-                        <v-chart class="chart" :option="languagesOption" autoresize />
-                    </v-card-text>
+                    <v-container class="d-flex align-center fluid">
+                        <v-card-text>
+                            <v-chart class="chart" :option="languagesOption" autoresize />
+                        </v-card-text>
+                    </v-container>
                 </v-card>
             </v-col>
         </v-row>
@@ -396,5 +398,11 @@ const option = {
 <style scoped lang="scss">
 .chart {
     height: 320px;
+}
+
+.v-card {
+    .v-container {
+        padding: 0;
+    }
 }
 </style>
