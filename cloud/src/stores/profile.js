@@ -49,7 +49,8 @@ export const useProfileStore = defineStore(
                 // code: "ERR_NETWORK"
                 // message: ""Network Error""
                 message.value = result.code + ', ' + result.message;
-                message.value = '网络问题，请检查网络是否正常连接！';
+                // message.value = '网络问题，请检查网络是否正常连接！';
+                message.value = '服务器问题，请联系管理员处理！';  // 一般是接口请求问题
             }
 
             message.value && console.log(message.value);

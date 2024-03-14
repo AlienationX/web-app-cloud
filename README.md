@@ -35,6 +35,15 @@ https://mirrors.cloud.tencent.com/npm/
 https://mirrors.huaweicloud.com/repository/npm/
 https://mirrors.163.com/npm/
 https://mirrors.tuna.tsinghua.edu.cn/
+
+# 获取当前源地址
+npm config get registry
+# 临时设置源镜像地址
+npm config set registry https://registry.npmmirror.com
+# 永久设置源镜像地址
+npm config set --global registry https://registry.npmmirror.com
+# 切回官方源
+npm config delete registry
 ```
 
 ## PWA
@@ -57,4 +66,9 @@ workbox
 
 ```shell
 npm install vite-plugin-pwa -D
+
+npm install local-ssl-proxy -g
+local-ssl-proxy -s 9000 -t 5173
+# 如果无法访问，使用如下命令
+NODE_OPTIONS=--dns-result-order=ipv4first local-ssl-proxy -s 9000 -t 5173
 ```

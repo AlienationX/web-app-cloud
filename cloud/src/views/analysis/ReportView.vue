@@ -322,6 +322,7 @@ const option = {
                             variant="outlined"
                             @update:modelValue="changeSelectValue"
                         ></v-select>
+                        
                         <p v-for="(v, k) in repoInfo" :key="k" class="text-body-2">
                             <span class="font-weight-bold">{{ k }}: </span> {{ v }}
                         </p>
