@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { reactive, computed } from 'vue';
+import { ref, reactive, computed } from 'vue';
 import { useDisplay } from 'vuetify';
 
 export const useSettingStore = defineStore(
@@ -29,7 +29,9 @@ export const useSettingStore = defineStore(
         // 通过theme计算主题切换按钮的图标
         const switchIcon = computed(() => (settings.theme === 'light' ? 'mdi-weather-night' : 'mdi-weather-sunny'));
 
-        return { settings, switchIcon };
+        const installBanner = ref(true); // PWA安装应用的按钮提示条，判断是否已安装决定是否显示
+
+        return { settings, switchIcon, installBanner };
     },
     {
         persist: {

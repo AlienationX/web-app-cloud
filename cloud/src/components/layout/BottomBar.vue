@@ -21,7 +21,8 @@ onMounted(() => {
 </script>
 
 <template>
-    <v-bottom-navigation grow class="d-flex d-sm-none" :density="adapterStore.density" color="primary" order="3">
+    <!-- compact comfortable default -->
+    <v-bottom-navigation grow class="d-flex d-sm-none" density="default" color="primary" order="3">
         <v-btn
             v-for="route in bottomRoutes"
             :key="route.path"
