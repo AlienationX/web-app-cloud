@@ -51,12 +51,17 @@ export const useAdapterStore = defineStore(
             return mobile.value;
         });
 
+        // 封装移动端(phone + tablet)的逻辑判断
+        const isPhone = computed(() => {
+            return name.value === 'xs' ? true : false;
+        });
+
         // const screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
         // const isMobile = screenWidth < 768;
         // const isTablet = screenWidth >=768 && screenWidth < 1024
         // const isPC = screenWidth >= 1024
 
-        return { density, size, isMobile };
+        return { density, size, isMobile, isPhone };
     },
     {
         persist: {

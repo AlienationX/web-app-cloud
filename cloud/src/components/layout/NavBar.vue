@@ -2,12 +2,12 @@
 import Menu from './Menu.vue';
 
 import { ref, reactive, onMounted } from 'vue';
-import config from '../../config.js';
-import { fullScreen } from '../../common/utils.js';
+import config from '@/config.js';
+import { fullScreen } from '@/common/utils.js';
 
-import { useProfileStore } from '../../stores/profile.js';
-import { useSettingStore } from '../../stores/setting.js';
-import { useAdapterStore } from '../../stores/adapter.js';
+import { useProfileStore } from '@/stores/profile.js';
+import { useSettingStore } from '@/stores/setting.js';
+import { useAdapterStore } from '@/stores/adapter.js';
 
 import { useRouter, useRoute } from 'vue-router';
 const $router = useRouter();
@@ -128,7 +128,7 @@ onMounted(() => {
         <v-divider class="d-none d-sm-flex pl-2" inset vertical></v-divider>
 
         <v-btn size="small" icon="mdi-refresh" @click="updateRefsh"> </v-btn>
-        <v-btn class="d-flex d-sm-none" size="small" icon="mdi-dots-vertical"> </v-btn>
+        <!-- <v-btn class="d-flex d-sm-none" size="small" icon="mdi-dots-vertical"> </v-btn> -->
 
         <v-btn class="d-none d-sm-flex" size="small" icon="mdi-fullscreen" @click="fullScreen"> </v-btn>
         <v-btn class="d-none d-sm-flex" size="small" :icon="settingStore.switchIcon" @click="switchTheme"> </v-btn>
@@ -136,9 +136,10 @@ onMounted(() => {
 
         <v-menu :open-on-hover="!adapterStore.isMobile" :open-on-click="adapterStore.isMobile">
             <template v-slot:activator="{ props }">
-                <v-btn class="d-none d-sm-flex" color="primary" v-bind="props" prepend-icon="mdi-account-circle">
+                <v-btn v-if="!adapterStore.isPhone" class="d-none d-sm-flex" color="primary" v-bind="props" prepend-icon="mdi-account-circle">
                     <span class="font-weight-bold text-overline">Profile</span>
                 </v-btn>
+                <v-btn v-else size="small" v-bind="props" icon="mdi-dots-vertical"> </v-btn>
             </template>
 
             <v-list :lines="false" density="compact" nav width="200">

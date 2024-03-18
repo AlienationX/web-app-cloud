@@ -17,6 +17,12 @@ export default defineConfig({
                 display: 'standalone', // fullscreen(无状态栏) standalone(有状态栏) minimal-ui(有地址栏)
                 theme_color: '#B71C1C', // 应用程序的主题颜色（应用栏/状态栏）红色
                 background_color: '#B71C1C', // 启动动画的背景颜色（最好和主题颜色一致？）
+                related_applications: [
+                    {
+                        platform: 'ego',
+                        id: 'com.ego.apps',
+                    },
+                ],
                 // orientation: 定义默认应用显示方向，竖屏、横屏
                 // 至少配置一个图标
                 icons: [
