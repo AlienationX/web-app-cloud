@@ -7,8 +7,8 @@ import { VitePWA } from 'vite-plugin-pwa';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-    // base: '/web-app-cloud/', // github pages，相当于二级域名
-    base: './',
+    base: '/web-app-cloud/', // github pages，相当于二级域名
+    // base: './',
     plugins: [
         vue(),
         mkcert(),
@@ -21,12 +21,12 @@ export default defineConfig({
                 display: 'standalone', // fullscreen(无状态栏) standalone(有状态栏) minimal-ui(有地址栏)
                 theme_color: '#B71C1C', // 应用程序的主题颜色（应用栏/状态栏）红色
                 background_color: '#B71C1C', // 启动动画的背景颜色（最好和主题颜色一致？）
-                related_applications: [
-                    {
-                        platform: 'webapp',
-                        id: 'https://localhost:5173/manifest.json',
-                    },
-                ],
+                // related_applications: [
+                //     {
+                //         platform: 'webapp',
+                //         id: 'https://localhost:5173/manifest.json',
+                //     },
+                // ],
                 // orientation: 定义默认应用显示方向，竖屏、横屏
                 // 至少配置一个图标
                 icons: [
@@ -113,8 +113,8 @@ export default defineConfig({
                         options: {
                             cacheName: 'ego-images',
                             expiration: {
-                                // 最多30个图
-                                maxEntries: 30,
+                                // 最多100个图
+                                maxEntries: 100,
                             },
                         },
                     },
@@ -124,7 +124,7 @@ export default defineConfig({
                         options: {
                             cacheName: 'ego-js',
                             expiration: {
-                                maxEntries: 30, // 最多缓存30个，超过的按照LRU原则删除
+                                maxEntries: 200, // 最多缓存30个，超过的按照LRU原则删除
                                 maxAgeSeconds: 30 * 24 * 60 * 60, // 缓存有效期，30天
                             },
                             cacheableResponse: {
@@ -138,7 +138,7 @@ export default defineConfig({
                         options: {
                             cacheName: 'ego-css',
                             expiration: {
-                                maxEntries: 20,
+                                maxEntries: 200,
                                 maxAgeSeconds: 30 * 24 * 60 * 60,
                             },
                             cacheableResponse: {
@@ -152,7 +152,7 @@ export default defineConfig({
                         options: {
                             cacheName: 'ego-html',
                             expiration: {
-                                maxEntries: 20,
+                                maxEntries: 30,
                                 maxAgeSeconds: 30 * 24 * 60 * 60,
                             },
                             cacheableResponse: {
