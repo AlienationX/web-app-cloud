@@ -58,8 +58,8 @@ npx pwa-asset-generator logo.png icons
 
 ### vite-plugin-pwa
 
-插件官方文档 https://vite-pwa-org.netlify.app/
-生成应用图标 https://realfavicongenerator.net/
+插件官方文档 <https://vite-pwa-org.netlify.app/>
+生成应用图标 <https://realfavicongenerator.net/>
 使用vite的pwa插件，强大方便快捷，包括workbox等。配置后会自动生成dev-dist文件夹，及3个文件 registerSW.js sw.js workbox-xxx.js
 
 ```shell
