@@ -79,10 +79,12 @@ NODE_OPTIONS=--dns-result-order=ipv4first local-ssl-proxy -s 9000 -t 5173
 
 使用 github pages 功能发布静态网站
 
+> 使用Actions自动化部署，编写 **.github/workflows/main.yml** 文件实现提交代码后自动部署
+
+使用gh-pages未成功...
+
 1. .gitignore需要取消dist目录，该目录去要上传到仓库中
 2. vite.config.js中的需要增加base配置，值为仓库名称，比如 base: "/web-app-cloud/"
-
-> 编写 .github/workflows/main.yml 文件实现Actions自动化部署
 
 ```shell
 # pages页面选择gh-pages分支的/(root)发布
