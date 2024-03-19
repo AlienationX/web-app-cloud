@@ -56,7 +56,7 @@ pwa-asset-generator [source-file] [output-folder]
 npx pwa-asset-generator logo.png icons
 ```
 
-## vite-plugin-pwa
+### vite-plugin-pwa
 
 插件官方文档 https://vite-pwa-org.netlify.app/
 生成应用图标 https://realfavicongenerator.net/
@@ -71,4 +71,18 @@ npm install local-ssl-proxy -g
 local-ssl-proxy -s 9000 -t 5173
 # 如果无法访问，使用如下命令
 NODE_OPTIONS=--dns-result-order=ipv4first local-ssl-proxy -s 9000 -t 5173
+```
+
+## Github Pages
+
+使用 github pages 功能发布静态网站
+
+.gitignore需要取消dist目录，该目录去要上传到仓库中
+vite.config.js中的需要增加base配置，值为仓库名称，比如 base: "/web-app-cloud/"
+
+```shell
+npm run build
+git subtree push --prefix dist origin gh-pages
+
+# pages页面选择gh-pages分支的/(root)发布
 ```
