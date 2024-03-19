@@ -8,7 +8,7 @@ import { VitePWA } from 'vite-plugin-pwa';
 // https://vitejs.dev/config/
 export default defineConfig({
     base: '/web-app-cloud/', // github pages，相当于二级域名
-    // base: './',
+    // base: '/',
     plugins: [
         vue(),
         mkcert(),
@@ -191,6 +191,15 @@ export default defineConfig({
         },
     },
     build: {
+        // npm install terser -D
+        // 生成环境去掉console日志和debugger断点
+        // minify: 'terser',
+        // terserOptions: {
+        //     compress: {
+        //         drop_console: true,
+        //         drop_debugger: true,
+        //     },
+        // },
         chunkSizeWarningLimit: 1500,
         rollupOptions: {
             output: {

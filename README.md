@@ -59,7 +59,9 @@ npx pwa-asset-generator logo.png icons
 ### vite-plugin-pwa
 
 插件官方文档 <https://vite-pwa-org.netlify.app/>
+
 生成应用图标 <https://realfavicongenerator.net/>
+
 使用vite的pwa插件，强大方便快捷，包括workbox等。配置后会自动生成dev-dist文件夹，及3个文件 registerSW.js sw.js workbox-xxx.js
 
 ```shell
@@ -77,8 +79,10 @@ NODE_OPTIONS=--dns-result-order=ipv4first local-ssl-proxy -s 9000 -t 5173
 
 使用 github pages 功能发布静态网站
 
-.gitignore需要取消dist目录，该目录去要上传到仓库中
-vite.config.js中的需要增加base配置，值为仓库名称，比如 base: "/web-app-cloud/"
+1. .gitignore需要取消dist目录，该目录去要上传到仓库中
+2. vite.config.js中的需要增加base配置，值为仓库名称，比如 base: "/web-app-cloud/"
+
+> 编写 .github/workflows/main.yml 文件实现Actions自动化部署
 
 ```shell
 # pages页面选择gh-pages分支的/(root)发布
