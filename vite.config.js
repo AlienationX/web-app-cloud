@@ -7,7 +7,7 @@ import { VitePWA } from 'vite-plugin-pwa';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-    base: "/web-app-cloud/",
+    base: "/web-app-cloud/",  // github pages，相当于二级域名
     plugins: [
         vue(),
         mkcert(),
