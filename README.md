@@ -81,8 +81,12 @@ NODE_OPTIONS=--dns-result-order=ipv4first local-ssl-proxy -s 9000 -t 5173
 vite.config.js中的需要增加base配置，值为仓库名称，比如 base: "/web-app-cloud/"
 
 ```shell
-npm run build
-git subtree push --prefix dist origin gh-pages
-
 # pages页面选择gh-pages分支的/(root)发布
+npm run build
+# 如下命令无法重复执行，初始化执行一次即可
+# git subtree push --prefix dist origin gh-pages
+
+npm install gh-pages -D
+# 如下命令可以指定目录推送到仓库的gh-pages分支
+npx gh-pages -d dist
 ```
