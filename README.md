@@ -54,8 +54,6 @@ npm config delete registry
 npm install pwa-asset-generator
 pwa-asset-generator [source-file] [output-folder]
 npx pwa-asset-generator logo.png icons
-
-workbox
 ```
 
 ## vite-plugin-pwa
