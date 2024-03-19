@@ -1,1 +1,0 @@
-import{_ as o}from"../_plugin-vue_export-helper/_plugin-vue_export-helper.c27b6911.js";import{_ as t,$ as c,a0 as _,a1 as n,U as a}from"../@vue/@vue.e00f085a.js";const r={};function s(i,d){const e=t("v-container");return c(),_(e,null,{default:n(()=>[a(" 二维码 ")]),_:1})}const u=o(r,[["render",s],["__scopeId","data-v-353c5c77"]]);export{u as default};

@@ -1,1 +1,0 @@
-import{u as a,b as o}from"../vue-router/vue-router.08bd16c9.js";import{$ as r,a6 as c,a3 as e,U as t,X as n,v as i}from"../@vue/@vue.e00f085a.js";const u={class:"text-h6"},p={class:"text-button"},f={__name:"TemplateView",setup(_){a();const s=o();return(l,m)=>(r(),c("div",null,[e("div",u,[t(" Hi, this is "),e("span",p,n(i(s).path),1),t(" page. ")])]))}};export{f as default};

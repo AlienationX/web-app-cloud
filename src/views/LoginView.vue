@@ -155,7 +155,7 @@ const { form, message, loading, visible, login } = useLogin();
 
 <style scoped lang="scss">
 .container {
-    background: url('/g8_login_dark.svg') center top / auto no-repeat;
+    background: url('/background_login_dark.svg') center top / auto no-repeat;
     background-size: cover;
     // transition: opacity 3s ease-in-out 0s;
 }

@@ -1,1 +1,0 @@
-if('serviceWorker' in navigator) {window.addEventListener('load', () => {navigator.serviceWorker.register('/web-app-cloud/sw.js', { scope: '/web-app-cloud/' })})}
