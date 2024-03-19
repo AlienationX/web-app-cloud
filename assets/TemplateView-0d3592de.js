@@ -1,1 +1,0 @@
-import{c as a,d as o,o as c,x as n,k as e,j as t,t as r,i}from"./index-08ec7c8f.js";const u={class:"text-h6"},_={class:"text-button"},m={__name:"TemplateView",setup(p){a();const s=o();return(l,d)=>(c(),n("div",null,[e("div",u,[t(" Hi, this is "),e("span",_,r(i(s).path),1),t(" page. ")])]))}};export{m as default};
