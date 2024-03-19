@@ -2,7 +2,7 @@
 import { ref, reactive, onMounted } from 'vue';
 
 import { useProfileStore } from '../../stores/profile.js';
-import { useAdapterStore } from '../../stores/adapter.js'
+import { useAdapterStore } from '../../stores/adapter.js';
 
 const profileStore = useProfileStore();
 const adapterStore = useAdapterStore();
@@ -22,7 +22,7 @@ onMounted(() => {
 
 <template>
     <!-- compact comfortable default -->
-    <v-bottom-navigation grow class="d-flex d-sm-none" density="default" color="primary" order="3">
+    <v-bottom-navigation grow class="d-flex d-sm-none" density="comfortable" color="primary" order="3">
         <v-btn
             v-for="route in bottomRoutes"
             :key="route.path"

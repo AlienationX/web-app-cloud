@@ -66,7 +66,9 @@ workbox
 
 ```shell
 npm install vite-plugin-pwa -D
+npm install vite-plugin-mkcert -D
 
+# 使用vite-plugin-mkcert就可以不再使用local-ssl-proxy
 npm install local-ssl-proxy -g
 local-ssl-proxy -s 9000 -t 5173
 # 如果无法访问，使用如下命令

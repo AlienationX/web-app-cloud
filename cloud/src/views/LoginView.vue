@@ -14,7 +14,7 @@ import { useRouter, useRoute } from 'vue-router';
 const $router = useRouter();
 const $route = useRoute();
 
-const formWidth = ref(380);
+const formWidth = ref(360);
 if (name.value !== 'xs') {
     formWidth.value = 460;
 }
@@ -77,7 +77,7 @@ const { form, message, loading, visible, login } = useLogin();
                     src="https://cdn.vuetifyjs.com/docs/images/logos/vuetify-logo-v3-slim-text-light.svg"
                 ></v-img>
 
-                <div class="mb-1 text-body-2 text-medium-emphasis">Email or Username</div>
+                <div class="mb-1 text-body-2 text-medium-emphasis font-weight-bold">Email or Username</div>
 
                 <v-text-field
                     density="compact"
@@ -87,7 +87,7 @@ const { form, message, loading, visible, login } = useLogin();
                     v-model="form.username"
                 ></v-text-field>
 
-                <div class="mb-1 text-body-2 text-medium-emphasis">Password</div>
+                <div class="mb-1 text-body-2 text-medium-emphasis font-weight-bold">Password</div>
 
                 <v-text-field
                     :append-inner-icon="visible.password ? 'mdi-eye-off' : 'mdi-eye'"
@@ -124,7 +124,7 @@ const { form, message, loading, visible, login } = useLogin();
                     @click:close="visible.alert = false"
                 ></v-alert>
 
-                <v-btn block class="mb-2" color="blue" variant="tonal" @click="login" :loading="loading">
+                <v-btn block class="mb-2 font-weight-bold" color="blue" variant="tonal" @click="login" :loading="loading">
                     Log In
                 </v-btn>
 

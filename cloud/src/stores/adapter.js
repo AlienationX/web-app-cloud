@@ -46,6 +46,11 @@ export const useAdapterStore = defineStore(
             }
         });
 
+        // const screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
+        // const isMobile = screenWidth < 768;
+        // const isTablet = screenWidth >=768 && screenWidth < 1024
+        // const isPC = screenWidth >= 1024
+
         // 封装移动端(phone + tablet)的逻辑判断
         const isMobile = computed(() => {
             return mobile.value;
@@ -56,12 +61,17 @@ export const useAdapterStore = defineStore(
             return name.value === 'xs' ? true : false;
         });
 
-        // const screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
-        // const isMobile = screenWidth < 768;
-        // const isTablet = screenWidth >=768 && screenWidth < 1024
-        // const isPC = screenWidth >= 1024
+        const isInStandaloneMode = computed(
+            () =>
+                window.matchMedia('(display-mode: standalone)').matches ||
+                window.navigator.standalone ||
+                document.referrer.includes('android-app://')
+        );
 
-        return { density, size, isMobile, isPhone };
+        // 检测网络是否在线
+        const onLine = null;
+
+        return { density, size, isMobile, isPhone, isInStandaloneMode, onLine };
     },
     {
         persist: {

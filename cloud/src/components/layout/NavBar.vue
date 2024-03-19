@@ -143,7 +143,7 @@ onMounted(() => {
             </template>
 
             <v-list :lines="false" density="compact" nav width="200">
-                <v-list-subheader><span class="font-weight-bold text-caption">Profile</span></v-list-subheader>
+                <!-- <v-list-subheader><span class="font-weight-bold text-caption">Profile</span></v-list-subheader> -->
 
                 <v-list-item
                     v-for="(item, i) in profileLinks"

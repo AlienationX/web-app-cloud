@@ -1,7 +1,10 @@
 <script setup>
 import { ref, onMounted, onBeforeMount } from 'vue';
 
-import { useSettingStore } from '../../stores/setting';
+import { useAdapterStore } from '@/stores/adapter.js';
+const adapterStore = useAdapterStore();
+
+import { useSettingStore } from '@/stores/setting.js';
 const settingStore = useSettingStore();
 
 const installApp = () => {
@@ -30,14 +33,21 @@ const close = () => {
 
 <template>
     <!-- PWA安装按钮/添加到桌面 -->
-    <v-banner sticky stacked lines="one" icon="mdi-alert-circle" density="comfortable">
+    <v-banner
+        v-if="!adapterStore.isInStandaloneMode"
+        sticky
+        stacked
+        lines="one"
+        icon="mdi-alert-circle"
+        density="comfortable"
+    >
         <v-banner-text class="text-medium-emphasis"> 请安装应用，添加应用到桌面 </v-banner-text>
         <v-spacer></v-spacer>
         <v-banner-actions>
             <v-btn @click="installApp" class="font-weight-bold" color="indigo-darken-3" size="small" variant="flat">
                 Install
             </v-btn>
-            <v-btn @click="close"  class="ml-2" icon="mdi-close" variant="text" size="x-small"></v-btn>
+            <v-btn @click="close" class="ml-2" icon="mdi-close" variant="text" size="x-small"></v-btn>
         </v-banner-actions>
     </v-banner>
 </template>

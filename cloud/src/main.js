@@ -31,8 +31,8 @@ console.log('main.js - vuetify', vuetify);
 
 // 自定义安装应用按钮事件，必须在main.js添加，否则无法生效
 window.addEventListener('beforeinstallprompt', (e) => {
-    // 防止默认的应用安装提示
-    e.preventDefault();
+    // 防止默认的应用安装提示，会在一定条件下自己触发，比如访问2次，访问间隔在5分钟
+    // e.preventDefault();
     // 安装应用前保存安装实例，点击按钮时再触发
     window.deferredPrompt = e;
 });
@@ -44,9 +44,9 @@ const isInStandaloneMode = () =>
     document.referrer.includes('android-app://');
 
 if (isInStandaloneMode()) {
-    console.log('webapp is installed');
+    console.log('webapp installed');
 } else {
-    console.log('webapp is not installed');
+    console.log('webapp not installed');
 }
 
 // 获取当前浏览器已安装的应用，无效
