@@ -18,7 +18,7 @@ export default defineConfig(({ command, mode }) => {
     return {
         // base: '/web-app-cloud/', // github pages，相当于二级域名
         // base: import.meta.env.BASE_URL,  // ERROR，无法直接使用
-        base: env.VITE_BASE_URL,
+        base: env.VITE_APP_BASE_URL,
         resolve: {
             alias: {
                 '@': fileURLToPath(new URL('./src', import.meta.url)),
