@@ -28,12 +28,12 @@ export default defineConfig(({ command, mode }) => {
             vue(),
             mkcert(),
             VitePWA({
-                bash: env.VITE_APP_BASE_URL,
                 manifest: {
                     name: 'Progressive Times Web App', // 安装应用后显示的应用名
                     short_name: 'Progressive Times',
                     description: '渐进式 Web App',
-                    // start_url: 'index.html',
+                    start_url: env.VITE_APP_BASE_URL, // 同vite的二级域名 base 配置
+                    // scope: env.VITE_APP_BASE_URL, // 作用域，作用未知
                     display: 'standalone', // fullscreen(无状态栏) standalone(有状态栏) minimal-ui(有地址栏)
                     theme_color: '#B71C1C', // 应用程序的主题颜色（应用栏/状态栏）红色
                     background_color: '#B71C1C', // 启动动画的背景颜色（最好和主题颜色一致？）
@@ -72,7 +72,7 @@ export default defineConfig(({ command, mode }) => {
                         },
                     ],
                 },
-                registerType: 'prompt', // autoUpdate prompt
+                registerType: 'autoUpdate', // autoUpdate prompt
                 // includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
                 workbox: {
                     // 自定义缓存名称
