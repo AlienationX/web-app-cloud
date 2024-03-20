@@ -22,9 +22,9 @@ const settings = settingStore.settings;
 const navRoutes = reactive([]);
 
 const profileLinks = reactive([
-    { text: 'Document', icon: 'mdi-clock', route: '/document' },
     { text: 'Offline', icon: 'mdi-account', route: '' },
     { text: 'Setting', icon: 'mdi-cog', route: '' },
+    { text: '清除缓存', icon: 'mdi-eraser-variant', route: '' },
     { text: 'Sing Out', icon: 'mdi-export' },
 ]);
 
@@ -136,7 +136,13 @@ onMounted(() => {
 
         <v-menu :open-on-hover="!adapterStore.isMobile" :open-on-click="adapterStore.isMobile">
             <template v-slot:activator="{ props }">
-                <v-btn v-if="!adapterStore.isPhone" class="d-none d-sm-flex" color="primary" v-bind="props" prepend-icon="mdi-account-circle">
+                <v-btn
+                    v-if="!adapterStore.isPhone"
+                    class="d-none d-sm-flex"
+                    color="primary"
+                    v-bind="props"
+                    prepend-icon="mdi-account-circle"
+                >
                     <span class="font-weight-bold text-overline">Profile</span>
                 </v-btn>
                 <v-btn v-else size="small" v-bind="props" icon="mdi-dots-vertical"> </v-btn>
@@ -165,4 +171,12 @@ onMounted(() => {
     </v-app-bar>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+// :deep(.v-list-item__spacer) {
+//     width: 10px;
+// }
+
+:deep(.v-list-item__prepend > .v-icon ~ .v-list-item__spacer) {
+    width: 16px;
+}
+</style>

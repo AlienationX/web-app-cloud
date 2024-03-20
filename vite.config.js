@@ -47,25 +47,25 @@ export default defineConfig(({ command, mode }) => {
                     // 至少配置一个图标
                     icons: [
                         {
-                            src: '/static/pwa-icons/manifest-icon-192.maskable.png',
+                            src: './static/pwa-icons/manifest-icon-192.maskable.png',
                             sizes: '192x192',
                             type: 'image/png',
                             purpose: 'any',
                         },
                         {
-                            src: '/static/pwa-icons/manifest-icon-192.maskable.png',
+                            src: './static/pwa-icons/manifest-icon-192.maskable.png',
                             sizes: '192x192',
                             type: 'image/png',
                             purpose: 'maskable',
                         },
                         {
-                            src: '/static/pwa-icons/manifest-icon-512.maskable.png',
+                            src: './static/pwa-icons/manifest-icon-512.maskable.png',
                             sizes: '512x512',
                             type: 'image/png',
                             purpose: 'any',
                         },
                         {
-                            src: '/static/pwa-icons/manifest-icon-512.maskable.png',
+                            src: './static/pwa-icons/manifest-icon-512.maskable.png',
                             sizes: '512x512',
                             type: 'image/png',
                             purpose: 'maskable',
