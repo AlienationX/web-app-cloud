@@ -51,7 +51,7 @@ npm config delete registry
 执行如下命令，指定logo文件和输出目录，可以生成各种尺寸的一套图标供pwa使用
 
 ```shell
-npm install pwa-asset-generator
+npm install pwa-asset-generator -g
 pwa-asset-generator [source-file] [output-folder]
 npx pwa-asset-generator logo.png icons
 ```

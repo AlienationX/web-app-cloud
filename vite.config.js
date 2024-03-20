@@ -28,6 +28,7 @@ export default defineConfig(({ command, mode }) => {
             vue(),
             mkcert(),
             VitePWA({
+                bash: env.VITE_APP_BASE_URL,
                 manifest: {
                     name: 'Progressive Times Web App', // 安装应用后显示的应用名
                     short_name: 'Progressive Times',
@@ -46,25 +47,25 @@ export default defineConfig(({ command, mode }) => {
                     // 至少配置一个图标
                     icons: [
                         {
-                            src: '/pwa-icons/manifest-icon-192.maskable.png',
+                            src: '/static/pwa-icons/manifest-icon-192.maskable.png',
                             sizes: '192x192',
                             type: 'image/png',
                             purpose: 'any',
                         },
                         {
-                            src: '/pwa-icons/manifest-icon-192.maskable.png',
+                            src: '/static/pwa-icons/manifest-icon-192.maskable.png',
                             sizes: '192x192',
                             type: 'image/png',
                             purpose: 'maskable',
                         },
                         {
-                            src: '/pwa-icons/manifest-icon-512.maskable.png',
+                            src: '/static/pwa-icons/manifest-icon-512.maskable.png',
                             sizes: '512x512',
                             type: 'image/png',
                             purpose: 'any',
                         },
                         {
-                            src: '/pwa-icons/manifest-icon-512.maskable.png',
+                            src: '/static/pwa-icons/manifest-icon-512.maskable.png',
                             sizes: '512x512',
                             type: 'image/png',
                             purpose: 'maskable',
