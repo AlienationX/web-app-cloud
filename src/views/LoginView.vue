@@ -164,8 +164,8 @@ const { form, message, loading, visible, login } = useLogin();
     max-width: 100%;
 }
 
-// .v-text-field {
-//     background-color: green;
-//     height: 48px;
-// }
+:deep(.v-alert__close) {
+    align-self: flex-start;
+    margin-inline-start: 0px;
+}
 </style>
