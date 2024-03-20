@@ -188,10 +188,10 @@ export default defineConfig(({ command, mode }) => {
             // port: 5173,
             https: true,
             proxy: {
-                '/api': {
+                '/dev-github-api': {
                     target: 'https://api.github.com',
                     changeOrigin: true, //支持跨域
-                    rewrite: (path) => path.replace(/^\/api/, ''), //重写路径,替换/api
+                    rewrite: (path) => path.replace(/^\/dev-github-api/, ''), //重写路径,替换/api
                 },
                 '/test': {
                     target: 'https://api.uomg.com',

@@ -3,8 +3,8 @@ import axios from 'axios';
 import { useProfileStore } from '../stores/profile.js';
 
 let request = axios.create({
-    // baseURL: 'import.meta.env.VITE_APP_BASE_API',  // 统一增加前缀，变量配置的值为 '/api'
-    baseURL: '/api', // 和vite.config.js中配置的proxy跨域保持一致即可
+    // baseURL: 'import.meta.env.VITE_API_BASE_URL',  // 统一增加前缀，变量配置的值为 '/api'
+    baseURL: import.meta.env.VITE_API_GITHUB_URL || '/dev-github-api', // 和vite.config.js中配置的proxy跨域保持一致即可
     timeout: 5000,
 });
 
