@@ -1,3 +1,4 @@
+// 废弃，推荐使用vite的环境变量配置
 export default {
     title: 'Cloud', // 项目标题设置
     logo: '/public/logo.png', // 项目logo设置

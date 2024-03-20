@@ -69,6 +69,6 @@ router.beforeEach((to, from, next) => {
 // 全局后置守卫
 router.afterEach((to, from) => {
     // 设置页面title
-    document.title = `${config.title} - ${to.meta.title}`;
+    document.title = `${import.meta.env.VITE_APP_TITLE} - ${to.meta.title}`;
     nprogress.done();
 });

@@ -51,3 +51,5 @@ if (isInStandaloneMode()) {
 
 // 获取当前浏览器已安装的应用，无效
 // console.log('本浏览器已安装的apps:', await navigator.getInstalledRelatedApps());
+
+console.log('vite env', import.meta.env);
