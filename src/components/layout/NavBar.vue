@@ -1,8 +1,7 @@
 <script setup>
 import Menu from './Menu.vue';
 
-import { ref, reactive, onMounted } from 'vue';
-import config from '@/config.js';
+import { ref, reactive, toRef, onMounted, computed } from 'vue';
 import { fullScreen } from '@/common/utils.js';
 
 import { useProfileStore } from '@/stores/profile.js';
@@ -19,42 +18,9 @@ const adapterStore = useAdapterStore();
 
 const settings = settingStore.settings;
 
-const navRoutes = reactive([]);
+const useNavRoutes = () => {
+    const navRoutes = reactive([]);
 
-const profileLinks = reactive([
-    { text: 'Offline', icon: 'mdi-account', route: '' },
-    { text: 'Setting', icon: 'mdi-cog', route: '' },
-    { text: '清除缓存', icon: 'mdi-eraser-variant', route: '' },
-    { text: 'Sing Out', icon: 'mdi-export' },
-]);
-
-const updateRefsh = () => {
-    // 监听该值的变化即可，true/flase 无所谓
-    settings.refresh = !settings.refresh;
-};
-
-const switchTheme = () => {
-    // 修改theme主题值
-    settings.theme = settings.theme === 'light' ? 'dark' : 'light';
-    // 切换图标，settingStore通过theme的计算属性处理
-    // switchIcon.value = settings.theme === 'light' ? 'mdi-weather-night' : 'mdi-weather-sunny';
-};
-
-const logout = () => {
-    // 重置store的数据
-    profileStore.$reset();
-    // 跳转到登录页面
-    $router.push({ path: '/login', query: { redirect: $route.path } });
-};
-
-const handle = (event, item) => {
-    console.log(event, item);
-    console.log('click', item.text);
-    // 如果点击sing out按钮，则退出登录
-    if (item.text === 'Sing Out') logout();
-};
-
-onMounted(() => {
     profileStore.privilege.routes
         .filter((route) => route.meta.location === 'nav')
         .map((route) => {
@@ -72,7 +38,59 @@ onMounted(() => {
                 navRoutes.push(...homeRoute.children.filter((route) => route.path !== '/home'));
             }
         });
-});
+
+    return { navRoutes };
+};
+
+const useNavBtn = () => {
+    const updateRefsh = () => {
+        // 监听该值的变化即可，true/flase 无所谓
+        settings.refresh = !settings.refresh;
+    };
+
+    const clearCache = () => {
+        // cache.clear()
+        console.log('clear cache');
+    };
+
+    const logout = () => {
+        // 重置store的数据
+        profileStore.$reset();
+        // 跳转到登录页面
+        $router.push({ path: '/login', query: { redirect: $route.path } });
+    };
+
+    const handle = (event, item) => {
+        console.log(event, item);
+        console.log('click', item.text);
+    };
+
+    const themeText = computed(() => {
+        return settings.theme === 'light' ? '黑暗主题' : '明亮主题';
+    });
+    
+    const switchTheme = () => {
+        // 修改theme主题值
+        settings.theme = settings.theme === 'light' ? 'dark' : 'light';
+        // 切换图标，settingStore通过theme的计算属性处理
+        // switchIcon.value = settings.theme === 'light' ? 'mdi-weather-night' : 'mdi-weather-sunny';
+        // 切换下拉的图标
+    };
+
+    const profileLinks = reactive([
+        { text: '通知', icon: 'mdi-bell', action: function () {}, route: '' },
+        { text: themeText, icon: toRef(settingStore, 'switchIcon'), action: switchTheme, route: '' },
+        { text: '意见和反馈', icon: 'mdi-message-text', action: function () {}, route: '' },
+        { text: '清除缓存', icon: 'mdi-eraser-variant', action: clearCache, route: '' },
+        { text: 'Sing Out', icon: 'mdi-exit-to-app', action: logout, route: '' },
+    ]);
+
+    return { profileLinks, updateRefsh, switchTheme, handle };
+};
+
+const title = import.meta.env.VITE_APP_TITLE;
+const { navRoutes } = useNavRoutes();
+const { profileLinks, updateRefsh, switchTheme, handle } = useNavBtn();
 </script>
 
 <template>
@@ -102,7 +120,7 @@ onMounted(() => {
         <v-toolbar-title
             v-show="settings.sideBarOrder === 0 && settings.showSideBar && !settings.sideBarOverlay ? false : true"
         >
-            <span class="text-overline font-weight-black"> {{ config.title }}</span>
+            <span class="text-subtitle-2 font-weight-black"> {{ title }}</span>
         </v-toolbar-title>
 
         <v-spacer></v-spacer>
@@ -157,7 +175,7 @@ onMounted(() => {
                     :value="item"
                     router
                     :to="item.route"
-                    @click="(event) => handle(event, item)"
+                    @click="item.action"
                     color="primary"
                 >
                     <template v-slot:prepend>

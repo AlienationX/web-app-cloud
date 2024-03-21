@@ -4,7 +4,6 @@ import Setting from '../Setting.vue';
 import { ref, reactive, onMounted } from 'vue';
 import { useSettingStore } from '../../stores/setting.js';
 import { useProfileStore } from '../../stores/profile.js';
-import config from '../../config.js';
 
 const settingStore = useSettingStore();
 const settings = settingStore.settings;

@@ -193,10 +193,10 @@ export default defineConfig(({ command, mode }) => {
                     changeOrigin: true, //支持跨域
                     rewrite: (path) => path.replace(/^\/dev-github-api/, ''), //重写路径,替换/api
                 },
-                '/test': {
+                '/dev-uomg-api': {
                     target: 'https://api.uomg.com',
                     changeOrigin: true,
-                    rewrite: (path) => path.replace(/^\/test/, ''),
+                    rewrite: (path) => path.replace(/^\/dev-uomg-api/, ''),
                 },
                 //
             },

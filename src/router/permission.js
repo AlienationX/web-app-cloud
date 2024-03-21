@@ -1,5 +1,4 @@
 import router from './index';
-import config from '../config.js';
 
 import { useProfileStore } from '../stores/profile.js';
 import { getToken } from '@/common/auth.js';
