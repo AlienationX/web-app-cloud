@@ -11,11 +11,13 @@ let request = axios.create({
 // TODO 请求拦截器。hearder必须携带token，否则拦截发送请求
 request.interceptors.request.use(
     (config) => {
-        let profileStore = useProfileStore();
+        // github api 允许跨域，Access-Control-Allow-Headers设置为*，且没有设置token字段，所以请求头header也不能设置token，否则报错
+        // Request header field token is not allowed by Access-Control-Allow-Headers in preflight response.
 
-        if (profileStore.token) {
-            config.headers.token = profileStore.token;
-        }
+        // let profileStore = useProfileStore();
+        // if (profileStore.token) {
+        //     config.headers.token = profileStore.token;
+        // }
 
         return config;
     },
