@@ -7,7 +7,7 @@ import HelloWorld from '@/components/example/HelloWorld.vue';
     <v-container class="fill-height">
         <v-row>
             <v-col cols="12" class="d-flex align-center justify-center">
-                <img mx-auto alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+                <v-img src="/static/images/microsoft/team-services-get-started-account-manager.svg" width="360" height="200"></v-img>
             </v-col>
             <v-col cols="12" class="d-flex align-center justify-center">
                 <HelloWorld msg="You did it!" />

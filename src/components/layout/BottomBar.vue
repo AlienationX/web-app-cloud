@@ -32,7 +32,7 @@ onMounted(() => {
             :to="route.path"
         >
             <v-icon>{{ route.meta.icon }}</v-icon>
-            <!-- <span>{{ route.meta.title }}</span> -->
+            <span>{{ route.meta.title }}</span>
         </v-btn>
     </v-bottom-navigation>
 </template>

@@ -49,8 +49,13 @@ const useNavBtn = () => {
     };
 
     const clearCache = () => {
-        // cache.clear()
-        console.log('clear cache');
+        (async () => {
+            const keys = await caches.keys();
+            keys.forEach((key) => {
+                caches.delete(key)
+                console.log('clear cache', key);
+            });
+        })();
     };
 
     const logout = () => {
@@ -68,7 +73,7 @@ const useNavBtn = () => {
     const themeText = computed(() => {
         return settings.theme === 'light' ? '黑暗主题' : '明亮主题';
     });
-    
+
     const switchTheme = () => {
         // 修改theme主题值
         settings.theme = settings.theme === 'light' ? 'dark' : 'light';
@@ -82,7 +87,7 @@ const useNavBtn = () => {
         { text: themeText, icon: toRef(settingStore, 'switchIcon'), action: switchTheme, route: '' },
         { text: '意见和反馈', icon: 'mdi-message-text', action: function () {}, route: '' },
         { text: '清除缓存', icon: 'mdi-eraser-variant', action: clearCache, route: '' },
-        { text: 'Sing Out', icon: 'mdi-exit-to-app', action: logout, route: '' },
+        { text: 'Sign Out', icon: 'mdi-exit-to-app', action: logout, route: '' },
     ]);
 
     return { profileLinks, updateRefsh, switchTheme, handle };

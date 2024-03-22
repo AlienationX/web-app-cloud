@@ -1,6 +1,18 @@
 <script setup>
+import { ref } from 'vue';
+
 import { useRouter } from 'vue-router';
 const $router = useRouter();
+
+import { useAdapterStore } from '@/stores/adapter.js';
+const adapterStore = useAdapterStore();
+
+// 非相应式，勉强解决问题
+const endClass = ref('');
+if (!adapterStore.isPhone) {
+    // 居右
+    endClass.value = 'd-flex align-center justify-end';
+}
 
 const goHome = () => {
     $router.push({ path: '/' });
@@ -15,8 +27,10 @@ const goHome = () => {
             <span class="text-purple-darken-4">Lorem ipsum</span>
         </div> -->
         <v-row>
-            <v-col class="d-none d-sm-flex"> </v-col>
-            <v-col>
+            <v-col cols="12" sm="6" md="6" lg="6" xl="6" xxl="6" :class="endClass">
+                <v-img src="/static/images/flat/floss.svg" cover max-width="260"></v-img>
+            </v-col>
+            <v-col cols="12" sm="6" md="6" lg="6" xl="6" xxl="6">
                 <div class="text-h4 text-indigo">Whoops, 404</div>
                 <div class="text-subtitle-1">The page you were looking for does not exist...</div>
                 <div class="text-subtitle-1">你似乎来到了未知的领域...</div>
@@ -26,8 +40,8 @@ const goHome = () => {
                     variant="outlined"
                     style="margin: 20px 8px"
                     @click="goHome"
-                    >去往首页</v-btn
-                >
+                    >去往首页
+                </v-btn>
             </v-col>
         </v-row>
     </v-container>
@@ -36,9 +50,6 @@ const goHome = () => {
 <style scoped lang="scss">
 .v-container {
     max-width: none;
-    div {
-        margin: 8px;
-    }
 }
 
 // .box {
