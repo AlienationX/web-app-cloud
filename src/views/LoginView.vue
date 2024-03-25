@@ -14,10 +14,19 @@ import { useRouter, useRoute } from 'vue-router';
 const $router = useRouter();
 const $route = useRoute();
 
-const formWidth = ref(360);
-if (name.value !== 'xs') {
-    formWidth.value = 460;
-}
+const useFormStyle = () => {
+    const formWidth = ref(360);
+    const variant = ref('flat');
+    const elevation = ref();
+    console.log('form ');
+    if (name.value !== 'xs') {
+        console.log('from style', name.value);
+        formWidth.value = 460;
+        variant.value = 'elevated'; // elevation="8"
+        elevation.value = 8;
+    }
+    return { formWidth, variant, elevation };
+};
 
 const useLogin = () => {
     const form = reactive({
@@ -57,6 +66,7 @@ const useLogin = () => {
     return { form, message, loading, visible, login };
 };
 
+const { formWidth, variant, elevation } = useFormStyle();
 const { form, message, loading, visible, login } = useLogin();
 </script>
 
@@ -69,7 +79,7 @@ const { form, message, loading, visible, login } = useLogin();
         ></v-img> -->
 
         <v-form class="mx-auto">
-            <v-card class="mx-auto pa-12 pb-8" elevation="8" :width="formWidth">
+            <v-card class="mx-auto pa-12 pb-8" :width="formWidth" elevation="8">
                 <!-- max-width="460" min-width="380" -->
                 <v-img
                     class="mx-auto my-6"
@@ -124,7 +134,14 @@ const { form, message, loading, visible, login } = useLogin();
                     @click:close="visible.alert = false"
                 ></v-alert>
 
-                <v-btn block class="mb-2 font-weight-bold" color="blue" variant="tonal" @click="login" :loading="loading">
+                <v-btn
+                    block
+                    class="mb-2 font-weight-bold"
+                    color="blue"
+                    variant="tonal"
+                    @click="login"
+                    :loading="loading"
+                >
                     Log In
                 </v-btn>
 
@@ -139,7 +156,9 @@ const { form, message, loading, visible, login } = useLogin();
                     <p class="text-caption">{{ message }}</p>
 
                     <template v-slot:actions>
-                        <v-btn class="font-weight-bold" color="red" variant="text" @click="visible.snackbar = false"> Close </v-btn>
+                        <v-btn class="font-weight-bold" color="red" variant="text" @click="visible.snackbar = false">
+                            Close
+                        </v-btn>
                     </template>
                 </v-snackbar>
 

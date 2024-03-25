@@ -52,17 +52,23 @@ const useNavBtn = () => {
         (async () => {
             const keys = await caches.keys();
             keys.forEach((key) => {
-                caches.delete(key)
+                caches.delete(key);
                 console.log('clear cache', key);
             });
         })();
     };
 
+    const dialog = ref(false);
+    const confirm = () => {
+        dialog.value = true;
+    };
     const logout = () => {
         // 重置store的数据
         profileStore.$reset();
         // 跳转到登录页面
         $router.push({ path: '/login', query: { redirect: $route.path } });
+        // 关闭对话框
+        dialog.value = false;
     };
 
     const handle = (event, item) => {
@@ -83,19 +89,19 @@ const useNavBtn = () => {
     };
 
     const profileLinks = reactive([
-        { text: '通知', icon: 'mdi-bell', action: function () {}, route: '' },
+        { text: '通知', icon: 'mdi-bell', action: function () {}, route: '', badges: 2 },
         { text: themeText, icon: toRef(settingStore, 'switchIcon'), action: switchTheme, route: '' },
         { text: '意见和反馈', icon: 'mdi-message-text', action: function () {}, route: '' },
         { text: '清除缓存', icon: 'mdi-eraser-variant', action: clearCache, route: '' },
-        { text: 'Sign Out', icon: 'mdi-exit-to-app', action: logout, route: '' },
+        { text: 'Sign Out', icon: 'mdi-exit-to-app', action: confirm, route: '' },
     ]);
 
-    return { profileLinks, updateRefsh, switchTheme, handle };
+    return { profileLinks, updateRefsh, switchTheme, logout, dialog, handle };
 };
 
 const title = import.meta.env.VITE_APP_TITLE;
 const { navRoutes } = useNavRoutes();
-const { profileLinks, updateRefsh, switchTheme, handle } = useNavBtn();
+const { profileLinks, updateRefsh, switchTheme, logout, dialog, handle } = useNavBtn();
 </script>
 
 <template>
@@ -184,13 +190,33 @@ const { profileLinks, updateRefsh, switchTheme, handle } = useNavBtn();
                     color="primary"
                 >
                     <template v-slot:prepend>
+                        <!-- <v-icon :icon="item.icon" size="small"></v-icon> -->
+                        <!-- <v-badge color="error" content="2"> -->
                         <v-icon :icon="item.icon" size="small"></v-icon>
+                        <!-- </v-badge> -->
+                    </template>
+
+                    <template v-slot:append v-if="item.badges">
+                        <v-badge color="error" :content="item.badges" inline></v-badge>
                     </template>
 
                     <v-list-item-title> {{ item.text }}</v-list-item-title>
                 </v-list-item>
             </v-list>
         </v-menu>
+
+        <v-dialog v-model="dialog" width="auto">
+            <v-card>
+                <v-card-text class="mb-1 text-body-2 text-medium-emphasis font-weight-bold"
+                    >Are you sure logout ?</v-card-text
+                >
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn variant="plain" text="Cancel" size="small" @click="dialog = false"></v-btn>
+                    <v-btn variant="tonal" text="Ok" size="small" color="primary" @click="logout"></v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
     </v-app-bar>
 </template>
 

@@ -7,7 +7,7 @@ const $router = useRouter();
 import { useAdapterStore } from '@/stores/adapter.js';
 const adapterStore = useAdapterStore();
 
-// 非相应式，勉强解决问题
+// TODO 非相应式，勉强解决问题
 const endClass = ref('');
 if (!adapterStore.isPhone) {
     // 居右
@@ -28,7 +28,7 @@ const goHome = () => {
         </div> -->
         <v-row>
             <v-col cols="12" sm="6" md="6" lg="6" xl="6" xxl="6" :class="endClass">
-                <v-img src="/static/images/flat/floss.svg" cover max-width="260"></v-img>
+                <v-img src="./static/images/flat/floss.svg" cover max-width="260"></v-img>
             </v-col>
             <v-col cols="12" sm="6" md="6" lg="6" xl="6" xxl="6">
                 <div class="text-h4 text-indigo">Whoops, 404</div>

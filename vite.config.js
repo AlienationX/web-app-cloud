@@ -21,7 +21,7 @@ export default defineConfig(({ command, mode }) => {
         base: env.VITE_APP_BASE_URL,
         resolve: {
             alias: {
-                '@': fileURLToPath(new URL('./src', import.meta.url)),
+                '@': fileURLToPath(new URL('src', import.meta.url)),
             },
         },
         plugins: [

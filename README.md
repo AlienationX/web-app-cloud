@@ -96,3 +96,10 @@ npm install gh-pages -D
 # 如下命令可以指定目录推送到仓库的gh-pages分支
 npx gh-pages -d dist
 ```
+
+## 注意事项
+
+- style引用public下的图片写绝对路径
+- template引用public下的图片写相对路径
+- vite.config.js的pwa的图标需要配置为相对路径
+- vite.config.js的@简写需要配置为src
