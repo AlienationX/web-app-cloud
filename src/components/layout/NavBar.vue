@@ -129,12 +129,12 @@ const { profileLinks, updateRefsh, switchTheme, logout, dialog, handle } = useNa
     >
         <v-app-bar-nav-icon @click="settings.showSideBar = !settings.showSideBar"></v-app-bar-nav-icon>
         <v-toolbar-title
-            v-show="settings.sideBarOrder === 0 && settings.showSideBar && !settings.sideBarOverlay ? false : true"
+            v-show="settings.sideBarOrder === 0 && settings.showSideBar && !settings.sideBarOverlay ? true : true"
         >
-            <span class="text-subtitle-2 font-weight-black"> {{ title }}</span>
+            <span class="d-flex align-center text-subtitle-2 font-weight-black text-medium-emphasis"> {{ title }}</span>
         </v-toolbar-title>
 
-        <v-spacer></v-spacer>
+        <!-- <v-spacer></v-spacer> -->
 
         <!-- <v-btn-toggle v-model="toggle" rounded="0" borderless nav>
             <v-btn
@@ -212,8 +212,8 @@ const { profileLinks, updateRefsh, switchTheme, logout, dialog, handle } = useNa
                 >
                 <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn variant="plain" text="Cancel" size="small" @click="dialog = false"></v-btn>
-                    <v-btn variant="tonal" text="Ok" size="small" color="primary" @click="logout"></v-btn>
+                    <v-btn variant="plain" size="small" @click="dialog = false">Cancel</v-btn>
+                    <v-btn variant="tonal" size="small" color="primary" @click="logout">OK</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
