@@ -1,4 +1,6 @@
 <script setup>
+import FormPage from '@/components/FormPage.vue';
+
 import { ref, reactive, h, render } from 'vue';
 import { useDisplay } from 'vuetify';
 const { name } = useDisplay();
@@ -15,17 +17,18 @@ const $router = useRouter();
 const $route = useRoute();
 
 const useFormStyle = () => {
-    const formWidth = ref(360);
-    const variant = ref('flat');
-    const elevation = ref();
-    console.log('form ');
-    if (name.value !== 'xs') {
-        console.log('from style', name.value);
-        formWidth.value = 460;
-        variant.value = 'elevated'; // elevation="8"
-        elevation.value = 8;
+    const containerClass = ref('fill-height container');
+    const cardClass = ref('mx-auto pa-12 pb-8');
+    const formWidth = ref('460');
+    const variant = ref('elevated');
+
+    if (name.value === 'xs') {
+        containerClass.value = '';
+        // cardClass.value = 'mx-auto';
+        // formWidth.value = '';
+        // variant.value = 'flat';
     }
-    return { formWidth, variant, elevation };
+    return { containerClass, cardClass, formWidth, variant };
 };
 
 const useLogin = () => {
@@ -66,20 +69,22 @@ const useLogin = () => {
     return { form, message, loading, visible, login };
 };
 
-const { formWidth, variant, elevation } = useFormStyle();
+const { containerClass, cardClass, formWidth, variant } = useFormStyle();
 const { form, message, loading, visible, login } = useLogin();
+const title = import.meta.env.VITE_APP_TITLE;
 </script>
 
 <template>
-    <v-container class="fill-height container">
+    <v-container :class="containerClass">
+        <FormPage v-if="name === 'xs'" :useLogin="useLogin"></FormPage>
         <!-- <v-img
             class="mx-auto my-6"
             max-width="228"
             src="https://cdn.vuetifyjs.com/docs/images/logos/vuetify-logo-v3-slim-text-light.svg"
         ></v-img> -->
 
-        <v-form class="mx-auto">
-            <v-card class="mx-auto pa-12 pb-8" :width="formWidth" elevation="8">
+        <v-form v-else class="mx-auto">
+            <v-card :class="cardClass" :width="formWidth" :variant="variant">
                 <!-- max-width="460" min-width="380" -->
                 <v-img
                     class="mx-auto my-6"
@@ -87,13 +92,18 @@ const { form, message, loading, visible, login } = useLogin();
                     src="https://cdn.vuetifyjs.com/docs/images/logos/vuetify-logo-v3-slim-text-light.svg"
                 ></v-img>
 
+                <!-- <v-row height="60" class="mx-auto my-6">
+                    <v-img src="./logo.png" width="40" height="40"></v-img>
+                    <p class="text-h6 font-weight-black text-medium-emphasis text-uppercase">{{ title }}</p>
+                </v-row> -->
+
                 <div class="mb-1 text-body-2 text-medium-emphasis font-weight-bold">Email or Username</div>
 
                 <v-text-field
                     density="compact"
                     placeholder="Email address"
                     prepend-inner-icon="mdi-email-outline"
-                    variant="outlined"
+                    variant="solo-inverted"
                     v-model="form.username"
                 ></v-text-field>
 
@@ -107,7 +117,7 @@ const { form, message, loading, visible, login } = useLogin();
                     flat
                     placeholder="Enter your password"
                     prepend-inner-icon="mdi-lock-outline"
-                    variant="outlined"
+                    variant="solo-inverted"
                     @click:append-inner="visible.password = !visible.password"
                     v-model="form.password"
                 ></v-text-field>
