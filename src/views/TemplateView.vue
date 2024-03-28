@@ -5,10 +5,10 @@ const $route = useRoute();
 </script>
 
 <template>
-    <div>
+    <v-container>
         <div class="text-h6">
             Hi, this is <span class="text-button">{{ $route.path }}</span> page.
         </div>
         <!-- <p>Hi, this is {{ $route.params.name }} page.</p> -->
-    </div>
+    </v-container>
 </template>

@@ -30,7 +30,7 @@ const title = import.meta.env.VITE_APP_TITLE;
                 可以通过一个代码库在多个平台和设备上运行。它也像一个特定平台的应用程序一样，可以安装在设备上，可以离线和在后台运行，并且可以与设备和其他已安装的应用程序集成。
             </p>
 
-            <p class="font-weight-bold">Eeeego, 模仿 谷歌google 的发音</p>
+            <p class="font-weight-bold">Eeeego, 谷歌google</p>
 
             <!-- <v-col cols="12" class="d-flex align-center justify-center">
                 <HelloWorld msg="You did it!" />
