@@ -1,7 +1,7 @@
 <script setup>
 import FormPage from '@/components/FormPage.vue';
 
-import { ref, reactive, h, render } from 'vue';
+import { ref, reactive } from 'vue';
 import { useDisplay } from 'vuetify';
 const { name } = useDisplay();
 
@@ -35,10 +35,36 @@ const useLogin = () => {
     const form = reactive({
         username: 'admin',
         password: 'admin',
+        usernameHint: 'Enter your username to access this website, such as admin1',
+        passwordHint: 'Enter your password to access this website, such as 1234',
     });
+
+    const usernameRules = [
+        (value) => {
+            if (value) return true;
+            return 'Name is required.';
+        },
+        (value) => {
+            if (value?.length >= 5) return true;
+            return 'Name must be more than 5 characters.';
+        },
+    ];
+
+    const passwordRules = [
+        (value) => {
+            if (value) return true;
+            return 'Password is required.';
+        },
+        (value) => {
+            if (value?.length >= 2) return true;
+            return 'Name must be more than 2 characters.';
+        },
+    ];
+
     const loading = ref(false);
     const message = ref(
         'Warning: After 3 consecutive failed login attempts, you account will be temporarily locked for three hours. If you must login now, you can also click "Forgot login password?" below to reset the login password.'
+        // '请输入github上的任意用户名作为用户登录，密码随意输入'
     );
     const visible = reactive({
         password: false,
@@ -66,11 +92,11 @@ const useLogin = () => {
         loading.value = false;
     };
 
-    return { form, message, loading, visible, login };
+    return { form, usernameRules, passwordRules, message, loading, visible, login };
 };
 
 const { containerClass, cardClass, formWidth, variant } = useFormStyle();
-const { form, message, loading, visible, login } = useLogin();
+const { form, usernameRules, passwordRules, message, loading, visible, login } = useLogin();
 const title = import.meta.env.VITE_APP_TITLE;
 </script>
 
@@ -103,8 +129,10 @@ const title = import.meta.env.VITE_APP_TITLE;
                     density="compact"
                     placeholder="Email address"
                     prepend-inner-icon="mdi-email-outline"
-                    variant="solo-inverted"
+                    variant="solo-filled"
                     v-model="form.username"
+                    :rules="usernameRules"
+                    :hint="form.usernameHint"
                 ></v-text-field>
 
                 <div class="mb-1 text-body-2 text-medium-emphasis font-weight-bold">Password</div>
@@ -114,29 +142,17 @@ const title = import.meta.env.VITE_APP_TITLE;
                     :type="visible.password ? 'text' : 'password'"
                     density="compact"
                     single-line
-                    flat
                     placeholder="Enter your password"
                     prepend-inner-icon="mdi-lock-outline"
-                    variant="solo-inverted"
+                    variant="solo-filled"
                     @click:append-inner="visible.password = !visible.password"
                     v-model="form.password"
+                    :rules="passwordRules"
+                    :hint="form.passwordHint"
                 ></v-text-field>
 
-                <!-- <v-card
-                  class="mb-12"
-                  color="surface-variant"
-                  variant="tonal"
-                >
-                  <v-card-text class="text-medium-emphasis text-caption" v-if="message">
-                    {{ message }}
-                  </v-card-text>
-                  <v-card-text class="text-medium-emphasis text-caption" v-else>
-                    Warning: After 3 consecutive failed login attempts, you account will be temporarily locked for three hours. If you must login now, you can also click "Forgot login password?" below to reset the login password.
-                  </v-card-text>
-                </v-card> -->
-
                 <v-alert
-                    class="text-medium-emphasis text-caption mb-8"
+                    class="text-medium-emphasis text-caption"
                     :model-value="visible.alert"
                     :text="message"
                     density="compact"
@@ -146,7 +162,7 @@ const title = import.meta.env.VITE_APP_TITLE;
 
                 <v-btn
                     block
-                    class="mb-2 font-weight-bold"
+                    class="mb-2 font-weight-bold mt-8"
                     color="blue"
                     variant="tonal"
                     @click="login"

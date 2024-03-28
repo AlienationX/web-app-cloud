@@ -1,16 +1,15 @@
 <script setup>
 const props = defineProps(['useLogin']);
 
-const { form, message, loading, visible, login } = props.useLogin();
+const { form, usernameRules, passwordRules, message, loading, visible, login } = props.useLogin();
 </script>
 
 <template>
     <v-form class="mx-auto">
         <v-card variant="flat" style="background-color: transparent">
-
             <!-- max-width="460" min-width="380" -->
             <v-img
-                class="mx-auto my-6"
+                class="mx-auto my-12"
                 max-width="228"
                 src="https://cdn.vuetifyjs.com/docs/images/logos/vuetify-logo-v3-slim-text-light.svg"
             ></v-img>
@@ -29,7 +28,7 @@ const { form, message, loading, visible, login } = props.useLogin();
                 variant="underlined"
                 color="blue"
                 v-model="form.username"
-                height="100px"
+                :rules="usernameRules"
             ></v-text-field>
 
             <div class="mb-1 text-body-2 text-medium-emphasis font-weight-bold">Password</div>
@@ -41,6 +40,7 @@ const { form, message, loading, visible, login } = props.useLogin();
                 variant="underlined"
                 color="blue"
                 v-model="form.password"
+                :rules="passwordRules"
                 :append-inner-icon="visible.password ? 'mdi-eye-off' : 'mdi-eye'"
                 :type="visible.password ? 'text' : 'password'"
                 @click:append-inner="visible.password = !visible.password"
@@ -67,7 +67,7 @@ const { form, message, loading, visible, login } = props.useLogin();
                 closable
                 @click:close="visible.alert = false"
             ></v-alert>
-        
+
             <v-btn block class="mb-2 font-weight-bold" color="blue" variant="tonal" @click="login" :loading="loading">
                 Log In
             </v-btn>
@@ -75,7 +75,7 @@ const { form, message, loading, visible, login } = props.useLogin();
             <!-- <v-row justify="end"> -->
             <v-btn class="text-blue text-caption" size="small" variant="text">Forgot your password?</v-btn>
             <!-- </v-row> -->
-        
+
             <v-card-text class="text-center">
                 <a class="text-blue text-decoration-none" href="#" rel="noopener noreferrer" target="_blank">
                     Sign up now <v-icon icon="mdi-chevron-right"></v-icon>
@@ -88,5 +88,9 @@ const { form, message, loading, visible, login } = props.useLogin();
 <style scoped>
 :deep(.v-field__outline) {
     padding: 20px;
+}
+
+:deep(.v-input__details) {
+    padding: 8px;
 }
 </style>
