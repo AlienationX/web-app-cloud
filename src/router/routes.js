@@ -16,6 +16,20 @@ export const publicRoutes = [
         },
     },
     {
+        path: '/register',
+        // route level code-splitting
+        // this generates a separate chunk (About.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        // component: LoginView,
+        component: () => import('../views/RegisterView.vue'),
+        name: 'register', // 如果使用name属性，可以避免path写错或方便修改？
+        meta: {
+            title: '注册',
+            icon: '',
+            hidden: true,
+        },
+    },
+    {
         path: '/production',
         // route level code-splitting
         // this generates a separate chunk (About.[hash].js) for this route

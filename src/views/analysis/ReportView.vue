@@ -8,7 +8,7 @@ import {
     reqGitHubUserRepo,
     reqGitHubUserRepoLanguages,
     reqGitHubUserRepoCommits,
-} from '@/common/api.js';
+} from '@/api/github.js';
 
 import { useProfileStore } from '@/stores/profile.js';
 const profileStore = useProfileStore();
@@ -322,10 +322,23 @@ const option = {
                             variant="outlined"
                             @update:modelValue="changeSelectValue"
                         ></v-select>
-                        
+
                         <p v-for="(v, k) in repoInfo" :key="k" class="text-body-2">
                             <span class="font-weight-bold">{{ k }}: </span> {{ v }}
                         </p>
+
+                        <v-list lines="two" density="compact">
+                            <v-list-item v-for="(v, k) in repoInfo" :key="k" :title="k" :subtitle="v"></v-list-item>
+                        </v-list>
+
+                        <v-table density="compact">
+                            <tbody>
+                                <tr v-for="(v, k) in repoInfo" :key="k">
+                                    <th class="font-weight-bold">{{ k }}</th>
+                                    <td>{{ v }}</td>
+                                </tr>
+                            </tbody>
+                        </v-table>
 
                         <div v-show="repoName ? false : true">
                             <!-- <v-divider></v-divider> -->

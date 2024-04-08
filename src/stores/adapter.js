@@ -33,14 +33,15 @@ export const useAdapterStore = defineStore(
 
         // 监听navBarHide值的变化
         watch(density, (newValue, oldValue) => {
+            // 48px
             if (newValue === 'compact') {
                 size.btnSize = 'small';
             }
-
+            // 56px
             if (newValue === 'comfortable') {
                 size.btnSize = undefined;
             }
-
+            // 64 px
             if (newValue === 'default') {
                 size.btnSize = 'large';
             }
@@ -57,6 +58,7 @@ export const useAdapterStore = defineStore(
         });
 
         // 封装移动端(phone + tablet)的逻辑判断
+        // TODO 非响应式
         const isPhone = computed(() => {
             return name.value === 'xs' ? true : false;
         });

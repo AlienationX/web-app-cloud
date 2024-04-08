@@ -35,7 +35,7 @@ const useLogin = () => {
     const form = reactive({
         username: 'admin',
         password: 'admin',
-        usernameHint: 'Enter your username to access this website, such as admin1',
+        usernameHint: '输入用户名, such as admin1',
         passwordHint: 'Enter your password to access this website, such as 1234',
     });
 
@@ -57,14 +57,14 @@ const useLogin = () => {
         },
         (value) => {
             if (value?.length >= 2) return true;
-            return 'Name must be more than 2 characters.';
+            return 'Password must be more than 2 characters.';
         },
     ];
 
     const loading = ref(false);
     const message = ref(
-        'Warning: After 3 consecutive failed login attempts, you account will be temporarily locked for three hours. If you must login now, you can also click "Forgot login password?" below to reset the login password.'
-        // '请输入github上的任意用户名作为用户登录，密码随意输入'
+        // 'Warning: After 3 consecutive failed login attempts, you account will be temporarily locked for three hours. If you must login now, you can also click "Forgot login password?" below to reset the login password.'
+        '请输入github上的任意用户名作为用户登录，密码随意输入。同时可以使用手机浏览器打开该网页，适配手机应用，登录后可以安装并添加到手机桌面，就和原生的手机app应用一样，强烈推荐试用！'
     );
     const visible = reactive({
         password: false,
@@ -172,7 +172,7 @@ const title = import.meta.env.VITE_APP_TITLE;
                 </v-btn>
 
                 <!-- <v-row justify="end"> -->
-                <v-btn class="text-blue text-caption" size="small" variant="text">Forgot your password?</v-btn>
+                <v-btn class="text-blue text-caption" size="small" variant="text">Forgot login password?</v-btn>
                 <!-- </v-row> -->
 
                 <!-- 手机端不显示,css的d-none无法控制 -->

@@ -1,9 +1,9 @@
 import { ref, reactive, computed } from 'vue';
 import { defineStore } from 'pinia'; //从pinia中导入，defineStore方法，用于定义一个新的store
 
-import { reqGitHubUser } from '../common/api.js';
+import { reqGitHubUser } from '@/api/github.js';
 import { setToken, removeToken } from '@/common/auth.js';
-import { routes } from '../router/routes'; // TODO 从接口获取，临时使用
+import { routes } from '@/router/routes.js'; // TODO 从接口获取，临时使用
 
 export const useProfileStore = defineStore(
     'profile',

@@ -17,9 +17,9 @@ const title = import.meta.env.VITE_APP_TITLE;
             ></v-img>
         </v-row>
         <div class="text-center">
-            <p class="text-h5 text-indigo-darken-3 font-weight-bold">{{ title }} PWA</p>
-            <p class="text-h6 text-indigo-darken-3">Progressive Web App</p>
-            <p class="text-title-1 text-indigo-darken-3">渐进式Web应用</p>
+            <p class="text-h5 font-weight-bold">{{ title }} PWA</p>
+            <p class="text-h6 text-medium-emphasis">Progressive Web App</p>
+            <p class="text-title-1 text-disabled">渐进式Web应用</p>
             <!-- <p class="text-title-1 text-indigo">eeeego，效仿google的发音，仅此而已</p> -->
             <p class="text-body-1">
                 渐进式 Web 应用（Progressive Web App，PWA）是一个使用 web

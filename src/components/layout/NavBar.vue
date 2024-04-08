@@ -90,11 +90,20 @@ const useNavBtn = () => {
 
     const profileLinks = reactive([
         { text: '通知', icon: 'mdi-bell', action: function () {}, route: '', badges: 2 },
-        { text: themeText, icon: toRef(settingStore, 'switchIcon'), action: switchTheme, route: '' },
         { text: '意见和反馈', icon: 'mdi-message-text', action: function () {}, route: '' },
         { text: '清除缓存', icon: 'mdi-eraser-variant', action: clearCache, route: '' },
         { text: 'Sign Out', icon: 'mdi-exit-to-app', action: confirm, route: '' },
     ]);
+
+    // 手机版增加主题切换按钮
+    if (adapterStore.isPhone) {
+        profileLinks.splice(1, 0, {
+            text: themeText,
+            icon: toRef(settingStore, 'switchIcon'),
+            action: switchTheme,
+            route: '',
+        });
+    }
 
     return { profileLinks, updateRefsh, switchTheme, logout, dialog, handle };
 };
@@ -205,15 +214,15 @@ const { profileLinks, updateRefsh, switchTheme, logout, dialog, handle } = useNa
             </v-list>
         </v-menu>
 
-        <v-dialog v-model="dialog" width="auto">
-            <v-card>
-                <v-card-text class="mb-1 text-body-2 text-medium-emphasis font-weight-bold"
-                    >Are you sure logout ?</v-card-text
-                >
+        <v-dialog v-model="dialog" width="280">
+            <v-card color="primary">
+                <v-card-text class="mb-1 text-body-2 text-medium-emphasis font-weight-bold" color="white">
+                    Are you sure logout ?
+                </v-card-text>
                 <v-card-actions>
                     <v-spacer></v-spacer>
                     <v-btn variant="plain" size="small" @click="dialog = false">Cancel</v-btn>
-                    <v-btn variant="tonal" size="small" color="primary" @click="logout">OK</v-btn>
+                    <v-btn variant="tonal" size="small" @click="logout">OK</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>

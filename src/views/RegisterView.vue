@@ -1,0 +1,94 @@
+<script setup>
+import { useRouter, useRoute } from 'vue-router';
+const $router = useRouter();
+const $route = useRoute();
+</script>
+
+<template>
+    <v-container class="fill-height fluid align-center justify-center">
+        <v-form class="mx-auto">
+            <v-card variant="flat" style="background-color: transparent">
+                <!-- max-width="460" min-width="380" -->
+                <v-container>
+                    <v-row no-gutters>
+                        <v-col cols="12">
+                            <v-img
+                                class="mx-auto my-12"
+                                max-width="228"
+                                src="https://cdn.vuetifyjs.com/docs/images/logos/vuetify-logo-v3-slim-text-light.svg"
+                            ></v-img>
+                        </v-col>
+
+                        <v-col cols="12">
+                            <div class="mb-1 text-body-1 text-medium-emphasis font-weight-bold">Email or Username</div>
+                        </v-col>
+                        <v-col cols="12">
+                            <v-text-field
+                                density="compact"
+                                placeholder="Email address"
+                                prepend-inner-icon="mdi-email-outline"
+                                variant="underlined"
+                                color="blue"
+                            ></v-text-field>
+                        </v-col>
+
+                        <v-col
+                            cols="12"
+                            class="mb-1 text-body-1 text-medium-emphasis font-weight-bold d-flex justify-space-between"
+                        >
+                            Password
+                            <a class="text-caption test-decoration-none text-blue"> Forget login password? </a>
+                        </v-col>
+
+                        <v-col cols="12">
+                            <v-text-field
+                                density="compact"
+                                placeholder="Enter your password"
+                                prepend-inner-icon="mdi-lock-outline"
+                                variant="underlined"
+                                color="blue"
+                            ></v-text-field>
+                        </v-col>
+
+                        <v-col cols="12">
+                            <v-sheet height="80" style="background-color: transparent">
+                                <v-alert
+                                    class="text-medium-emphasis text-caption"
+                                    :model-value="true"
+                                    text="用户名密码错误"
+                                    density="compact"
+                                    closable
+                                ></v-alert>
+                            </v-sheet>
+                        </v-col>
+
+                        <v-btn block class="mb-2 font-weight-bold mt-8" color="blue" variant="tonal"> Log In </v-btn>
+
+                        <!-- <v-btn class="text-blue text-caption" size="small" variant="text">Forgot login password?</v-btn> -->
+
+                        <v-card-text block class="text-center">
+                            <a
+                                class="text-blue text-decoration-none"
+                                href="#"
+                                rel="noopener noreferrer"
+                                target="_blank"
+                            >
+                                Sign up now <v-icon icon="mdi-chevron-right"></v-icon>
+                            </a>
+                        </v-card-text>
+                    </v-row>
+                </v-container>
+            </v-card>
+        </v-form>
+    </v-container>
+</template>
+
+<style scoped lang="scss">
+:deep(.v-field__outline) {
+    padding: 20px;
+}
+
+:deep(.v-input__details) {
+    padding: 8px;
+}
+</style>

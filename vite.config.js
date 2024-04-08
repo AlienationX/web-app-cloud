@@ -7,6 +7,8 @@ import { VitePWA } from 'vite-plugin-pwa';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }) => {
+    console.log('vite.config.js params', command, mode);
+
     // 环境变量通常可以从 process.env 获得, 注意 Vite 默认是不加载 .env 文件的, 如果想加载 .env 文件需要使用loadEnv
     // 根据当前工作目录中的 `mode` 加载 .env 文件
     // 设置第三个参数为 '' 来加载所有环境变量(包括系统环境变量)，而不管是否有 `VITE_` 前缀。
@@ -29,8 +31,8 @@ export default defineConfig(({ command, mode }) => {
             mkcert(),
             VitePWA({
                 manifest: {
-                    name: 'Progressive Times Web App', // 安装应用后显示的应用名
-                    short_name: 'Progressive Times',
+                    name: 'Progressive Times Web App',
+                    short_name: 'Progressive Times', // 安装应用后显示的应用名
                     description: '渐进式 Web App',
                     start_url: env.VITE_APP_BASE_URL, // 同vite的二级域名 base 配置
                     // scope: env.VITE_APP_BASE_URL, // 作用域，作用未知
@@ -188,6 +190,11 @@ export default defineConfig(({ command, mode }) => {
             // port: 5173,
             https: true,
             proxy: {
+                '/dev-api': {
+                    target: '127.0.0.1',
+                    changeOrigin: true, //支持跨域
+                    rewrite: (path) => path.replace(/^\/dev-api/, ''), //重写路径,替换/api
+                },
                 '/dev-github-api': {
                     target: 'https://api.github.com',
                     changeOrigin: true, //支持跨域
