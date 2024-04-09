@@ -1,7 +1,7 @@
 <script setup>
 const props = defineProps(['useLogin']);
 
-const { form, usernameRules, passwordRules, message, loading, visible, login } = props.useLogin();
+const { form, usernameRules, passwordRules, message, loading, visible, goToSignUp } = props.useLogin();
 const title = import.meta.env.VITE_APP_TITLE;
 </script>
 
@@ -33,6 +33,7 @@ const title = import.meta.env.VITE_APP_TITLE;
                 color="blue"
                 v-model="form.username"
                 :rules="usernameRules"
+                :hint="form.usernameHint"
             ></v-text-field>
 
             <div class="mb-1 text-body-2 text-medium-emphasis font-weight-bold">Password</div>
@@ -75,9 +76,9 @@ const title = import.meta.env.VITE_APP_TITLE;
             <!-- </v-row> -->
 
             <v-card-text class="text-center">
-                <a class="text-blue text-decoration-none" href="#" rel="noopener noreferrer" target="_blank">
+                <v-btn class="text-blue text-decoration-none" size="small" variant="text" @click="goToSignUp">
                     Sign up now <v-icon icon="mdi-chevron-right"></v-icon>
-                </a>
+                </v-btn>
             </v-card-text>
         </v-card>
     </v-form>

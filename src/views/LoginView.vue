@@ -36,7 +36,7 @@ const useLogin = () => {
         username: 'admin',
         password: 'admin',
         usernameHint: '输入用户名, such as admin1',
-        passwordHint: 'Enter your password to access this website, such as 1234',
+        passwordHint: 'Enter your password, such as 1234',
     });
 
     const usernameRules = [
@@ -92,11 +92,15 @@ const useLogin = () => {
         loading.value = false;
     };
 
-    return { form, usernameRules, passwordRules, message, loading, visible, login };
+    const goToSignUp = () => {
+        $router.push({ path: '/register' });
+    }
+
+    return { form, usernameRules, passwordRules, message, loading, visible, login, goToSignUp };
 };
 
 const { containerClass, cardClass, formWidth, variant } = useFormStyle();
-const { form, usernameRules, passwordRules, message, loading, visible, login } = useLogin();
+const { form, usernameRules, passwordRules, message, loading, visible, login, goToSignUp } = useLogin();
 const title = import.meta.env.VITE_APP_TITLE;
 </script>
 
@@ -189,9 +193,9 @@ const title = import.meta.env.VITE_APP_TITLE;
                 </v-snackbar>
 
                 <v-card-text class="text-center">
-                    <a class="text-blue text-decoration-none" href="#" rel="noopener noreferrer" target="_blank">
+                    <v-btn class="text-blue text-decoration-none" size="small" variant="text" @click="goToSignUp">
                         Sign up now <v-icon icon="mdi-chevron-right"></v-icon>
-                    </a>
+                    </v-btn>
                 </v-card-text>
             </v-card>
         </v-form>

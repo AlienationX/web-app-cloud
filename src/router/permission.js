@@ -1,6 +1,6 @@
 import router from './index';
 
-import { useProfileStore } from '../stores/profile.js';
+import { useProfileStore } from '@/stores/profile.js';
 import { getToken } from '@/common/auth.js';
 
 // 增加路由切换的顶部进度条
@@ -14,18 +14,23 @@ router.beforeEach((to, from, next) => {
     // next 路由的放行函数
     nprogress.start();
 
+    // 无权限，否可以访问
+    if (to.path === '/production') {
+        next();
+    }
+
     // useProfileStore放在这里是可行的，因为路由器是在其被安装之后开始导航的，放在import处会报错
     // Uncaught Error: [🍍]: "getActivePinia()" was called but there was no active Pinia. Are you trying to use a store before calling "app.use(pinia)"?
     const profileStore = useProfileStore();
     const token = getToken();
-
     if (token) {
         // TODO token is invalid, 判断token是否有效/过期
         // 如果token被刷新掉，就从本地获取
         // pinia如果再外面修改值，不需要使用.value
         profileStore.token = token;
 
-        if (to.path === '/login') {
+        if (to.path === '/login' || to.path === '/register') {
+            // 存在token，访问login和register跳转到首页
             next({ path: '/' });
         } else {
             if (profileStore.userinfo.username) {
@@ -57,7 +62,7 @@ router.beforeEach((to, from, next) => {
             }
         }
     } else {
-        if (to.path === '/login') {
+        if (to.path === '/login' || to.path === '/register') {
             next();
         } else {
             next({ path: '/login', query: { redirect: to.path } });

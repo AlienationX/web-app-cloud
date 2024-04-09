@@ -9,7 +9,7 @@ const $route = useRoute();
         <v-form class="mx-auto">
             <v-card variant="flat" style="background-color: transparent">
                 <!-- max-width="460" min-width="380" -->
-                <v-container>
+                <v-container class="box">
                     <v-row no-gutters>
                         <v-col cols="12">
                             <v-img
@@ -90,5 +90,9 @@ const $route = useRoute();
 
 :deep(.v-input__details) {
     padding: 8px;
+}
+
+.box {
+    padding: 0px;
 }
 </style>
