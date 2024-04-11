@@ -215,8 +215,8 @@ const { profileLinks, updateRefsh, switchTheme, logout, dialog, handle } = useNa
         </v-menu>
 
         <v-dialog v-model="dialog" width="280">
-            <v-card color="primary">
-                <v-card-text class="mb-1 text-body-2 text-medium-emphasis font-weight-bold" color="white">
+            <v-card>
+                <v-card-text class="text-body-1 text-medium-emphasis font-weight-bold">
                     Are you sure logout ?
                 </v-card-text>
                 <v-card-actions>

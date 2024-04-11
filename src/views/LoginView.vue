@@ -23,7 +23,7 @@ const useFormStyle = () => {
     const variant = ref('elevated');
 
     if (name.value === 'xs') {
-        containerClass.value = '';
+        containerClass.value = 'fill-height';
         // cardClass.value = 'mx-auto';
         // formWidth.value = '';
         // variant.value = 'flat';

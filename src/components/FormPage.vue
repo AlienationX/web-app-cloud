@@ -71,7 +71,7 @@ const title = import.meta.env.VITE_APP_TITLE;
                             ></v-text-field>
                         </v-col>
 
-                        <v-col cols="12">
+                        <v-col cols="12" class="mt-2">
                             <v-sheet height="120" style="background-color: transparent">
                                 <v-alert
                                     class="text-medium-emphasis text-caption"
@@ -106,14 +106,15 @@ const title = import.meta.env.VITE_APP_TITLE;
                                 variant="text"
                                 @click="goToSignUp"
                             >
-                                <span class="text-body-2">Sign up now</span> <v-icon icon="mdi-chevron-right"></v-icon>
+                                <span class="text-body-2">Sign Up Now</span>
+                                <v-icon icon="mdi-chevron-double-right"></v-icon>
                             </v-btn>
                         </v-card-text>
 
                         <v-col cols="12">
-                            <v-checkbox v-model="form.agree" density="compact">
+                            <v-checkbox v-model="form.agree" color="primary">
                                 <template v-slot:label>
-                                    <div>
+                                    <div class="text-body-2">
                                         I agree that
                                         <v-tooltip location="bottom">
                                             <template v-slot:activator="{ props }">
@@ -133,7 +134,6 @@ const title = import.meta.env.VITE_APP_TITLE;
                                 </template>
                             </v-checkbox>
                         </v-col>
-
                     </v-row>
                 </v-container>
             </v-card>
@@ -147,7 +147,7 @@ const title = import.meta.env.VITE_APP_TITLE;
 }
 
 :deep(.v-input__details) {
-    padding: 8px;
+    padding: 12px 8px 8px 8px;
 }
 
 .box {

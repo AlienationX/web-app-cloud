@@ -1,7 +1,16 @@
 <script setup>
 import { useRouter, useRoute } from 'vue-router';
 const $router = useRouter();
-const $route = useRoute();
+
+const useRegister = () => {
+    const goToLogin = () => {
+        $router.push({ path: '/login' });
+    };
+
+    return { goToLogin };
+};
+
+const { goToLogin } = useRegister();
 </script>
 
 <template>
@@ -55,14 +64,14 @@ const $route = useRoute();
                         <!-- <v-btn class="text-blue text-caption" size="small" variant="text">Forgot login password?</v-btn> -->
 
                         <v-card-text block class="text-center">
-                            <a
+                            <v-btn
                                 class="text-blue text-decoration-none"
-                                href="#"
-                                rel="noopener noreferrer"
-                                target="_blank"
+                                size="small"
+                                variant="text"
+                                @click="goToLogin"
                             >
-                                <v-icon icon="mdi-chevron-left"></v-icon> Login now
-                            </a>
+                                <v-icon icon="mdi-chevron-double-left"></v-icon>Login Now
+                            </v-btn>
                         </v-card-text>
                     </v-row>
                 </v-container>
