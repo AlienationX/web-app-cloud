@@ -50,19 +50,7 @@ const $route = useRoute();
                             ></v-text-field>
                         </v-col>
 
-                        <v-col cols="12">
-                            <v-sheet height="80" style="background-color: transparent">
-                                <v-alert
-                                    class="text-medium-emphasis text-caption"
-                                    :model-value="true"
-                                    text="用户名密码错误"
-                                    density="compact"
-                                    closable
-                                ></v-alert>
-                            </v-sheet>
-                        </v-col>
-
-                        <v-btn block class="mb-2 font-weight-bold mt-8" color="blue" variant="tonal"> Log In </v-btn>
+                        <v-btn block class="mb-2 font-weight-bold mt-8" color="blue" variant="tonal"> Register </v-btn>
 
                         <!-- <v-btn class="text-blue text-caption" size="small" variant="text">Forgot login password?</v-btn> -->
 
@@ -73,7 +61,7 @@ const $route = useRoute();
                                 rel="noopener noreferrer"
                                 target="_blank"
                             >
-                                Sign up now <v-icon icon="mdi-chevron-right"></v-icon>
+                                <v-icon icon="mdi-chevron-left"></v-icon> Login now
                             </a>
                         </v-card-text>
                     </v-row>

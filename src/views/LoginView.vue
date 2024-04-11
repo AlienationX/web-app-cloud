@@ -37,6 +37,7 @@ const useLogin = () => {
         password: 'admin',
         usernameHint: '输入用户名, such as admin1',
         passwordHint: 'Enter your password, such as 1234',
+        agree: false,
     });
 
     const usernameRules = [
@@ -92,11 +93,15 @@ const useLogin = () => {
         loading.value = false;
     };
 
+    const changePWD = () => {
+        console.log('change password do somethings');
+    };
+
     const goToSignUp = () => {
         $router.push({ path: '/register' });
-    }
+    };
 
-    return { form, usernameRules, passwordRules, message, loading, visible, login, goToSignUp };
+    return { form, usernameRules, passwordRules, message, loading, visible, login, changePWD, goToSignUp };
 };
 
 const { containerClass, cardClass, formWidth, variant } = useFormStyle();
