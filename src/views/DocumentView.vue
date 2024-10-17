@@ -29,12 +29,12 @@ const useFabBtn = () => {
 
     const openBtn = ref(false);
     const bottomBtns = reactive([
-        { text: 'Create / 新建', icon: 'mdi-plus-circle', action: function () {}, route: '', button: 'New' },
-        { text: 'Edit / 编辑', icon: 'mdi-note-edit', action: function () {}, route: '' },
-        { text: 'Comment / 备注', icon: 'mdi-comment', action: function () {}, route: '', badges: 2 },
-        { text: 'Share / 分享', icon: 'mdi-share-variant', action: function () {}, route: '' },
-        { text: 'Star / 收藏', icon: 'mdi-star', action: function () {}, route: '' },
-        { text: 'Delete / 删除', icon: 'mdi-delete', action: function () {}, route: '' },
+        { text: 'Create', icon: 'mdi-plus-circle', action: function () {}, button: 'New' },
+        { text: 'Edit', icon: 'mdi-note-edit', action: function () {} },
+        { text: 'Comment', icon: 'mdi-comment', action: function () {}, badges: 2 },
+        { text: 'Share', icon: 'mdi-share-variant', action: function () {} },
+        { text: 'Star / Saved', icon: 'mdi-star', action: function () {} },
+        { text: 'Delete', icon: 'mdi-delete', action: function () {} },
     ]);
 
     return { fabBtnStyle, goTop, openBtn, bottomBtns };

@@ -65,7 +65,7 @@ const useLogin = () => {
     const loading = ref(false);
     const message = ref(
         // 'Warning: After 3 consecutive failed login attempts, you account will be temporarily locked for three hours. If you must login now, you can also click "Forgot login password?" below to reset the login password.'
-        '请输入github上的任意用户名作为用户登录，密码随意输入。同时可以使用手机浏览器打开该网页，适配手机应用，登录后可以安装并添加到手机桌面，就和原生的手机app应用一样，强烈推荐试用！'
+        '请输入github上的任意用户名作为用户登录，密码随意输入。同时可以使用手机浏览器打开该网页，适配手机应用，登录后可以安装并添加到手机桌面，就和原生的手机app应用一样，推荐试用！'
     );
     const visible = reactive({
         password: false,

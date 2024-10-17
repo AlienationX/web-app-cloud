@@ -88,6 +88,20 @@ const useNavBtn = () => {
         // 切换下拉的图标
     };
 
+    const languages = reactive([
+        // icon 应该设置成国旗
+        { text: 'English', icon: 'usa', status: false},
+        { text: '简体中文', icon: 'china', status: true},
+    ]);
+
+    const changeLanguages = (event, item) => {
+        languages.map((item) => {
+            item.status = false;
+        });
+        item.status = true;
+        console.log("change languages to", item.text);
+    };
+
     const profileLinks = reactive([
         { text: '通知', icon: 'mdi-bell', action: function () {}, route: '', badges: 2 },
         { text: '意见和反馈', icon: 'mdi-message-text', action: function () {}, route: '' },
@@ -105,12 +119,12 @@ const useNavBtn = () => {
         });
     }
 
-    return { profileLinks, updateRefsh, switchTheme, logout, dialog, handle };
+    return { languages, changeLanguages, profileLinks, updateRefsh, switchTheme, logout, dialog, handle };
 };
 
 const title = import.meta.env.VITE_APP_TITLE;
 const { navRoutes } = useNavRoutes();
-const { profileLinks, updateRefsh, switchTheme, logout, dialog, handle } = useNavBtn();
+const { languages, changeLanguages, profileLinks, updateRefsh, switchTheme, logout, dialog, handle } = useNavBtn();
 </script>
 
 <template>
@@ -170,6 +184,26 @@ const { profileLinks, updateRefsh, switchTheme, logout, dialog, handle } = useNa
 
         <v-btn class="d-none d-sm-flex" size="small" icon="mdi-fullscreen" @click="fullScreen"> </v-btn>
         <v-btn class="d-none d-sm-flex" size="small" :icon="settingStore.switchIcon" @click="switchTheme"> </v-btn>
+
+        <v-menu :open-on-hover="!adapterStore.isMobile" :open-on-click="adapterStore.isMobile">
+            <template v-slot:activator="{ props }">
+                <v-btn size="small" v-bind="props" icon="mdi-translate"> </v-btn>
+            </template>
+
+            <v-list :lines="false" density="compact" nav width="120">
+                <v-list-item
+                    v-for="(item, i) in languages"
+                    :key="i"
+                    :value="item"
+                    @click="changeLanguages(event, item)"
+                    :active="item.status"
+                    color="primary"
+                >
+                    <v-list-item-title> {{ item.text }}</v-list-item-title>
+                </v-list-item>
+            </v-list>
+        </v-menu>
+
         <v-btn class="d-none d-sm-flex" size="small" icon="mdi-cog" @click="settings.showNavBarSetting = true"> </v-btn>
 
         <v-menu :open-on-hover="!adapterStore.isMobile" :open-on-click="adapterStore.isMobile">

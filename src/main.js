@@ -9,6 +9,20 @@ import router from './router';
 import vuetify from './plugins/vuetify';
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate';
 
+// 引入vue-amap
+import VueAMap, { initAMapApiLoader } from '@vuemap/vue-amap';
+import '@vuemap/vue-amap/dist/style.css';
+
+// 初始化vue-amap
+initAMapApiLoader({
+    // 高德的key
+    key: 'debc1b73e75f610a027ea046180f04ad',
+    securityJsCode: 'ebafcc065c4c12c65a1f12d163bcb5de', // 新版key需要配合安全密钥使用
+    //Loca:{
+    //  version: '2.0.0'
+    //} // 如果需要使用loca组件库，需要加载Loca
+});
+
 // 执行路由鉴权守卫
 import './router/permission';
 
@@ -23,6 +37,7 @@ pinia.use(piniaPluginPersistedstate);
 app.use(pinia);
 app.use(router);
 app.use(vuetify);
+app.use(VueAMap);
 
 app.mount('#app');
 

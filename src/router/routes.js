@@ -230,11 +230,22 @@ export const privateRoutes = [
                 // 可以配置为user，会默认拼接，但是一级按钮不点击路由跳转会报错，所以还需要写完整路径
                 // path会作为for循环的key，完整路径可以保证唯一性？
                 path: '/organization/overview',
-                component: () => import('../views/TemplateView.vue'),
+                component: () => import('../views/hospital/AvatarView.vue'),
                 name: 'overview',
                 meta: {
                     title: '医院画像',
                     icon: 'mdi-chart-bar-stacked',
+                    hidden: false,
+                    location: 'side',
+                },
+            },
+            {
+                path: '/organization/map',
+                name: 'map',
+                component: () => import('../views/hospital/MapView.vue'),
+                meta: {
+                    title: '医院地图',
+                    icon: 'mdi-chart-tree',
                     hidden: false,
                     location: 'side',
                 },

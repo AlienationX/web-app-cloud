@@ -1,4 +1,4 @@
-# web-app-cloud
+# Web-App-Cloud
 
 web应用，cloud - 网盘
 
@@ -22,6 +22,9 @@ npm install vue-echarts
 npm install nprogress
 # npm install pinia-plugin-persist
 npm install pinia-plugin-persistedstate
+
+# 高德地图
+npm install @vuemap/vue-amap --save
 ```
 
 ```shell
