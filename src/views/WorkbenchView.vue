@@ -6,6 +6,7 @@ import { ref, reactive, onMounted } from 'vue';
 import { useProfileStore } from '@/stores/profile';
 const profileStore = useProfileStore();
 
+const msgShow = ref(true);
 const routes = reactive([]);
 
 onMounted(() => {
@@ -20,15 +21,15 @@ onMounted(() => {
 </script>
 
 <template>
-    <v-container>
+    <v-container class="pt-0">
         <!-- <MemuList /> -->
-        <v-card hover>
+        <v-card hover v-show="msgShow" class="my-5">
             <v-card-item>
                 <v-card-title> Enjoy our latest update :) </v-card-title>
                 <v-card-subtitle> Card subtitle secondary text </v-card-subtitle>
             </v-card-item>
 
-            <v-card-text class="py-0">
+            <v-card-text>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
                 dolore magna aliqua.
                 <p class="text-subtitle-1">What's new</p>
@@ -38,7 +39,7 @@ onMounted(() => {
 
             <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn variant="plain" size="small" color="warning"
+                <v-btn variant="plain" size="small" color="warning" @click="msgShow = ! msgShow"
                     ><span class="text-caption font-weight-bold"> I got it ! </span></v-btn
                 >
             </v-card-actions>

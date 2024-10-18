@@ -1,5 +1,6 @@
 <script setup>
 import Menu from './Menu.vue';
+import Feedback from '../Feedback.vue';
 
 import { ref, reactive, toRef, onMounted, computed } from 'vue';
 import { fullScreen } from '@/common/utils.js';
@@ -58,9 +59,12 @@ const useNavBtn = () => {
         })();
     };
 
-    const dialog = ref(false);
+    // dialog 的switch开关
+    const feedbackSwitch = ref(false);
+    const confirmSwitch = ref(false);
+
     const confirm = () => {
-        dialog.value = true;
+        confirmSwitch.value = true;
     };
     const logout = () => {
         // 重置store的数据
@@ -68,7 +72,7 @@ const useNavBtn = () => {
         // 跳转到登录页面
         $router.push({ path: '/login', query: { redirect: $route.path } });
         // 关闭对话框
-        dialog.value = false;
+        confirmSwitch.value = false;
     };
 
     const handle = (event, item) => {
@@ -90,8 +94,8 @@ const useNavBtn = () => {
 
     const languages = reactive([
         // icon 应该设置成国旗
-        { text: 'English', icon: 'usa', status: false},
-        { text: '简体中文', icon: 'china', status: true},
+        { text: 'English', icon: 'usa', status: false },
+        { text: '简体中文', icon: 'china', status: true },
     ]);
 
     const changeLanguages = (event, item) => {
@@ -99,12 +103,12 @@ const useNavBtn = () => {
             item.status = false;
         });
         item.status = true;
-        console.log("change languages to", item.text);
+        console.log('change languages to', item.text);
     };
 
     const profileLinks = reactive([
         { text: '通知', icon: 'mdi-bell', action: function () {}, route: '', badges: 2 },
-        { text: '意见和反馈', icon: 'mdi-message-text', action: function () {}, route: '' },
+        { text: '意见和反馈', icon: 'mdi-message-text', action: function () {feedbackSwitch.value = true}, route: '' },
         { text: '清除缓存', icon: 'mdi-eraser-variant', action: clearCache, route: '' },
         { text: 'Sign Out', icon: 'mdi-exit-to-app', action: confirm, route: '' },
     ]);
@@ -119,12 +123,12 @@ const useNavBtn = () => {
         });
     }
 
-    return { languages, changeLanguages, profileLinks, updateRefsh, switchTheme, logout, dialog, handle };
+    return { languages, changeLanguages, profileLinks, updateRefsh, switchTheme, logout, feedbackSwitch, confirmSwitch, handle };
 };
 
 const title = import.meta.env.VITE_APP_TITLE;
 const { navRoutes } = useNavRoutes();
-const { languages, changeLanguages, profileLinks, updateRefsh, switchTheme, logout, dialog, handle } = useNavBtn();
+const { languages, changeLanguages, profileLinks, updateRefsh, switchTheme, logout, feedbackSwitch, confirmSwitch, handle } = useNavBtn();
 </script>
 
 <template>
@@ -248,15 +252,25 @@ const { languages, changeLanguages, profileLinks, updateRefsh, switchTheme, logo
             </v-list>
         </v-menu>
 
-        <v-dialog v-model="dialog" width="280">
+        <v-dialog v-model="feedbackSwitch" max-width="500">
+            <Feedback v-model:feedbackSwitch="feedbackSwitch"></Feedback>
+        </v-dialog>
+
+        <v-dialog v-model="confirmSwitch" max-width="380">
             <v-card>
-                <v-card-text class="text-body-1 text-medium-emphasis font-weight-bold">
-                    Are you sure logout ?
+                <v-card-item>
+                    <template v-slot:prepend>
+                        <v-icon color="warning" icon="mdi-exit-to-app"></v-icon>
+                    </template>
+                    <v-card-title class="text-title-1"> Logout </v-card-title>
+                </v-card-item>
+                <v-card-text class="text-body-2 text-medium-emphasis font-weight-bold">
+                    确定要退出当前账户吗 ?
                 </v-card-text>
-                <v-card-actions>
+                <v-card-actions class="pr-6">
                     <v-spacer></v-spacer>
-                    <v-btn variant="plain" size="small" @click="dialog = false">Cancel</v-btn>
-                    <v-btn variant="tonal" size="small" @click="logout">OK</v-btn>
+                    <v-btn variant="plain" size="small" class="font-weight-bold" @click="confirmSwitch = false">Cancel</v-btn>
+                    <v-btn variant="tonal" size="small" class="font-weight-bold" @click="logout">OK</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
@@ -270,5 +284,9 @@ const { languages, changeLanguages, profileLinks, updateRefsh, switchTheme, logo
 
 :deep(.v-list-item__prepend > .v-icon ~ .v-list-item__spacer) {
     width: 16px;
+}
+
+.v-card-item__prepend {
+    padding: 0;
 }
 </style>
