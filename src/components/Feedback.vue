@@ -1,5 +1,4 @@
 <script setup>
-const props = defineProps(['feedbackSwitch']);
 const emit = defineEmits(['update:feedbackSwitch']);
 
 const close = () => {
@@ -9,14 +8,14 @@ const close = () => {
 
 <template>
     <v-card>
-        <v-card-title class="d-flex align-center" prepend-icon="mdi-message-processing">
-            <v-icon color="primary" icon="mdi-message-processing"></v-icon>
-            <div class="text-title-2 text-medium-emphasis font-weight-bold ps-2">Feedback</div>
+        <v-card-title class="d-flex align-center py-1 pl-6" prepend-icon="mdi-message-processing">
+            <v-icon color="primary" icon="mdi-message-processing" size="small"></v-icon>
+            <div class="text-body-1 text-medium-emphasis font-weight-bold ps-2">Feedback</div>
             <v-spacer></v-spacer>
-            <v-btn icon="mdi-close" variant="text" @click="close"></v-btn>
+            <v-btn icon="mdi-close" variant="text" @click="close" size="small"></v-btn>
         </v-card-title>
 
-        <v-divider class="mb-4"></v-divider>
+        <v-divider></v-divider>
 
         <v-card-text>
             <div class="text-medium-emphasis mb-4">Invite collaborators to your network and grow your connections.</div>
@@ -39,9 +38,9 @@ const close = () => {
             ></v-btn>
         </v-card-text>
 
-        <v-divider class="mt-2"></v-divider>
+        <v-divider></v-divider>
 
-        <v-card-actions class="my-2 d-flex justify-end">
+        <v-card-actions class="d-flex justify-end pr-4">
             <v-btn class="text-none" rounded="xl" text="Cancel" @click="close"></v-btn>
 
             <v-btn class="text-none" color="primary" rounded="xl" text="Send" variant="flat" @click="close"></v-btn>
